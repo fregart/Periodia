@@ -1,2 +1,2 @@
 # Periodia
-Project and scheduling tool for smaller construction companies
+Project and scheduling webapp tool for smaller construction companies
