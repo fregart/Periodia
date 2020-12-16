@@ -1,3 +1,4 @@
+.htaccess
 dbconnect.php
 *.log
 *_log
