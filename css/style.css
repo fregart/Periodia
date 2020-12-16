@@ -1,0 +1,224 @@
+:root {
+  --main-bg-color: #1c3e5c;
+  --main-sidebar-color: #335574;
+  --main-txt-color: #FFFFFF;    
+  --main-hover-color: #FFAA00;
+}
+
+html, body{
+  font-family: 'Roboto', sans-serif;  
+}
+
+.log-in-bg {
+  background-color: var(--main-bg-color);
+}
+
+.company-name {
+  text-transform: uppercase;
+  font-size: 1rem;
+  color: white;
+}
+
+#periodia-logo{
+  cursor: pointer;
+}
+
+.navbar {
+  background-color: var(--main-bg-color) !important;
+}
+
+.list-group a{
+  color: var(--main-hover-color) !important;
+}
+
+.list-group a:hover{
+  background-color: var(--main-hover-color) !important;
+  color: #000 !important;
+}
+
+a.dropdown-item:hover {
+  background-color: var(--main-hover-color) !important;
+}
+
+.btn-custom-collapse{
+  color: var(--main-hover-color);
+  background-color: var(--main-sidebar-color);
+  border-color: var(--main-hover-color);
+  font-size: 0.8rem;
+}
+
+.btn-custom-collapse:hover{
+  color: black;
+  background-color: var(--main-hover-color);
+  border-color: var(--main-sidebar-color);
+}
+
+.btn-custom-collapse:focus{
+  color: black;
+  background-color: var(--main-hover-color);
+  border-color: var(--main-sidebar-color);
+}
+
+.bg-light{
+  background-color: var(--main-sidebar-color) !important; 
+}
+
+#wrapper {
+    overflow-x: hidden;
+ }
+
+.sidebar-heading{
+  color: white;
+  font-weight: bold;
+}
+
+#sidebar-wrapper {
+  background-color: var(--main-bg-color) !important;
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+#card-inställningar {
+  border-top: 0;
+  border-radius: 0.10rem;  
+}
+
+.card-table {
+  word-break: break-all;
+}
+
+.tab-content #företag {
+  max-width: 20rem;
+}
+
+.tab-content #användare, #maskiner {
+  max-width: 75rem;
+}
+
+labela{
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+#time-panel-summary {
+  background-color: var(--main-bg-color);
+}
+
+.time-panel-buttons {  
+  color: #f8f9fa;    
+}
+
+.time-panel-buttons:hover {  
+  background-color: var(--main-hover-color);
+  color: #000;
+  cursor: pointer;
+}
+
+.navbar-toggler {
+  border: none;  
+}
+
+.navbar-dark .navbar-toggler {
+  color: white;
+}
+
+.schema-day-link:hover{
+  background-color: var(--main-hover-color);
+  color: #000;
+  cursor: pointer;
+}
+
+.bg-plana {
+  background-color: var(--main-hover-color);
+}
+
+.text-plana {
+  color: var(--main-hover-color);
+}
+
+.sidebar-icon{
+  display: inline-block;
+  width: 25px;
+  height: auto;  
+  text-align: center;  
+}
+
+.table-condensed{  
+  font-size: 10px;
+}
+
+.add-button{
+  position: absolute;
+  bottom: 5%;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+
+  .full-width {
+    font-size: larger;
+    width: 80vw;      
+  }  
+  
+}
+
+@media only screen and (min-width: 0px) and (max-width: 767px) {
+
+  .btn span {
+    display: none;
+  }
+
+  table td span {
+    display: none;
+  }
+
+  .full-width {    
+    width: 100vw;      
+  }
+
+  .table-responsive td{
+    font-size: 1.0rem;
+  }
+
+  #table-reports{ 
+    font-size: smaller;    
+  }
+
+}
+
+table {
+  table-layout: fixed;
+}

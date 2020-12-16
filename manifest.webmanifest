@@ -1,0 +1,17 @@
+{
+    "short_name": "Periodia",
+    "name": "Periodia",
+    "description": "Simple project and time report managing application",
+    "icons": [
+        {
+        "src": "./img/icons-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+        }
+    ],
+    "start_url": "index.php",
+    "background_color": "#1c3e5c",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#FFAA00"    
+}
