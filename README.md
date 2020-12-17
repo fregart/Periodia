@@ -15,3 +15,16 @@ Open the file 'dbconnect.php' and edit:
   define('DB_PASSWORD', '[database password]');
 
   define('DB_DATABASE', 'periodiadb');
+
+There are 3 users at start which you can use to log in and test the functions:
+
+  user: test1
+  pass: test1
+
+  user: test2
+  pass: test2
+
+  user: test3
+  pass: test3
+
+test1 and test2 works at the same company and test3 works at another company.
