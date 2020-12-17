@@ -16,6 +16,7 @@ Open the file 'dbconnect.php' and edit:
 
   define('DB_DATABASE', 'periodiadb');
 
+# Log in
 There are 3 users at start which you can use to log in and test the functions:
 
   user: test1
