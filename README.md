@@ -34,5 +34,7 @@ test1 and test2 works at the same company and test3 works at another company.
 There are 3 user types:
 
 Superuser - Not in use for the moment but is meant to be able to log in for a special page accessing all information about all companies and add new ones.
+
 Admin - Able to change company information, add and edit projects and new users. Print time reports about employees.
+
 User - Read project information, add notes and pictures, store working hours.
