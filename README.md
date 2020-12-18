@@ -1,5 +1,8 @@
 # Periodia
-Project and time report webapp tool for smaller construction companies
+Project and time report webapp tool for smaller construction companies.
+
+Users store notes, working hours and take pictures within a project.
+Admins adds new projects and change status, prints time reports.
 
 # Installation using XAAMP
 Start phpmyadmin and run the 'db_structure.sql' file in the installation folder.
