@@ -133,17 +133,15 @@
                     <tbody>   
                         
                         <!-- Get worked hours for user -->
-                        <?php                        
-                            if (isset($cuserID, $cyear, $cmonth)){
-                                getWorkedHoursForReport($cuserID, $cyear, $cmonth);
-                            }                            
+                        <?php                                                   
+                            getWorkedHoursForReport($cuserID, $currentYear, $cmonth);                                                                                                                
                         ?>
 
                         <tr>
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
-                            <th scope="col">Totalt antal timmar:</th>
+                            <th scope="col">Totalt antal timmar:</th>                            
                             <th scope="col" class="text-center"><?php echo getWorkHoursForMonth($cuserID, $cmonth);?></th>
                         </tr>         
                     </tbody>
