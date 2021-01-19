@@ -4,7 +4,7 @@
 
 <!-- Mina timmar -->
 <section class="page-myhours">
-    <div class="container-fluid custom-padding">
+    <div class="container-fluid">
         <h4 class="mt-4">Mina timmar</h4>
         <br />
 
