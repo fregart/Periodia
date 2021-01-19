@@ -50,7 +50,7 @@
                               <table class="text-light">
                                  <tr>
                                     <td><i class="far fa-clock fa-2x"></i></td>
-                                    <td class="pl-2 h4">Rapportera timmar</td>
+                                    <td class="pl-2 h4">Rapportera tid</td>
                                     
                                     
                                  </tr>
