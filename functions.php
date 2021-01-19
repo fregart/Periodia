@@ -447,7 +447,7 @@ function addNewProject()
     // set global db variable from dbconnect
     global $db;        
           
-    $nameCheck = $_POST['projectNameInput'];
+    $nameCheck = $_POST['projectNameInput'];    
     
     $sql = "SELECT *
             FROM
@@ -483,7 +483,13 @@ function addNewProject()
                 $cname      = $_POST['projectNameInput'];
                 $cdesc      = $_POST['descInput'];
                 $cstart     = $_POST['startDateInput'];
-                $cend       = $_POST['endDateInput'];
+
+                // check if end date is empty
+                if ($_POST['endDateInput'] == "") {
+                    $cend       = NULL;
+                }else {
+                    $cend       = $_POST['endDateInput'];
+                }
                 $companyID  = $_SESSION['user_company_ID'];
                                                 
                 $stmt->execute();
