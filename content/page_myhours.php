@@ -18,10 +18,24 @@
                 <div class="form-group row">
                     <label for="yearInput" class="col-sm-2 col-form-label form-control-sm">År:</label>
                     <div class="col-sm-10">
-                    <select class="form-control form-control-sm" style="width:80px;" name="yearInput" id="yearInput">
-                            <option value="2020">2020</option>
-                            <option value="2021">2021</option>
-                        </select> 
+                    <select class="form-control form-control-sm" style="width:80px;" name="yearInput" id="yearInput">                    
+                        <?php
+                        if (!isset($_GET['setYear'])) {
+                            echo "<option value='2020'>2020</option>";
+                            echo "<option selected value='2021'>2021</option>";
+                        } else {
+                            if ($_GET['setYear'] == 2020) {
+                                echo "<option selected value='" . $_GET['setYear'] . "'>" . $_GET['setYear'] . "</option>";
+                                echo "<option value='2021'>2021</option>";
+                            }else {
+                                echo "<option value='2020'>2020</option>";
+                                echo "<option selected value='" . $_GET['setYear'] . "'>" . $_GET['setYear'] . "</option>";
+                            };                            
+                        }
+                                                                                            
+                        
+                        ?>                            
+                        </select>                        
                     </div>
                 </div>
                 <div class="form-group row">
@@ -104,12 +118,26 @@
         </div>
     </div>
 </section>
-<script>
+<script>    
+
+    // year select listener on change    
+    $("#yearInput").change(function() {
+        
+        var $cyear  = $("#yearInput").children("option:selected").val();
+        var $cmonth = $("#monthInput").children("option:selected").val();   
+    
+        var $file = 'page_myhours' + '.php?setYear='+ $cyear +'&setMonth=' + $cmonth;
+        var $path = 'content/';
+    
+        $('#page-content').load($path + $file);            
+    
+        });
+    
     // month select listener on change    
     $("#monthInput").change(function() {
         
     var $cyear  = $("#yearInput").children("option:selected").val();
-    var $cmonth = $(this).children("option:selected").val();   
+    var $cmonth = $("#monthInput").children("option:selected").val();   
 
     var $file = 'page_myhours' + '.php?setYear='+ $cyear +'&setMonth=' + $cmonth;
     var $path = 'content/';
