@@ -20,6 +20,7 @@
                     <div class="col-sm-10">
                     <select class="form-control form-control-sm" style="width:80px;" name="yearInput" id="yearInput">
                             <option value="2020">2020</option>
+                            <option value="2021">2021</option>
                         </select> 
                     </div>
                 </div>
