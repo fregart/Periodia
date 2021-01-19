@@ -7,6 +7,11 @@
     } else {
         $cuserID = $_SESSION['user_ID'];                
     }
+    
+    if (!isset($_GET['setYear'])) {
+        $cyear = 2021;
+    }
+    
 ?>
 
 <div class="container mt-4">
@@ -35,7 +40,7 @@
                     <div class="col-sm-4">
                         <select class="form-control form-control-sm" name="yearInput" id="yearInput">
                                 <option value="2020">2020</option>
-                                <?php $cyear = 2020 ?>
+                                <option value="2021">2021</option>                                
                         </select> 
                     </div>
                 </div>
