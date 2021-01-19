@@ -187,6 +187,10 @@ labela{
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }  
+
+  .full-width {
+    font-size: larger;
+    width: 80vw;
   
 }
 
