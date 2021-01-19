@@ -186,11 +186,6 @@ labela{
 
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
-  }
-
-  .full-width {
-    font-size: larger;
-    width: 80vw;      
   }  
   
 }
@@ -204,11 +199,7 @@ labela{
   table td span {
     display: none;
   }
-
-  .full-width {    
-    width: 100vw;      
-  }
-
+  
   .table-responsive td{
     font-size: 1.0rem;
   }

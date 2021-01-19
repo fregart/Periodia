@@ -3,8 +3,8 @@
 <?php require_once("../functions.php")?>
 
 <!-- Mina timmar -->
-<section class="page-myhours">
-    <div class="container-fluid">
+<div class="container-fluid">
+    
         <h4 class="mt-4">Mina timmar</h4>
         <br />
 
@@ -69,7 +69,7 @@
             </form>
 
 
-            <table class="table table-condensed full-width table-hover">
+            <table class="table table-condensed table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Datum</th>
@@ -116,8 +116,8 @@
     
 
         </div>
-    </div>
-</section>
+    
+</div>
 <script>    
 
     // year select listener on change    
