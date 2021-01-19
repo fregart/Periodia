@@ -10,8 +10,10 @@
     
     if (!isset($_GET['setYear'])) {
         $cyear = 2021;
+    }else {
+        $cyear = $_GET['setYear'];
     }
-    
+
 ?>
 
 <div class="container mt-4">
@@ -39,8 +41,20 @@
                     <label for="yearInput" class="col-sm-2 col-form-label">År:</label>
                     <div class="col-sm-4">
                         <select class="form-control form-control-sm" name="yearInput" id="yearInput">
-                                <option value="2020">2020</option>
-                                <option value="2021">2021</option>                                
+                        <?php
+                            if (!isset($_GET['setYear'])) {
+                                echo "<option value='2020'>2020</option>";
+                                echo "<option selected value='2021'>2021</option>";
+                            } else {
+                                if ($_GET['setYear'] == 2020) {
+                                    echo "<option selected value='" . $_GET['setYear'] . "'>" . $_GET['setYear'] . "</option>";
+                                    echo "<option value='2021'>2021</option>";
+                                }else {
+                                    echo "<option value='2020'>2020</option>";
+                                    echo "<option selected value='" . $_GET['setYear'] . "'>" . $_GET['setYear'] . "</option>";
+                                };                            
+                            }                                                                                                                    
+                        ?>                            
                         </select> 
                     </div>
                 </div>
@@ -113,8 +127,8 @@
                     </thead> 
                     <tbody>   
                         
-                        <?php
-                            getWorkedHoursForReport($cuserID, $cyear, $cmonth)                    
+                        <?php                        
+                            getWorkedHoursForReport($cuserID, $cyear, $cmonth);                        
                         ?>
 
                         <tr>
