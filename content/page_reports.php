@@ -6,12 +6,12 @@
         $cuserID = $_GET['setUser'];
     } else {
         $cuserID = $_SESSION['user_ID'];                
-    }
-    
-    if (!isset($_GET['setYear'])) {
-        $cyear = 2021;
+    }    
+
+    if (isset($_GET['setYear'])) {
+        $currentYear = $_GET['setYear'];
     }else {
-        $cyear = $_GET['setYear'];
+        $currentYear = getCurrentYear();
     }
 
 ?>
@@ -99,7 +99,12 @@
                         <tr>
                             <td scope="col" style='border-top:0;' align="center" colspan="5">
                                 <div class="h3">Tidrapportering</div>
-                                <div class="h6"><?php echo getMonthFullName($cmonth) ?>, <?php echo $cyear ?></div>
+                                <div class="h6"><?php echo getMonthFullName($cmonth) ?>, <?php if (isset($_GET['setYear'])) {
+                                                                                                    echo $_GET['setYear'];
+                                                                                                } else {
+                                                                                                    echo $currentYear;
+                                                                                                }?>
+                                </div>
                                 <div class="h5"><?php echo $_SESSION['user_company'] ?></div>
                             </td>
                         </tr>
@@ -127,8 +132,11 @@
                     </thead> 
                     <tbody>   
                         
+                        <!-- Get worked hours for user -->
                         <?php                        
-                            getWorkedHoursForReport($cuserID, $cyear, $cmonth);                        
+                            if (isset($cuserID, $cyear, $cmonth)){
+                                getWorkedHoursForReport($cuserID, $cyear, $cmonth);
+                            }                            
                         ?>
 
                         <tr>
