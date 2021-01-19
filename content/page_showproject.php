@@ -159,7 +159,7 @@ echo "<!-- Show project -->
                       
                       <div class='form-group'>
                           <label for='beskrivningTextarea'>Beskrivning</label>
-                          <textarea class='form-control' name='beskrivningTextarea' id='beskrivningTextarea' rows='5'></textarea>
+                          <textarea class='form-control' name='beskrivningTextarea' id='beskrivningTextarea' rows='5'>".$row['pr_description']."</textarea>
                       </div>";
 
                       
