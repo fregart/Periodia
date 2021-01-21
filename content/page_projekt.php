@@ -3,7 +3,7 @@
 <?php require_once("../functions.php")?>
 
 <!-- Project -->
-<section class="page-projekt">
+
    <div class="container-fluid">
       <h4 class="mt-4">Projekt</h4>
       <br>
@@ -40,8 +40,8 @@
                     </tr>
                     <tr>
                         <th scope="col">Namn</th>
-                        <th scope="col" class="d-none d-lg-table-cell text-center">Eget-ID</th>
-                        <th scope="col" class="text-center">Tidsram</th>                                                
+                        <th scope="col" class="d-none d-lg-table-cell">Eget-ID</th>
+                        <th scope="col">Tidsram</th>                                                
                         <th scope="col" class="d-none d-lg-table-cell text-center">Status</th>                        
                     </tr>
                   </thead>
@@ -79,7 +79,7 @@
 
       
    </div>
-</section>
+
 <script>
   $(document).ready(function(){    
     

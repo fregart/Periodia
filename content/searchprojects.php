@@ -51,7 +51,7 @@ if ($count > 0) {
     while ($row = mysqli_fetch_array($result)) {            
         echo "<tr>";        
         echo "<td scope='col' class='h5' style='border-left:1rem solid #" . $row["st_hex"] . ";'><div class='list-project'><a href='#' class='text-dark' myID='" . $row["pr_ID"] . "'>" . ucfirst($row["pr_name"]) . "</a>" . "<div class='d-sm-block d-md-block d-lg-none small'>" . $row["pr_internID"] . "</div>" . "</div></td>";        
-        echo "<td scope='col' class='d-none d-lg-table-cell text-center small'>". $row["pr_internID"] . "</td>";
+        echo "<td scope='col' class='d-none d-lg-table-cell small'>". $row["pr_internID"] . "</td>";
             // format date for start date
             $string_start = $row["pr_startdate"];
             $timestamp_start = strtotime($string_start);
@@ -67,9 +67,9 @@ if ($count > 0) {
                 $monthnr_end = date("m", $timestamp_end);
                 $daynr_end = date("d", $timestamp_end);
 
-                echo "<td scope='col'>". $yearnr_start . " " . getMonthName($monthnr_start) . " ". $daynr_start ." -- ". $yearnr_end . " " . getMonthName($monthnr_end) . " ". $daynr_end ."</td>";        
+                echo "<td scope='col' class='small'>". $yearnr_start . " " . getMonthName($monthnr_start) . " ". $daynr_start ." -- ". $yearnr_end . " " . getMonthName($monthnr_end) . " ". $daynr_end ."</td>";        
             }else {
-                echo "<td scope='col'>". $yearnr_start . " " . getMonthName($monthnr_start) . " ". $daynr_start ." -- </td>";        
+                echo "<td scope='col' class='small'>". $yearnr_start . " " . getMonthName($monthnr_start) . " ". $daynr_start ." -- </td>";        
             }
                     
         echo "<td scope='col' class='d-none d-lg-table-cell h6 text-center align-middle' style='background-color: #" . $row["st_hex"] . ";color:#ffffff;'>" . $row["st_name"] . "</div></td>";        
