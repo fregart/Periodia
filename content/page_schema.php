@@ -81,7 +81,7 @@
                   </div>                
                </div>
          </div>
-         <button class="add-button btn btn-success">Lägg till på hemskärmen</button>
+         <button class="add-button btn btn-success d-md-none d-lg-none d-xl-none">Lägg till på hemskärmen</button>
       </div>
    </div>
 </section>
