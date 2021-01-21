@@ -61,11 +61,20 @@ include('session.php');
         <?php
           if ($_SESSION['user_role'] == 2) {
             echo "
-            <div class='dropdown-divider'></div>        
+            <div class='dropdown-divider'></div>     
             <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_reports'><div class='sidebar-icon'><i class='far fa-file-alt'></i></div> Rapporter</a>
-            <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_inställningar'><div class='sidebar-icon'><i class='fas fa-cog'></i></div> Inställningar</a>";
+            <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_inställningar'><div class='sidebar-icon'><i class='fas fa-cog'></i></div> Inställningar</a>
+            <div class='dropdown-divider'></div>";
           }
         ?>
+
+        <!-- Periodia information -->
+        <div class="alert alert-secondary small" role="alert">
+          <h6>Information</h6>
+          <p>Denna app är under utveckling. Buggar och designfel kan uppstå.</p>
+          <p>Vid frågor mejla <a href="mailto:support@periodia.se">support@periodia.se</a></p>
+          
+        </div>
         
       </div>
     </div>
