@@ -78,7 +78,7 @@ include('session.php');
 
         <div class="alert alert-secondary small" role="alert">
           <h6>Uppdateringar</h6>
-          <p>2021-01. Omdesign av projektsidorna. Lägga in bilder. Översikt över arbetstimmar mm.</p>          
+          <p>2021-01. Omdesign av projektsidorna. Lägga in bilder, noteringar. Översikt över arbetstimmar mm.</p>          
           <p>2021-01-21. Fältet Eget-ID har lagts till under redigering av projekt. Eget-ID visas med projektnamn.</p>          
           
         </div>
