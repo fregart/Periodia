@@ -50,7 +50,7 @@ $count = mysqli_num_rows($result);
 if ($count > 0) {
     while ($row = mysqli_fetch_array($result)) {            
         echo "<tr>";        
-        echo "<td scope='col' class='h5' style='border-left:1rem solid #" . $row["st_hex"] . ";'><div class='list-project'><a href='#' class='text-dark' myID='" . $row["pr_ID"] . "'>" . ucfirst($row["pr_name"]) . "</a>" . "<div class='d-none d-sm-block d-md-block d-lg-none small'>" . $row["pr_internID"] . "</div>" . "</div></td>";        
+        echo "<td scope='col' class='h5' style='border-left:1rem solid #" . $row["st_hex"] . ";'><div class='list-project'><a href='#' class='text-dark' myID='" . $row["pr_ID"] . "'>" . ucfirst($row["pr_name"]) . "</a>" . "<div class='d-sm-block d-md-block d-lg-none small'>" . $row["pr_internID"] . "</div>" . "</div></td>";        
         echo "<td scope='col' class='d-none d-lg-table-cell text-center small'>". $row["pr_internID"] . "</td>";
             // format date for start date
             $string_start = $row["pr_startdate"];
