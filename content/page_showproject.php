@@ -44,12 +44,12 @@ echo "<!-- Show project -->
         
         
           <!-- Nav tabs -->
-      <ul class='nav nav-tabs' id='inställningar-Tab' role='tablist'>
-      <li class='nav-item'>
-            <a class='nav-link active' id='översikt-tab' data-toggle='tab' href='#översikt' role='tab' aria-controls='översikt' aria-selected='true'>Översikt</a>
+      <ul class='nav nav-tabs' id='inställningar-Tab' role='tablist'>      
+         <li class='nav-item'>
+            <a class='nav-link active' id='företag-tab' data-toggle='tab' href='#företag' role='tab' aria-controls='företag' aria-selected='true'>Information</a>
          </li>
          <li class='nav-item'>
-            <a class='nav-link' id='företag-tab' data-toggle='tab' href='#företag' role='tab' aria-controls='företag' aria-selected='true'>Information</a>
+            <a class='nav-link disabled' id='översikt-tab' data-toggle='tab' href='#översikt' role='tab' aria-controls='översikt' aria-selected='false'>Översikt</a>
          </li>
 
          <!--
@@ -76,7 +76,7 @@ echo "<!-- Show project -->
             <div class='tab-content'>
 
             
-            <div class='tab-pane active' id='översikt' role='tabpanel' aria-labelledby='översikt-tab'>
+            <div class='tab-pane' id='översikt' role='tabpanel' aria-labelledby='översikt-tab'>
                   
 
             <h4>Huvudmål</h4>
@@ -109,7 +109,7 @@ echo "<!-- Show project -->
 
 
 
-               <div class='tab-pane' id='företag' role='tabpanel' aria-labelledby='företag-tab'>
+               <div class='tab-pane active' id='företag' role='tabpanel' aria-labelledby='företag-tab'>
                   <form method='post'>
                     <input type='hidden' name='action' value='updateProjectInfo'>
                     <input type='hidden' name='pr_ID' value='".$row["pr_ID"]."'>
