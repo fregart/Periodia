@@ -56,7 +56,7 @@ include('session.php');
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_projekt"><div class="sidebar-icon"><i class="fas fa-tasks"></i></div> Projekt</a>                     
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_myhours"><div class="sidebar-icon"><i class="fas fa-user-clock"></i></div> Mina timmar</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reporttime"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera tid</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportabscence"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera frånvaro</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportabsence"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera frånvaro</a>
         <!-- Admin menu section-->  
         <?php
           if ($_SESSION['user_role'] == 2) {
