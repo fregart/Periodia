@@ -182,8 +182,13 @@ echo "<!-- Show project -->
                                 <form method='post'>
                                 
                                   <input type='hidden' name='action' value='deleteProject'>
-                                  <input type='hidden' name='removeThisProject' value='".$row["pr_ID"]."'>
-                                  <button type='submit' class='btn btn-danger' title='Ta bort'>X</button>
+                                  <input type='hidden' name='removeThisProject' value='".$row["pr_ID"]."'>                                  
+                                  <button type='submit' class='btn btn-danger' id='btndelete' title='Ta bort' disabled>Ta bort</button>                                  
+                                  <div class='form-check'>
+                                    <br>
+                                    <input type='checkbox' class='form-check-input' id='enableCheck'>
+                                    <label class='form-check-label' for='enableCheck'><p class='small'>Aktivera</p></label>
+                                  </div>
                                 </form>
 
 
@@ -207,4 +212,16 @@ echo "<!-- Show project -->
   }else {
     echo "Inga projekt hittades!";
   }
-  
+  ?>
+<script>
+  // enables the delete button on checked
+  $('#enableCheck').click(function () {
+        
+    if ($(this).is(':checked')) {
+      $('#btndelete').removeAttr('disabled');
+
+    } else {
+      $('#btndelete').attr('disabled', true);
+    }
+  });
+</script>
