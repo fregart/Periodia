@@ -115,17 +115,21 @@ echo "<!-- Show project -->
                     <input type='hidden' name='pr_ID' value='".$row["pr_ID"]."'>
                       <div class='form-group'>
                           <label for='projektnamnInput'>Projektnamn</label>
-                          <input type='text' class='form-control' name='projektnamnInput' id='projektnamnInput' value='".$row["pr_name"]."'>
+                          <input type='text' class='form-control' name='projektnamnInput' id='projektnamnInput' value='".$row["pr_name"]."'>                          
                       </div>
+
+                      <div class='form-group'>
+                        <label for='egetidInput'>Eget-ID</label>
+                        <input type='text' class='form-control' name='egetidInput' id='egetidInput' value='".$row["pr_internID"]."'>
+                      </div>
+                      
                       <div class='form-group'>
 
                         <div class='row'>
                           <div class='col'>
                             <label for='startdatumInput'>Startdatum</label>
                             <input type='date' class='form-control' style='font-size:small;' name='startdatumInput' id='startdatumInput' value='".$row["pr_startdate"]."'>
-                          </div>
-
-                          
+                          </div>                          
                             
                           <div class='col'>
                             <label for='slutdatumInput'>Slutdatum</label>

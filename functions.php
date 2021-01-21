@@ -407,12 +407,19 @@ function updateProjectInfo(){
     // get _POST form values and bind.
     // set parameters and execute
     $stmt->bind_param("sssssiisii", $cintern, $cname, $cdesc, $cstartdate, $cenddate, $cstatus, $cbilled, $cbilldate, $ccompanyID, $cprojectID);
-        
-    $cintern        = "";
+            
+    $cintern        = $_POST['egetidInput'];
     $cname          = $_POST['projektnamnInput'];
     $cdesc          = $_POST['beskrivningTextarea'];    
-    $cstartdate     = $_POST['startdatumInput'];  
-    $cenddate       = $_POST['slutdatumInput']; 
+    $cstartdate     = $_POST['startdatumInput'];      
+
+    // check if end date is empty
+    if ($_POST['slutdatumInput'] == "") {
+        $cenddate       = NULL;
+    }else {
+        $cenddate       = $_POST['slutdatumInput'];
+    }
+
     $cstatus        = $_POST['statusInput']; 
     $cbilled        = ""; 
     $cbilldate      = ""; 
