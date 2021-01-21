@@ -18,7 +18,7 @@ if ($str_get == "getAll") {
     LEFT JOIN tbl_status b ON
         b.st_ID = tbl_project.pr_status 
         WHERE pr_status NOT LIKE 5
-    AND tbl_project.pr_companyID = $company";
+    AND tbl_project.pr_companyID = $company ORDER BY tbl_project.pr_name ASC";
 }else {
     $sql = "SELECT
         *
