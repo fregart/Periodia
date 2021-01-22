@@ -111,8 +111,9 @@
                         <tr>
                             <td scope="col" style='border-top:0;'>
                         
-                            <table class="table table-sm">                                
-                                <tr><td style='border-top:0;' class="font-weight-bold">Namn:</td><td style='border-top:0;' nowrap><?php getUserFullName($cuserID) ?></td></tr>
+                            <table class="table table-sm border">                                
+                                <tr><td style='border-top:0;' class="font-weight-bold p-2">Namn:</td></tr>
+                                <tr><td style='border-top:0;' class="font-weight-bold p-2"><?php getUserFullName($cuserID) ?></td></tr>
                             </table>                             
                         
                             </td>
