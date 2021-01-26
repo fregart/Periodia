@@ -79,7 +79,7 @@ echo "<!-- Show project -->
             <div class='tab-content'>
 
             <div class='tab-pane' id='notes' role='tabpanel' aria-labelledby='notes-tab'>
-            <input type='button' class='btn btn-primary' id='addnotesbutton' value='Nytt inlägg'>
+            <button class='btn btn-primary' id='addnotesbutton'><i class='fa fa-plus-circle'></i> Nytt inlägg</button>
             <div id='addnotesdiv' style='display: none'>
             <p></p>
               <form method='post' enctype='multipart/form-data'>
