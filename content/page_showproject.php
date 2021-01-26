@@ -49,7 +49,10 @@ echo "<!-- Show project -->
             <a class='nav-link active' id='företag-tab' data-toggle='tab' href='#företag' role='tab' aria-controls='företag' aria-selected='true'>Information</a>
          </li>
          <li class='nav-item'>
-            <a class='nav-link disabled' id='översikt-tab' data-toggle='tab' href='#översikt' role='tab' aria-controls='översikt' aria-selected='false'>Översikt</a>
+            <a class='nav-link' id='milestone-tab' data-toggle='tab' href='#milestone' role='tab' aria-controls='milestone' aria-selected='false'>Delmål</a>
+         </li>
+         <li class='nav-item'>
+            <a class='nav-link' id='notes-tab' data-toggle='tab' href='#notes' role='tab' aria-controls='notes' aria-selected='false'>Inlägg</a>
          </li>
 
          <!--
@@ -75,37 +78,54 @@ echo "<!-- Show project -->
          <div class='card-body'>
             <div class='tab-content'>
 
+            <div class='tab-pane' id='notes' role='tabpanel' aria-labelledby='notes-tab'>
+              
+            <form method='post' enctype='multipart/form-data'>
+              <input type='hidden' name='action' value='addNotes'>
+              <input type='hidden' name='projectIDInput' value='".$row['pr_ID']."'>
+              <div class='form-group'>
+                <label for='notesTextarea'>Inlägg</label>
+                <textarea class='form-control' name='notesTextarea' id='notesTextarea' rows='5'>".$row['pr_description']."</textarea>
+              </div> 
+
+              
+              <div class='form-group'>
+                <label for='file'>Lägg till bild</label>
+                <input type='file' name='fileToUpload' class='form-control-file' id='fileToUpload'>
+              </div>
             
-            <div class='tab-pane' id='översikt' role='tabpanel' aria-labelledby='översikt-tab'>
+
+            <button type='submit' class='btn btn-success' title='Spara'>Spara</button>
+
+            </form>
+              ";
+
+            echo"</div>
+            
+            <div class='tab-pane' id='milestone' role='tabpanel' aria-labelledby='milestone-tab'>
                   
-
-            <h4>Huvudmål</h4>
-            <div class='table-responsive'>
-            <table class='table table-striped table-hover table-m table-bordered table-projectlist'>
-                <thead class='thead-dark'>                  
-                  <tr class='text-center'>                      
-                      <th scope='col'>Start/Möte</th>
-                      <th scope='col'>Arbete</th>                                            
-                      <th scope='col'>Avslut/Möte</th>
-                      <th scope='col'>Fakturera</th>
-                  </tr>
-                  <tr class='text-center'>                      
-                      <td scope='col'>Klart</td>
-                      <td scope='col'>Pågående</td>                                            
-                      <td scope='col'></td>
-                      <td scope='col'></td>
-                  </tr>
-                </thead>
-                <tbody id='projectResultList'>                  
-                
-              </tbody>
-            </table>
-           
-          </div>
-
-
-            
-               </div>
+              <div class='table-responsive'>
+                <table class='table table-striped table-hover table-m table-bordered table-projectlist'>
+                    <thead class='thead-dark'>                  
+                      <tr class='text-center'>                      
+                          <th scope='col'>Start/Möte</th>
+                          <th scope='col'>Arbete</th>                                            
+                          <th scope='col'>Avslut/Möte</th>
+                          <th scope='col'>Fakturera</th>
+                      </tr>
+                      <tr class='text-center'>                      
+                          <td scope='col'>Klart</td>
+                          <td scope='col'>Pågående</td>                                            
+                          <td scope='col'></td>
+                          <td scope='col'></td>
+                      </tr>
+                    </thead>
+                    <tbody id='projectResultList'>                  
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
 
 

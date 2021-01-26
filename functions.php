@@ -58,6 +58,10 @@ if (isset($_POST['action'])) {
         deleteProject(); // call function
     }
 
+    if ($_POST['action'] == 'addNotes') {
+        addNotes(); // call function
+    }
+
     
     
 }
@@ -446,6 +450,115 @@ function updateProjectInfo(){
     } else {
         die('prepare() failed: ' . htmlspecialchars($db->error));
     }
+    
+}
+
+function addNotes(){
+          
+    // set global db variable from dbconnect
+    global $db;
+    
+    // prepare sql query and bind
+    $stmt = $db->prepare("INSERT INTO tbl_notes(
+        no_created,
+        no_content,
+        no_userID,
+        no_projectID
+    )
+    VALUES(NOW(), ?,?,?)");
+    
+    // get $_POST form values and bind.
+    // set parameters and execute
+    $stmt->bind_param("sii", $noteInput, $userID, $projectIDInput);
+    
+    $noteInput = mysqli_real_escape_string($db, $_POST['notesTextarea']);
+    $userID = $_SESSION['user_ID'];
+    $projectIDInput = $_POST['projectIDInput'];        
+
+
+    if ($stmt !== false) {
+        $stmt->execute();
+        
+    }else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+        if(!$stmt){
+            echo "Error: " . mysqli_error($db);
+            }
+    }
+    $stmt->close();
+
+    
+    // get last added note ID from tbl_notes
+    $stmt   = "SELECT MAX(no_ID) FROM tbl_notes";
+    $result = mysqli_query($db, $stmt);
+    $row  = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $count = mysqli_num_rows($result);
+
+   
+
+        
+
+    var_dump($count);
+
+    // if row was found insert noteID and file information to tbl_image
+    if ($count == 1) {
+
+        $noteID = $row['MAX(no_ID)'];        
+
+        $name = $_FILES['fileToUpload']['name'];
+        $target_dir = "upload/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+
+        // Select file type
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+        // Valid file extensions
+        $extensions_arr = array("jpg","jpeg","png","gif");
+
+        // Check extension
+        if( in_array($imageFileType,$extensions_arr) ){
+
+        // Insert record
+        $query = "insert into tbl_image(im_name, im_noteID) values('".$name."','".$noteID."')";
+        
+        // execute
+        if (mysqli_query($db,$query)) {
+            
+            $uploadOk = 1;
+            // Upload file
+            //move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
+            
+        } else {
+            $uploadOk = 0;
+        }
+                    
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+            // if everything is ok, try to upload file
+        } else {
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir.$name)) {
+            echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+        
+        
+        
+
+        
+        }
+    } else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+    }
+    
+
+
+        
+    
+
     
 }
 
