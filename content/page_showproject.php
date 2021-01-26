@@ -79,26 +79,28 @@ echo "<!-- Show project -->
             <div class='tab-content'>
 
             <div class='tab-pane' id='notes' role='tabpanel' aria-labelledby='notes-tab'>
-              
-            <form method='post' enctype='multipart/form-data'>
-              <input type='hidden' name='action' value='addNotes'>
-              <input type='hidden' name='projectIDInput' value='".$row['pr_ID']."'>
-              <div class='form-group'>
-                <label for='notesTextarea'>Inlägg</label>
-                <textarea class='form-control' name='notesTextarea' id='notesTextarea' rows='5'>".$row['pr_description']."</textarea>
-              </div> 
+            <input type='button' class='btn btn-primary' id='addnotesbutton' value='Nytt inlägg'>
+            <div id='addnotesdiv' style='display: none'>
+            <p></p>
+              <form method='post' enctype='multipart/form-data'>
+                <input type='hidden' name='action' value='addNotes'>
+                <input type='hidden' name='projectIDInput' value='".$row['pr_ID']."'>
+                <div class='form-group'>
+                  <label for='notesTextarea'>Gör ett nytt inlägg och lägg till en bild.</label>
+                  <textarea class='form-control' name='notesTextarea' id='notesTextarea' rows='5'>".$row['pr_description']."</textarea>
+                </div> 
+                              
+                <div class='form-group'>              
+                  <label for='file'>Lägg till bild</label>
+                  <input type='file' name='fileToUpload' class='form-control-file' id='fileToUpload'>
+                </div>
 
-              
-              <div class='form-group'>
-                <label for='file'>Lägg till bild</label>
-                <input type='file' name='fileToUpload' class='form-control-file' id='fileToUpload'>
-              </div>
-            
-
-            <button type='submit' class='btn btn-success' title='Spara'>Spara</button>
-
-            </form>
-              ";
+                <div class='form-group'>
+                  <button type='submit' class='btn btn-success' title='Spara'>Spara</button>
+                </div>                        
+              </form>
+            </div>
+            ";
 
             echo"</div>
             
@@ -244,4 +246,10 @@ echo "<!-- Show project -->
       $('#btndelete').attr('disabled', true);
     }
   });
+
+  // enables form for notes
+  $( "#addnotesbutton" ).click(function() {
+    $( "#addnotesdiv" ).toggle( "slow", function() {      
+  });
+});
 </script>
