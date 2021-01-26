@@ -1577,39 +1577,6 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth)
 
 }
 
-function getProjectName($projectID){
-    
-    global $db;
-    
-    $sql2 = "SELECT pr_name   
-            FROM
-                tbl_project a        
-            WHERE
-                a.pr_ID = $projectID
-            ";
-    
-    $result2 = mysqli_query($db, $sql2);
-
-    // print error message if something happend
-    if (!$result2) {
-        printf("Error: %s\n", mysqli_error($db));
-        exit();
-    }
-    
-    $count = mysqli_num_rows($result2);
-
-    if ($count > 0) {                
-        while ($row = mysqli_fetch_array($result2)) {
-
-            $projectname = ucfirst($row["pr_name"]);
-
-            echo $projectname;                                                
-        }                            
-        
-    }
-
-}
-
 function getUserFullName($cuserID){
 
     global $db;
