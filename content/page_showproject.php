@@ -87,7 +87,7 @@ echo "<!-- Show project -->
                 <input type='hidden' name='projectIDInput' value='".$row['pr_ID']."'>
                 <div class='form-group'>
                   <label for='notesTextarea'>Gör ett nytt inlägg och lägg till en bild.</label>
-                  <textarea class='form-control' name='notesTextarea' id='notesTextarea' rows='5'>".$row['pr_description']."</textarea>
+                  <textarea class='form-control' name='notesTextarea' id='notesTextarea' rows='5'></textarea>
                 </div> 
                               
                 <div class='form-group'>              
