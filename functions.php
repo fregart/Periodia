@@ -75,90 +75,129 @@ function addNewUser()
 {
     // set global db variable from dbconnect
     global $db;
-    
-    // get company ID
-    $company = $_SESSION['user_company_ID'];
-    
-    // prepare sql query and bind
-    $stmt = $db->prepare("INSERT INTO tbl_user (                        
-                            us_username,
-                            us_password,
-                            us_fname,
-                            us_lname,
-                            us_email,
-                            us_phone1,
-                            us_phone2,
-                            us_roleID,
-                            us_isactive)
 
-                            VALUES (
-                                ?,?,?,?,?,?,?,?,?)
-                            ");
+    $nameCheck = $_POST['usernameInput'];    
     
-    // get _POST form values and bind.
-    // set parameters and execute
-    $stmt->bind_param("sssssssii", $username, $pass, $firstname, $lastname, $email, $phone1, $phone2, $roles, $isactive);
+    // check if username i avaiable
+    $sql = "SELECT *
+            FROM
+                tbl_user a            
+            WHERE
+                a.us_username = '$nameCheck'
+            ";
     
-    $username  = $_POST['usernameInput'];
-    $pass      = $_POST['pass1Input'];
-    $firstname = $_POST['firstnameInput'];
-    $lastname  = $_POST['lastnameInput'];
-    $email     = $_POST['emailInput'];
-    $phone1    = $_POST['phone1Input'];
-    $phone2    = $_POST['phone2Input'];
-    $roles     = $_POST['roleRadios'];
-    $isactive  = $_POST['userStatusRadios'];
-    
-    if ($stmt !== false) {
-        $stmt->execute();
-        $stmt->close();
+    try {
+        $result = mysqli_query($db, $sql);        
+        $count = mysqli_num_rows($result);           
+
+        // add user if username is free
+        if ($count <1) {        
         
-        // get last added user from tbl_user
-        $stmt2   = "SELECT MAX(us_ID) FROM tbl_user";
-        $result2 = mysqli_query($db, $stmt2);
+        // get company ID
+        $company = $_SESSION['user_company_ID'];
         
-        // print error message if user is not in the database
-        if (!$result2) {
-            printf("Error: %s\n", mysqli_error($db));
-            exit();
+        // prepare sql query and bind
+        $stmt = $db->prepare("INSERT INTO tbl_user (                        
+                                us_username,
+                                us_password,
+                                us_fname,
+                                us_lname,
+                                us_email,
+                                us_phone1,
+                                us_phone2,
+                                us_roleID,
+                                us_isactive)
+
+                                VALUES (
+                                    ?,?,?,?,?,?,?,?,?)
+                                ");
+    
+        // get _POST form values and bind.
+        // set parameters and execute
+        $stmt->bind_param("sssssssii", $username, $pass, $firstname, $lastname, $email, $phone1, $phone2, $roles, $isactive);
+        
+        $username  = $_POST['usernameInput'];
+        $pass      = $_POST['pass1Input'];
+        $firstname = $_POST['firstnameInput'];
+        $lastname  = $_POST['lastnameInput'];
+        $email     = $_POST['emailInput'];
+        $phone1    = $_POST['phone1Input'];
+        $phone2    = $_POST['phone2Input'];
+        $roles     = $_POST['roleRadios'];
+        $isactive  = $_POST['userStatusRadios'];
+        
+        if ($stmt !== false) {
+            $stmt->execute();
+            $stmt->close();
+            
+            // get last added user from tbl_user
+            $stmt2   = "SELECT MAX(us_ID) FROM tbl_user";
+            $result2 = mysqli_query($db, $stmt2);
+            
+            // print error message if user is not in the database
+            if (!$result2) {
+                printf("Error: %s\n", mysqli_error($db));
+                exit();
+            }
+            
+            $row2  = mysqli_fetch_array($result2, MYSQLI_ASSOC);
+            $count = mysqli_num_rows($result2);
+            
+            // if result matched add new user ID to table employees
+            if ($count == 1) {
+                $newUserID = $row2['MAX(us_ID)'];
+                
+                // prepare sql query and bind
+                $stmt3 = $db->prepare("INSERT INTO tbl_employees (em_companyID, em_userID) VALUES (?,?)");
+                
+                // set parameters and execute
+                $stmt3->bind_param("ii", $COMPANYID, $USERID);
+                
+                $COMPANYID = $company;
+                $USERID    = $newUserID;
+                
+                if ($stmt3 !== false) {
+                    $stmt3->execute();
+                    $stmt3->close();
+                    $db->close();
+                    
+                    echo "
+                        <script src='vendor/jquery/jquery.min.js'></script>
+                        <script>$(document).ready(function(){
+                            alert('Ny användare inlagd');
+                            $('#page-content').load('content/page_inställningar.php');
+                        });
+                        </script>
+                    ";
+                } else {
+                    die('prepare() failed: ' . htmlspecialchars($db->error));
+                }
+            }
+        } else {
+            die('prepare() failed: ' . htmlspecialchars($db->error));
         }
-        
-        $row2  = mysqli_fetch_array($result2, MYSQLI_ASSOC);
-        $count = mysqli_num_rows($result2);
-        
-        // if result matched add new user ID to table employees
-        if ($count == 1) {
-            $newUserID = $row2['MAX(us_ID)'];
             
-            // prepare sql query and bind
-            $stmt3 = $db->prepare("INSERT INTO tbl_employees (em_companyID, em_userID) VALUES (?,?)");
-            
-            // set parameters and execute
-            $stmt3->bind_param("ii", $COMPANYID, $USERID);
-            
-            $COMPANYID = $company;
-            $USERID    = $newUserID;
-            
-            if ($stmt3 !== false) {
-                $stmt3->execute();
-                $stmt3->close();
-                $db->close();
+            // DO not add user if username is not available
+            } else if ($count >0) {
+                
                 
                 echo "
-                    <script src='vendor/jquery/jquery.min.js'></script>
-                    <script>$(document).ready(function(){
-                        alert('Ny användare inlagd');
-                        $('#page-content').load('content/page_inställningar.php');
-                    });
-                    </script>
-                ";
+                        <script src='vendor/jquery/jquery.min.js'></script>
+                        <script>
+                            alert('Det finns redan en användare med det här namnet, välj ett annat namn.');
+                            $('#page-content').load('content/newproject.php');                                           
+                        </script>
+                    ";
+                
             } else {
                 die('prepare() failed: ' . htmlspecialchars($db->error));
             }
-        }
-    } else {
-        die('prepare() failed: ' . htmlspecialchars($db->error));
+        
+    } catch (\Throwable $th) {
+        //throw $th;
+        echo $th;
     }
+    
 }
 
 // get all users
