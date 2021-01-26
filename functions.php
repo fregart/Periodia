@@ -1539,6 +1539,8 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth)
                 *
             FROM
                 tbl_workinghours a
+            LEFT JOIN tbl_project b ON
+                b.pr_ID = a.wo_projectID 
             WHERE
                 a.wo_userID = $cuserID
                 AND YEAR(a.wo_date) = $cyear
@@ -1560,7 +1562,10 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth)
         while ($row = mysqli_fetch_array($result)) {
             echo "   
             <tr>
-                <td>".$row["wo_date"]."</td>
+                <td>".$row["wo_date"]."
+                <br>
+                <div class='ml-1 small'>".$row["pr_name"]."</div>
+                </td>
                 <td class='text-center'>".$row["wo_starttime"]."</td>
                 <td class='text-center'>".$row["wo_endtime"]."</td>
                 <td class='text-center'>".$row["wo_rest"]."</td>
@@ -1568,6 +1573,39 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth)
             </tr>";
         }
 
+    }
+
+}
+
+function getProjectName($projectID){
+    
+    global $db;
+    
+    $sql2 = "SELECT pr_name   
+            FROM
+                tbl_project a        
+            WHERE
+                a.pr_ID = $projectID
+            ";
+    
+    $result2 = mysqli_query($db, $sql2);
+
+    // print error message if something happend
+    if (!$result2) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result2);
+
+    if ($count > 0) {                
+        while ($row = mysqli_fetch_array($result2)) {
+
+            $projectname = ucfirst($row["pr_name"]);
+
+            echo $projectname;                                                
+        }                            
+        
     }
 
 }
