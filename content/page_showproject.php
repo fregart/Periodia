@@ -78,31 +78,36 @@ echo "<!-- Show project -->
          <div class='card-body'>
             <div class='tab-content'>
 
+            <!-- Add new note div -->
             <div class='tab-pane' id='notes' role='tabpanel' aria-labelledby='notes-tab'>
-            <button class='btn btn-primary' id='addnotesbutton'><i class='fa fa-plus-circle'></i> Nytt inlägg</button>
-            <div id='addnotesdiv' style='display: none'>
-            <p></p>
-              <form method='post' enctype='multipart/form-data'>
-                <input type='hidden' name='action' value='addNotes'>
-                <input type='hidden' name='projectIDInput' value='".$row['pr_ID']."'>
-                <div class='form-group'>
-                  <label for='notesTextarea'>Gör ett nytt inlägg och lägg till en bild.</label>
-                  <textarea class='form-control' name='notesTextarea' id='notesTextarea' rows='5'></textarea>
-                </div> 
-                              
-                <div class='form-group'>              
-                  <label for='file'>Lägg till bild</label>
-                  <input type='file' name='fileToUpload' class='form-control-file' id='fileToUpload'>
-                </div>
+              <button class='btn btn-primary' id='addnotesbutton'><i class='fa fa-plus-circle'></i> Nytt inlägg</button>
+              <div id='addnotesdiv' style='display: none'>
+                <p></p>
+                <form method='post' enctype='multipart/form-data'>
+                  <input type='hidden' name='action' value='addNotes'>
+                  <input type='hidden' name='projectIDInput' value='".$row['pr_ID']."'>
+                  <div class='form-group'>
+                    <label for='notesTextarea'>Gör ett nytt inlägg och lägg till en bild.</label>
+                    <textarea class='form-control' name='notesTextarea' id='notesTextarea' rows='5'></textarea>
+                  </div> 
+                                
+                  <div class='form-group'>              
+                    <label for='file'>Lägg till bild</label>
+                    <input type='file' name='fileToUpload' class='form-control-file' id='fileToUpload'>
+                  </div>
 
-                <div class='form-group'>
-                  <button type='submit' class='btn btn-success' title='Spara'>Spara</button>
-                </div>                        
-              </form>
-            </div>
-            ";
+                  <div class='form-group'>
+                    <button type='submit' class='btn btn-success' title='Spara'>Spara</button>
+                  </div>                        
+                </form>
+              </div>
 
-            echo"</div>
+              <!-- Current notes-->
+              <p></p>";
+              
+              getCurrentProjectNotes($row['pr_ID']);
+              
+            echo "</div>
             
             <div class='tab-pane' id='milestone' role='tabpanel' aria-labelledby='milestone-tab'>
                   

@@ -1619,6 +1619,46 @@ function getUserFullName($cuserID){
 
 }
 
+function getCurrentProjectNotes($cprojectid){
+
+    global $db;
+            
+    $sql = "SELECT *
+            FROM
+            tbl_notes a
+            LEFT JOIN tbl_user b ON
+                a.no_userID = b.us_ID  
+            LEFT JOIN tbl_image c ON
+                a.no_ID = c.im_noteID
+            WHERE
+            a.no_projectID = $cprojectid
+            ";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+        
+    if ($count > 0) {                
+        while ($row = mysqli_fetch_array($result)) {
+
+           echo "<div class='card-body'>
+                    <img style='width: 18rem'; class='card-img-top' src='upload/".ucfirst($row["im_name"]) . "' alt='Card image cap'>
+                    <p></p>
+                    <p class='small'>".ucfirst($row["us_username"]) . "<span class='text-muted'> - " . $row["no_created"] . "</span></p>
+                    <p class='card-text'>".ucfirst($row["no_content"])."</p>
+                </div>";                                  
+        }                            
+        
+    }
+    
+}
+
 // set global current week total work hours from time panel
 $totalWeekHours = 0;
 function setWeekTotalHours($hours)
