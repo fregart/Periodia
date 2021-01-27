@@ -53,7 +53,8 @@ include('session.php');
       <!-- Sidebar menu-->
       <div class="list-group list-group-flush">      
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_schema"><div class="sidebar-icon"><i class="fas fa-home"></i></div> Startsida</a>  
-        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_projekt"><div class="sidebar-icon"><i class="fas fa-tasks"></i></div> Projekt</a>                     
+        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_projekt"><div class="sidebar-icon"><i class="fas fa-tasks"></i></div> Projekt</a>         
+        <a href="#" class="list-group-item list-group-item-action bg-dark disabled" data-target="page_inventory"><div class="sidebar-icon"><i class="fas fa-tools"></i></div> Inventarier</a>           
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_myhours"><div class="sidebar-icon"><i class="fas fa-user-clock"></i></div> Mina timmar</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reporttime"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera tid</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportabsence"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera frånvaro</a>
@@ -61,7 +62,8 @@ include('session.php');
         <?php
           if ($_SESSION['user_role'] == 2) {
             echo "
-            <div class='dropdown-divider'></div>     
+            <div class='dropdown-divider'></div>
+            <a href='#' class='list-group-item list-group-item-action bg-dark disabled' data-target='page_staff'><div class='sidebar-icon'><i class='fas fa-users'></i></div> Personal</a>     
             <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_reports'><div class='sidebar-icon'><i class='far fa-file-alt'></i></div> Rapporter</a>
             <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_inställningar'><div class='sidebar-icon'><i class='fas fa-cog'></i></div> Inställningar</a>
             <div class='dropdown-divider'></div>";
@@ -71,15 +73,16 @@ include('session.php');
         <!-- Periodia information -->
         <div class="alert alert-secondary small" role="alert">
           <h6>Information</h6>
-          <p>Denna app är under utveckling. Buggar och designfel kan uppstå.</p>
+          <p>Denna app är under utveckling. Buggar och fel kan uppstå.</p>
           <p>Vid frågor mejla <a href="mailto:support@periodia.se">support@periodia.se</a></p>
           
         </div>
 
         <div class="alert alert-secondary small" role="alert">
           <h6>Uppdateringar</h6>
-          <p>2021-01. Omdesign av projektsidorna. Lägga in bilder, noteringar. Översikt över arbetstimmar mm.</p>          
-          <p>2021-01-21. Fältet Eget-ID har lagts till under redigering av projekt. Eget-ID visas med projektnamn.</p>          
+          <p>2021-01. Omdesign av projektsidorna. Översikt över arbetstimmar mm. Byte lösenord. Inventarielistor, maskin, materiel. In- och utcheckningar.</p>          
+          <p>2021-01-27. Lägga in inlägg i projekt med bilder.</p>
+          <p>2021-01-26. Mindre ändringar på design. Funktion som kollar efter dubletter av användare. Ändringar på struktur i databastabeller.</p>          
           
         </div>
         
