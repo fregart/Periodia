@@ -523,6 +523,15 @@ function addNotes(){
 
     if ($stmt !== false) {
         $stmt->execute();
+
+        echo "
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>$(document).ready(function(){
+                alert('Ditt inlägg är sparat');
+                $('#page-content').load('content/page_inställningar.php');
+            });
+            </script>
+        ";
         
     }else {
         die('prepare() failed: ' . htmlspecialchars($db->error));
@@ -563,8 +572,6 @@ function addNotes(){
         if (mysqli_query($db,$query)) {
             
             $uploadOk = 1;
-            // Upload file
-            //move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$name);
             
         } else {
             $uploadOk = 0;
@@ -573,13 +580,33 @@ function addNotes(){
 
         // Check if $uploadOk is set to 0 by an error
         if ($uploadOk == 0) {
-            echo "Sorry, your file was not uploaded.";
+            echo"
+            <script src='vendor/jquery/jquery.min.js'></script>
+                <script>$(document).ready(function(){
+                    alert('Bilden gick inte att ladda upp.');
+                    $('#page-content').load('content/page_inställningar.php');
+                })";
+
             // if everything is ok, try to upload file
         } else {
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir.$name)) {
-            echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+                echo "
+                <script src='vendor/jquery/jquery.min.js'></script>
+                <script>$(document).ready(function(){
+                    alert('Bilden ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " har laddats upp.');
+                    $('#page-content').load('content/page_inställningar.php');
+                });
+                </script>";
+            
             } else {
-                echo "Sorry, there was an error uploading your file.";
+                echo "
+                <script src='vendor/jquery/jquery.min.js'></script>
+                <script>$(document).ready(function(){
+                    alert('Ett fel uppstod vid uppladdning av bilden.');
+                    $('#page-content').load('content/page_inställningar.php');
+                });
+                </script>";
+               
             }
         }
         
