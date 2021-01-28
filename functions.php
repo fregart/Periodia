@@ -62,8 +62,14 @@ if (isset($_POST['action'])) {
         addNotes(); // call function
     }
 
-    
-    
+    if ($_POST['action'] == 'checkIn') {        
+        checkIn(); // call function
+    }
+
+    if ($_POST['action'] == 'checkOut') {        
+        checkOut(); // call function
+    }
+        
 }
 
 
@@ -286,11 +292,7 @@ function deleteUser()
 
 function updateUserInfo()
 {
-    echo "<pre>";
-        var_dump($_POST);
-    echo "</pre>";
-
-
+    
     // set global db variable from dbconnect
     global $db;
     
@@ -525,19 +527,12 @@ function addNotes(){
             }
     }
     $stmt->close();
-
     
     // get last added note ID from tbl_notes
     $stmt   = "SELECT MAX(no_ID) FROM tbl_notes";
     $result = mysqli_query($db, $stmt);
     $row  = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $count = mysqli_num_rows($result);
-
-   
-
-        
-
-    var_dump($count);
 
     // if row was found insert noteID and file information to tbl_image
     if ($count == 1) {
@@ -583,10 +578,6 @@ function addNotes(){
                 echo "Sorry, there was an error uploading your file.";
             }
         }
-        
-        
-        
-
         
         }
     } else {
@@ -1657,6 +1648,100 @@ function getCurrentProjectNotes($cprojectid){
         
     }
     
+}
+
+// check in user on project
+function checkIn(){
+
+    // set global db variable from dbconnect
+    global $db;
+    
+    // prepare sql query and bind
+    $stmt = $db->prepare("INSERT INTO tbl_checkin(
+        ch_projectID,
+        ch_userID,
+        ch_time      
+    )
+    VALUES(?,?,NOW())");
+    
+    // get $_POST form values and bind.
+    // set parameters and execute
+    $stmt->bind_param("ii", $projectID, $userID);
+        
+    $projectID = $_POST['projectID'];  
+    $userID = $_SESSION['user_ID'];        
+
+    if ($stmt !== false) {
+        $stmt->execute();
+        echo "<script>alert('Du är nu incheckad på projektet.')</script>";
+        
+    }else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+        if(!$stmt){
+            echo "Error: " . mysqli_error($db);
+            }
+    }
+    $stmt->close();
+}
+
+// check out user on project
+function checkOut(){
+
+    // set global db variable from dbconnect
+    global $db;
+    
+    $projectID = $_POST['projectID'];  
+    $userID = $_SESSION['user_ID'];        
+    
+    $stmt = $db->prepare("DELETE FROM tbl_checkin WHERE ch_userID = ? AND ch_projectID = ?");
+    $stmt->bind_param('ii', $userID, $projectID);
+    
+    if ($stmt !== false) {
+        $stmt->execute();
+        echo "<script>alert('Du har checkat ut från projektet.')</script>";
+        
+    }else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+        if(!$stmt){
+            echo "Error: " . mysqli_error($db);
+            }
+    }
+    $stmt->close();
+}
+
+// is user checked in on a project
+function isUserCheckedIn($projectID){
+
+    // set global db variable from dbconnect
+    global $db;
+    
+    $userID = $_SESSION['user_ID'];        
+
+    // check if username i avaiLable
+    $sql = "SELECT *
+            FROM
+                tbl_checkin a            
+            WHERE
+                a.ch_projectID = $projectID
+            AND a.ch_userID = $userID
+            ";
+
+    try {
+        $result = mysqli_query($db, $sql);        
+        $count = mysqli_num_rows($result);           
+
+        // if there is a match return true
+        if ($count >0){
+            return true;
+        }else {
+            return false;
+        }
+        
+        
+    } catch (\Throwable $th) {
+        //throw $th;
+        echo $th;
+    }
 }
 
 // set global current week total work hours from time panel
