@@ -34,6 +34,10 @@ if (isset($_POST['action'])) {
         reportTime(); // call function
     }
 
+    if ($_POST['action'] == 'updateReportTime') {
+        //reportTime(); // call function
+    }
+
     if ($_POST['action'] == 'reportAbsence') {
         reportAbsence(); // call function        
     }
@@ -907,6 +911,55 @@ function getEmployeeSelectedList($cuserID){
 
 
 function reportTime()
+{    
+
+    // set global db variable from dbconnect
+    global $db;        
+
+    // prepare sql query and bind
+    $stmt = $db->prepare("INSERT INTO tbl_workinghours (                        
+        wo_userID,
+        wo_date,
+        wo_starttime,
+        wo_endtime,
+        wo_rest,
+        wo_total,
+        wo_notes,
+        wo_projectID)
+
+        VALUES (
+            ?,?,?,?,?,?,?,?)");
+        
+        // get $_POST form values and bind.
+        // set parameters and execute
+                    
+        $stmt->bind_param("issssssi", $userID, $date, $timefrom, $timeto, $break, $total, $notes, $projectID);            
+            
+        $userID    = $_SESSION['user_ID'];
+        $date      = $_POST['datumInput'];
+        $timefrom  = $_POST['tidfrånInput'];
+        $timeto    = $_POST['tidtillInput'];
+        $break     = $_POST['rastInput'];
+        $total     = $_POST['calcInput'];
+        $notes     = $_POST['notesInput'];
+        $projectID = $_POST['projektInput'];
+        
+        $stmt->execute();
+        
+        echo "
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>
+                alert('Tidrapport inlagd');
+                $('#page-content').load('content/page_schema.php');                           
+            </script>
+            ";
+
+        $stmt->close();
+        $db->close();
+            
+}
+
+function updateReportTime()
 {    
 
     // set global db variable from dbconnect
