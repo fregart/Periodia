@@ -37,9 +37,27 @@ global $db;
 echo "<!-- Show project -->
 <section class='page-showproject'>
         <div class='container-fluid'>
-        <h4 class='mt-4'>Projekt: ". ucfirst($row["pr_name"]) ."</h4>
-        <p class='mt-4'>Start: ". $row["pr_startdate"] ."</p>
-        <br>
+        <h4 class='mt-4'>". ucfirst($row["pr_name"]) ."</h4>
+        <p class='mt-4'>Start: ". $row["pr_startdate"] ."</p>";
+
+        // show check in or check out button depending if user is checked in
+        if (isUserCheckedIn($row['pr_ID'])) {
+          echo"
+          <form method='post'>
+            <button class='btn btn-warning' id='checkoutbutton'><i class='fas fa-user-minus'></i> Checka ut</button>
+            <input type='hidden' name='action' value='checkOut'>          
+            <input type='hidden' name='projectID' value='".$row['pr_ID']."'>
+          </form>";
+        }else {
+         echo"
+          <form method='post'>
+            <button class='btn btn-success' id='checkinbutton'><i class='fas fa-user-plus'></i> Checka in</button>
+            <input type='hidden' name='action' value='checkIn'>          
+            <input type='hidden' name='projectID' value='".$row['pr_ID']."'>
+          </form>";
+        }
+        echo"
+        <p></p>
         
         
         
