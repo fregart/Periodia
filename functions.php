@@ -1574,7 +1574,8 @@ function getUserFullName($cuserID){
             
     $sql = "SELECT            
             a.us_fname,
-            a.us_lname
+            a.us_lname,
+            a.us_username
             FROM
             tbl_user a            
             WHERE
@@ -1596,11 +1597,12 @@ function getUserFullName($cuserID){
 
             $first = ucfirst($row["us_fname"]);
             $last = ucfirst($row["us_lname"]);
+            $user = ucfirst($row["us_username"]);
 
             if ($first || $last) {
                 echo $first, " ", $last;
             } else {
-                echo "<div class='small text-danger'>Fullt namn saknas</div>";
+                echo "<div class='small text-danger'>" . $user . " - Fullt namn saknas</div>";
             }                                                
         }                            
         
@@ -1742,6 +1744,48 @@ function isUserCheckedIn($projectID){
         //throw $th;
         echo $th;
     }
+}
+
+function getCheckedInUsers(){
+
+    global $db;
+    
+    $company = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT
+                *
+            FROM
+                tbl_checkin a
+            LEFT JOIN tbl_project b ON
+                a.ch_projectID = b.pr_ID
+            WHERE
+                b.pr_companyID = $company";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            echo "<tr>";
+            echo "<th scope='row'>" . $row["pr_name"] . "</th>";
+            echo "<td>";
+                getUserFullName($row["ch_userID"]);
+            echo "</td>";
+            echo "<td>". date('Y-m-d H:i', strtotime($row["ch_time"])) . "</td>";
+            echo "<td><button class='btn btn-warning btn-sm' id='checkoutbutton' title='Checka ut'><i class='fas fa-user-minus'></i></button></td>";
+            echo "</tr>";
+        }
+        
+    }
+    return $result;
+
 }
 
 // set global current week total work hours from time panel
