@@ -40,6 +40,7 @@ echo "<!-- Show project -->
         <h4 class='mt-4'>". ucfirst($row["pr_name"]) ."</h4>
         <p class='mt-4'>Start: ". $row["pr_startdate"] ."</p>";
 
+        /*
         // show check in or check out button depending if user is checked in
         if (isUserCheckedIn($row['pr_ID'])) {
           echo"
@@ -55,7 +56,7 @@ echo "<!-- Show project -->
             <input type='hidden' name='action' value='checkIn'>          
             <input type='hidden' name='projectID' value='".$row['pr_ID']."'>
           </form>";
-        }
+        }*/
         echo"
         <p></p>
         
@@ -67,10 +68,10 @@ echo "<!-- Show project -->
             <a class='nav-link active' id='företag-tab' data-toggle='tab' href='#företag' role='tab' aria-controls='företag' aria-selected='true'>Information</a>
          </li>
          <li class='nav-item'>
-            <a class='nav-link' id='milestone-tab' data-toggle='tab' href='#milestone' role='tab' aria-controls='milestone' aria-selected='false'>Delmål</a>
+            <a class='nav-link disabled' id='milestone-tab' data-toggle='tab' href='#milestone' role='tab' aria-controls='milestone' aria-selected='false'>Delmål</a>
          </li>
          <li class='nav-item'>
-            <a class='nav-link' id='notes-tab' data-toggle='tab' href='#notes' role='tab' aria-controls='notes' aria-selected='false'>Inlägg</a>
+            <a class='nav-link disabled' id='notes-tab' data-toggle='tab' href='#notes' role='tab' aria-controls='notes' aria-selected='false'>Inlägg</a>
          </li>
 
          <!--
