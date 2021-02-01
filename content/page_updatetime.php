@@ -116,13 +116,17 @@ if(isset($_GET['setWorkedID'])){
 
                             <div class="col">
                                 <form method="post">
+                                
                                     <input type="hidden" name="action" value="deleteReport">
-                                    <input type="hidden" name="removeThisID" value="<?php echo $workedID ?>">
-                                    <button type='submit' class='btn btn-danger float-right' title='Ta bort'>X</button>
-                                        
+                                    <input type="hidden" name="removeThisID" value="<?php echo $workedID ?>">                                  
+                                    <button type='submit' class='btn btn-danger' id='btndelete' title='Ta bort' disabled>Ta bort</button>                                  
+                                    <div class='form-check'>
+                                    <br>
+                                    <input type='checkbox' class='form-check-input' id='enableCheck'>
+                                    <label class='form-check-label' for='enableCheck'><p class='small'>Aktivera</p></label>
+                                  
                                 </form>
                             </div>
-                            
                         </div>
                 
                 
@@ -182,23 +186,15 @@ if(isset($_GET['setWorkedID'])){
         $('#page-content').load('content/page_schema.php');
     });
     
-    // project select listener on change    
-    $("#projektInput").change(function() {
-
-        var $csetdate = $('#datumInput').val();
-        var $selectedVal = $(this).children("option:selected").val();   
+    // enables the delete button on checked
+    $('#enableCheck').click(function () {
         
-        var $file = 'page_reporttime' + '.php?setDate='+ $csetdate +'&setProjectID=' + $selectedVal;
-        var $path = 'content/';
-
-        $('#page-content').load($path + $file);            
-
+        if ($(this).is(':checked')) {
+          $('#btndelete').removeAttr('disabled');
+    
+        } else {
+          $('#btndelete').attr('disabled', true);
+        }
     });
-
-    // disable save button if there is no project
-    var $buttonDisableTest = $('#projektInput').children("option").val();
-    if ($buttonDisableTest == 0) {
-        $('.btn-success').prop("disabled",true);
-    }
     
 </script>
