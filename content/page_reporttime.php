@@ -122,19 +122,6 @@ if(isset($_GET['setProjectID'])){
                             <button type="button" class="btn btn-primary" title='Avbryt'>Avbryt</button>
                             </form>
                         </div>
-                
-
-                        <div class="col">
-                            <form method="post">
-                                <input type="hidden" name="action" value="deleteReport">
-                                <input type="hidden" name="removeThisDate" value="<?php echo $setDate ?>">
-                                    <?php
-                                        if (isset($_GET['setDate'])) {
-                                        echo "<button type='submit' class='btn btn-danger float-right' title='Ta bort'>X</button>";
-                                        }
-                                    ?>
-                            </form>
-                        </div>
                            
                     </div>
             
