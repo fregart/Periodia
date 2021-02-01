@@ -38,7 +38,9 @@ if(isset($_GET['setWorkedID'])){
                 
                 
                 <form method="post">         
-                <input type="hidden" name="action" value="updateTime" />     
+                <input type="hidden" name="action" value="updateTime" />  
+                <input type="hidden" name="workedID" value="<?php echo $workedID ?>" />  
+        
                     <div class="row w-50">
                         <div class="form-group">
                             <div class="col">

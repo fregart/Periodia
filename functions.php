@@ -35,7 +35,7 @@ if (isset($_POST['action'])) {
     }
 
     if ($_POST['action'] == 'updateTime') {
-        //updateTime(); // call function
+        updateTime(); // call function
     }
 
     if ($_POST['action'] == 'reportAbsence') {
@@ -984,6 +984,58 @@ function reportTime()
         $stmt->close();
         $db->close();
             
+}
+
+function updateTime(){
+
+    $workedID = $_POST['workedID'];
+
+    // set global db variable from dbconnect
+    global $db;
+    
+    // prepare sql query and bind
+    $stmt = $db->prepare("UPDATE tbl_workinghours
+                            SET
+                            wo_userID = ?,
+                            wo_date = ?,
+                            wo_starttime = ?,
+                            wo_endtime = ?,
+                            wo_rest = ?,
+                            wo_total =  ?,
+                            wo_notes = ?,
+                            wo_projectID = ?
+                            WHERE
+                            wo_ID = $workedID");
+    
+    // get _POST form values and bind.
+    // set parameters and execute
+    $stmt->bind_param("issssssi", $userID, $date, $timefrom, $timeto, $break, $total, $notes, $projectID);
+    
+    $userID    = $_SESSION['user_ID'];
+    $date      = $_POST['datumInput'];
+    $timefrom  = $_POST['tidfrånInput'];
+    $timeto    = $_POST['tidtillInput'];
+    $break     = $_POST['rastInput'];
+    $total     = $_POST['calcInput'];
+    $notes     = $_POST['notesInput'];
+    $projectID = $_POST['projektInput'];
+    
+    if ($stmt !== false) {
+        $stmt->execute();
+        $db->close();
+        $stmt->close();
+        
+        echo "
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>$(document).ready(function(){
+                alert('Uppdateringen genomförd');
+                    $('#page-content').load('content/page_myhours.php');                      
+                });                        
+            </script>
+        ";
+    } else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+    }
 }
 
 function updateReportTime()
