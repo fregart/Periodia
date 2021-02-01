@@ -34,7 +34,7 @@ if (isset($_POST['action'])) {
         reportTime(); // call function
     }
 
-    if ($_POST['action'] == 'updateReportTime') {
+    if ($_POST['action'] == 'updateTime') {
         //reportTime(); // call function
     }
 
@@ -1122,15 +1122,15 @@ function deleteReportDate()
     global $db;  
     
     $userID = $_SESSION['user_ID'];
-    $date   = $_POST['removeThisDate'];
+    $workedID   = $_POST['removeThisID'];
     
     $stmt = $db->prepare("DELETE
                             FROM
                                 tbl_workinghours
                             WHERE
                                 wo_userID   = ?
-                            AND wo_date     = ?");
-    $stmt->bind_param('is', $userID, $date);
+                            AND wo_ID     = ?");
+    $stmt->bind_param('is', $userID, $workedID);
     
     if ($stmt !== false) {
         $stmt->execute();
@@ -1632,7 +1632,7 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth)
     if ($count > 0) {
         while ($row = mysqli_fetch_array($result)) {
             echo "   
-            <tr>
+            <tr id='".$row["wo_ID"]."'>
                 <td>".$row["wo_date"]."
                 <br>
                 <div class='ml-1 small'>".$row["pr_name"]."</div>

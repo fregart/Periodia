@@ -1,53 +1,64 @@
 <?php session_start(); ?>
 <?php require_once("../dbconnect.php")?>
 <?php require_once("../functions.php")?>
+<?php 
+    if (isset($_GET['setUser'])) {
+        $cuserID = $_GET['setUser'];
+    } else {
+        $cuserID = $_SESSION['user_ID'];                
+    }    
 
-<!-- Mina timmar -->
-<div class="container-fluid">
-    
-        <h4 class="mt-4">Mina timmar</h4>
-        <br />
+    if (isset($_GET['setYear'])) {
+        $currentYear = $_GET['setYear'];
+    }else {
+        $currentYear = getCurrentYear();
+    }
 
-        <div class="col-sm-12 col-m-8 col-lg-4">
+?>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-sm">
+
+            <p class="h4">Mina timmar</p>
+            <br />
 
             <form>         
-                <input type="hidden" name="action" value="searchMyHours" /> 
+                <input type="hidden" name="action" value="searchMyHours" />
 
-
-            
                 <div class="form-group row">
-                    <label for="yearInput" class="col-sm-2 col-form-label form-control-sm">År:</label>
-                    <div class="col-sm-10">
-                    <select class="form-control form-control-sm" style="width:80px;" name="yearInput" id="yearInput">                    
+                    <label for="yearInput" class="col-sm-2 col-form-label">År:</label>
+                    <div class="col-sm-4">
+                        <select class="form-control form-control-sm" name="yearInput" id="yearInput">
                         <?php
-                        if (!isset($_GET['setYear'])) {
-                            echo "<option value='2020'>2020</option>";
-                            echo "<option selected value='2021'>2021</option>";
-                        } else {
-                            if ($_GET['setYear'] == 2020) {
-                                echo "<option selected value='" . $_GET['setYear'] . "'>" . $_GET['setYear'] . "</option>";
-                                echo "<option value='2021'>2021</option>";
-                            }else {
+                            if (!isset($_GET['setYear'])) {
                                 echo "<option value='2020'>2020</option>";
-                                echo "<option selected value='" . $_GET['setYear'] . "'>" . $_GET['setYear'] . "</option>";
-                            };                            
-                        }
-                                                                                            
-                        
+                                echo "<option selected value='2021'>2021</option>";
+                            } else {
+                                if ($_GET['setYear'] == 2020) {
+                                    echo "<option selected value='" . $_GET['setYear'] . "'>" . $_GET['setYear'] . "</option>";
+                                    echo "<option value='2021'>2021</option>";
+                                }else {
+                                    echo "<option value='2020'>2020</option>";
+                                    echo "<option selected value='" . $_GET['setYear'] . "'>" . $_GET['setYear'] . "</option>";
+                                };                            
+                            }                                                                                                                    
                         ?>                            
-                        </select>                        
+                        </select> 
                     </div>
                 </div>
+                
                 <div class="form-group row">
-                    <label for="monthInput" class="col-sm-2 col-form-label form-control-sm">Månad:</label>
-                    <div class="col-sm-10">
-                    <select class="form-control form-control-sm" style="width:80px;" name="monthInput" id="monthInput">
+                    <label for="monthInput" class="col-sm-2 col-form-label">Månad:</label>
+                    <div class="col-sm-4">
+                    <select class="form-control form-control-sm" name="monthInput" id="monthInput">
                             <?php
                                 $row_month = getMonthNameSelectedList();
                                 for ($i=1; $i <13; $i++) {
                                     if (isset($_GET['setMonth'])) {
                                         if ($_GET['setMonth'] == $i) {
                                             echo "<option selected value='" . $_GET['setMonth'] . "'>" . $row_month[$i] . "</option>";
+                                            $cmonth = $_GET['setMonth'];
                                         }else {
                                             echo "<option value='" . $i . "'>" . $row_month[$i] . "</option>";
                                         }
@@ -55,6 +66,7 @@
                                     }else {
                                         if (getCurrentMonth() == $i) {
                                             echo "<option selected value='" . $i . "'>" . $row_month[$i] . "</option>";
+                                            $cmonth = $i;
                                         } else {
                                             echo "<option value='" . $i . "'>" . $row_month[$i] . "</option>";
                                         }                                                                                
@@ -69,75 +81,80 @@
             </form>
 
 
-            <table class="table table-condensed table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Datum</th>
-                        <th scope="col">Från</th>
-                        <th scope="col">Till</th>
-                        <th scope="col">Rast</th>
-                        <th scope="col">Timmar</th>       
-                    </tr>   
-                </thead> 
-                <tbody>   
-                    
-                    <?php
 
-                    if (isset($_GET['setMonth'])) {
-                    $date   = ''. $_GET['setYear'] . '-' . $_GET['setMonth'] . '-01';
-                    $end    = ''. $_GET['setYear'] . '-' . $_GET['setMonth'] . '-' . date('t', strtotime($date)); //get end date of month
-                    } else {
-                    $date   = ''. getCurrentYear() . '-' . getCurrentMonth() . '-01';
-                    $end    = ''. getCurrentYear() . '-' . getCurrentMonth() . '-' . date('t', strtotime($date)); //get end date of month
-                    }
-
-                    while(strtotime($date) <= strtotime($end)) {
-                        $dateID     = date('Y-m-d', strtotime($date));
-                        $day_num    = date('d', strtotime($date));
-                        $day_name   = date('l', strtotime($date));
-                        $date       = date("Y-m-d", strtotime("+1 day", strtotime($date)));
-
-                        // mark saturday and sunday with color
-                        if ($day_name == 'Saturday' || $day_name == 'Sunday') {
-                            echo "<tr id='$dateID' style='background-color: lightgray'>";
-                        } else {
-                            echo "<tr id='$dateID'>";
-                        }
+            <div id="printableArea" class="border border-dark">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <td scope="col" style='border-top:0;' align="center" colspan="5">
+                                <div class="h3">Arbetade timmar</div>
+                                <div class="h6"><?php echo getMonthFullName($cmonth) ?>, <?php if (isset($_GET['setYear'])) {
+                                                                                                    echo $_GET['setYear'];
+                                                                                                } else {
+                                                                                                    echo $currentYear;
+                                                                                                }?>
+                                </div>
+                                <div class="h5"><?php echo $_SESSION['user_company'] ?></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" style='border-top:0;'>
                         
-                        echo "<th scope='row'>$day_num<br><span class='small'>".transDayName($day_name)."</span></th>";
-
-                        getWorkedHours($dateID);
+                            <table class="table table-sm">                                
+                                <tr><td style='border-top:0;' class="font-weight-bold p-2">Namn:</td></tr>
+                                <tr><td style='border-top:0;' class="font-weight-bold p-2 text-nowrap"><?php getUserFullName($cuserID) ?></td></tr>
+                            </table>                             
                         
-                        echo "</tr>";
-                    }
-                    ?>        
-                </tbody>
-            </table>
+                            </td>
+                            <td scope="col" style='border-top:0;'></td>
+                            <td scope="col" style='border-top:0;'></td>
+                            <td scope="col" style='border-top:0;'></td>
+                            <td scope="col" style='border-top:0;'></td>       
+                        </tr>                                        
+                        <tr>
+                            <th scope="col">Datum</th>
+                            <th scope="col" class="text-center">Tid från</th>
+                            <th scope="col" class="text-center">Tid till</th>
+                            <th scope="col" class="text-center">Rast</th>
+                            <th scope="col" class="text-center">Summa</th>       
+                        </tr>   
+                    </thead> 
+                    <tbody>   
+                        
+                        <!-- Get worked hours for user -->
+                        <?php                                                   
+                            getWorkedHoursForReport($cuserID, $currentYear, $cmonth);                                                                                                                
+                        ?>
+
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col">Totalt antal timmar:</th>                            
+                            <th scope="col" class="text-center"><?php echo getWorkHoursForMonth($cuserID, $cmonth);?></th>
+                        </tr>         
+                    </tbody>
+                </table>
+            </div>
+            <input type="button" class="btn btn-success mt-4 mb-4" onclick="printReport('printableArea')" value="Skriv ut" />
     
 
         </div>
-    
-</div>
-<script>    
+    </div>
 
-    // year select listener on change    
-    $("#yearInput").change(function() {
-        
-        var $cyear  = $("#yearInput").children("option:selected").val();
-        var $cmonth = $("#monthInput").children("option:selected").val();   
+
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+    // employee, year, and month select listener on change
+    $("#employeeInput, #yearInput, #monthInput").change(function() {        
     
-        var $file = 'page_myhours' + '.php?setYear='+ $cyear +'&setMonth=' + $cmonth;
-        var $path = 'content/';
-    
-        $('#page-content').load($path + $file);            
-    
-        });
-    
-    // month select listener on change    
-    $("#monthInput").change(function() {
-        
     var $cyear  = $("#yearInput").children("option:selected").val();
-    var $cmonth = $("#monthInput").children("option:selected").val();   
+    var $cmonth = $("#monthInput").children("option:selected").val();    
 
     var $file = 'page_myhours' + '.php?setYear='+ $cyear +'&setMonth=' + $cmonth;
     var $path = 'content/';
@@ -150,16 +167,23 @@
     $('tbody, tr').click(function (e) {
         e.preventDefault();   
         e.stopPropagation();              
-        var $cdate = this.id;
-        var $file = 'page_reporttime' + '.php?setDate=' + $cdate;
-        var $path = 'content/';                  
+        var $cid = this.id;
+        var $file = 'page_updatetime' + '.php?setWorkedID=' + $cid;
+        var $path = 'content/';           
                     
         $('#page-content').load($path + $file);                
     });
 
+    // print reports function
+    function printReport(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = $('body').html();
+
+        document.body.innerHTML = printContents;
+
+        window.print();   
+
+        $('body').html(originalContents);                               
+    }
+
 </script>
-
-
-        
-        
-     
