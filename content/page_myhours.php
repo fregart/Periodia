@@ -82,7 +82,7 @@
 
 
 
-            <div id="printableArea" class="border border-dark">
+            <div class="border border-dark">
                 <table class="table table-hover">
                     <thead class="thead-light">
                         <tr>
@@ -94,16 +94,11 @@
                                                                                                     echo $currentYear;
                                                                                                 }?>
                                 </div>
-                                <div class="h5"><?php echo $_SESSION['user_company'] ?></div>
+                                
                             </td>
                         </tr>
                         <tr>
-                            <td scope="col" style='border-top:0;'>
-                        
-                            <table class="table table-sm">                                
-                                <tr><td style='border-top:0;' class="font-weight-bold p-2">Namn:</td></tr>
-                                <tr><td style='border-top:0;' class="font-weight-bold p-2 text-nowrap"><?php getUserFullName($cuserID) ?></td></tr>
-                            </table>                             
+                            <td scope="col" style='border-top:0;'>             
                         
                             </td>
                             <td scope="col" style='border-top:0;'></td>
@@ -136,8 +131,7 @@
                     </tbody>
                 </table>
             </div>
-            <input type="button" class="btn btn-success mt-4 mb-4" onclick="printReport('printableArea')" value="Skriv ut" />
-    
+            
 
         </div>
     </div>
@@ -150,8 +144,8 @@
     </div>
 </div>
 <script>
-    // employee, year, and month select listener on change
-    $("#employeeInput, #yearInput, #monthInput").change(function() {        
+    // year, and month select listener on change
+    $("#yearInput, #monthInput").change(function() {        
     
     var $cyear  = $("#yearInput").children("option:selected").val();
     var $cmonth = $("#monthInput").children("option:selected").val();    
@@ -163,8 +157,7 @@
 
     });
 
-    // day click listener
-    $('tbody, tr').click(function (e) {
+    $('tr.workedHoursDiv').click(function (e) {
         e.preventDefault();   
         e.stopPropagation();              
         var $cid = this.id;
@@ -173,17 +166,5 @@
                     
         $('#page-content').load($path + $file);                
     });
-
-    // print reports function
-    function printReport(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = $('body').html();
-
-        document.body.innerHTML = printContents;
-
-        window.print();   
-
-        $('body').html(originalContents);                               
-    }
 
 </script>

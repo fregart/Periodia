@@ -35,7 +35,7 @@ if (isset($_POST['action'])) {
     }
 
     if ($_POST['action'] == 'updateTime') {
-        //reportTime(); // call function
+        //updateTime(); // call function
     }
 
     if ($_POST['action'] == 'reportAbsence') {
@@ -1632,7 +1632,7 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth)
     if ($count > 0) {
         while ($row = mysqli_fetch_array($result)) {
             echo "   
-            <tr id='".$row["wo_ID"]."'>
+            <tr id='".$row["wo_ID"]."' class='workedHoursDiv'>
                 <td>".$row["wo_date"]."
                 <br>
                 <div class='ml-1 small'>".$row["pr_name"]."</div>
