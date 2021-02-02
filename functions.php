@@ -217,7 +217,12 @@ function getAllUsers()
     
     $company = $_SESSION['user_company_ID'];
     
-    $sql = "SELECT a.us_ID, a.us_username, a.us_isactive, a.us_roleID, c.ro_name FROM tbl_user a LEFT JOIN tbl_employees b ON b.em_userID=a.us_ID LEFT JOIN tbl_role c ON c.ro_ID=a.us_roleID WHERE b.em_companyID = $company";
+    $sql = "SELECT a.us_ID, a.us_username, a.us_isactive, a.us_roleID, c.ro_name
+            FROM tbl_user a
+            LEFT JOIN tbl_employees b ON b.em_userID=a.us_ID
+            LEFT JOIN tbl_role c ON c.ro_ID=a.us_roleID
+            WHERE b.em_companyID = $company
+            ORDER BY a.us_username ASC";
     
     $result = mysqli_query($db, $sql);
     
