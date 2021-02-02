@@ -3,7 +3,7 @@
 <?php require_once("../functions.php")?>
 
 <!-- Inställningar -->
-<section class="page-inställningar">
+
    <div class="container-fluid">
       <h4 class="mt-4">Inställningar</h4>
       <br>
@@ -59,8 +59,7 @@
                   <table class="table table-striped table-hover table-m">
                      <thead>
                         <tr class="table-active">
-                           <th class="align-middle">Användarhantering</th>                           
-                           <th scope="col" class="d-none d-lg-table-cell"></th>
+                           <th class="align-middle"></th>                           
                            <th scope="col" class="d-none d-lg-table-cell"></th>
                            <th scope="col" class="d-none d-lg-table-cell"></th>
                            <th scope="col">
@@ -69,7 +68,6 @@
                         </tr>
                         <tr>                           
                            <th scope="col">Användare</th>
-                           <th scope="col" class="d-none d-lg-table-cell">Skapad</th>
                            <th scope="col" class="d-none d-lg-table-cell">Roll</th>
                            <th scope="col" class="d-none d-lg-table-cell">Status</th>
                            <th scope="col">Hantera</th>
@@ -340,7 +338,7 @@
 
 
 
-</section>
+
 
 
 
