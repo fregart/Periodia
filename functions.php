@@ -232,7 +232,7 @@ function getAllUsers()
     if ($count > 0) {
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr scope='row'>";
-            echo "<td><a href='#' onclick='showUser(" . $row["us_ID"] . ")' aria-hidden='true' data-toggle='modal' data-target='#editUserModal' id='" . $row["us_ID"] . "'>" . $row["us_username"] . "</a></td>";
+            echo "<td><a href='#' onclick='showUser(" . $row["us_ID"] . ")' aria-hidden='true' data-toggle='modal' data-target='#editUserModal' id='" . $row["us_ID"] . "'>" . ucfirst($row["us_username"]) . "</a></td>";
             echo "<td class='d-none d-lg-table-cell'> </td>";
             echo "<td class='text-center d-none d-lg-table-cell'>" . ucfirst($row["ro_name"]) . "</td>";
             echo "<td class='text-left d-none d-lg-table-cell'>";
