@@ -140,9 +140,9 @@ include('session.php');
         }         
           ?>
               </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <!--<a class="dropdown-item" href="#">Profil</a>                
-                <div class="dropdown-divider"></div>-->
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">  
+                <a href="#" id="profile-link" class="dropdown-item" data-target="page_profile">Profil</a>          
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="logout.php">Logga ut</a>
               </div>
             </li>
@@ -203,6 +203,21 @@ include('session.php');
   });
 </script>
 <script>
+
+  // dropdown-menu click listener
+  // will open the .PHP file matching the data-target name
+  // under content folder
+  $(".dropdown-menu>a#profile-link").click(function (e) {            
+      e.preventDefault();   
+      e.stopPropagation();     
+      var $target = $(this).data('target');           
+      var $file = $target + '.php';
+      var $path = 'content/';    
+              
+      $("#page-content").load($path + $file);                 
+  }); 
+
+
   // service worker manifest script
   if ('serviceWorker' in navigator) {
     console.log("Will the service worker register?");
@@ -213,7 +228,6 @@ include('session.php');
         console.log("No it didn't. This happened: ", err)
       });
   }
-
   
 </script>
 

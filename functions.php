@@ -9,12 +9,16 @@ require_once "dbconnect.php";
 
 if (isset($_POST['action'])) {
 
-    /**echo "<pre>";
+    /*echo "<pre>";
     echo var_dump($_POST);
-    echo "</pre>";   **/
+    echo "</pre>"; */
     
     if ($_POST['action'] == 'updateUser') {
         updateUserInfo(); // call function
+    }
+
+    if ($_POST['action'] == 'updateUserProfile') {
+        updateUserProfile(); // call function
     }
     
     if ($_POST['action'] == 'addUser') {
@@ -345,6 +349,57 @@ function updateUserInfo()
             <script>$(document).ready(function(){
                 alert('Uppdateringen genomförd');
                     $('#page-content').load('content/page_inställningar.php');                      
+                });                        
+            </script>
+        ";
+    } else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+    }
+}
+
+function updateUserProfile(){
+
+    // set global db variable from dbconnect
+    global $db;
+    
+    $userID = $_SESSION['user_ID'];
+
+    // prepare sql query and bind
+    $stmt = $db->prepare("UPDATE tbl_user
+                            SET
+                            us_username = ?,
+                            us_password = ?,
+                            us_fname = ?,
+                            us_lname = ?,
+                            us_email = ?,
+                            us_phone1 =  ?,
+                            us_phone2 = ?
+                           
+                            WHERE
+                            us_ID = $userID");
+    
+    // get _POST form values and bind.
+    // set parameters and execute
+    $stmt->bind_param("sssssss", $username, $pass, $firstname, $lastname, $email, $phone1, $phone2);
+    
+    $username  = $_POST['usernameInput'];
+    $pass      = $_POST['pass1Input'];
+    $firstname = $_POST['firstnameInput'];
+    $lastname  = $_POST['lastnameInput'];
+    $email     = $_POST['emailInput'];
+    $phone1    = $_POST['phone1Input'];
+    $phone2    = $_POST['phone2Input'];
+    
+    if ($stmt !== false) {
+        $stmt->execute();
+        $db->close();
+        $stmt->close();
+        
+        echo "
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>$(document).ready(function(){
+                alert('Din profil är uppdaterad.');
+                    $('#page-content').load('content/page_profile.php');                      
                 });                        
             </script>
         ";
