@@ -80,7 +80,8 @@ include('session.php');
 
         <div class="alert alert-secondary small" role="alert">
         <h6>Uppdateringar</h6>
-          <p>2021-01. Omdesign av projektsidorna. Översikt över arbetstimmar mm. Byte lösenord. Inventarielistor, maskin, materiel. Lägga in inlägg i projekt med bilder. Mina timmar ska få val för frånvarotimmar.</p>       
+          <p>2021-02. Omdesign av projektsidorna. Inventarielistor, maskin, materiel. Lägga in inlägg i projekt med bilder. Mina timmar ska få val för frånvarotimmar.</p>       
+          <p>2021-02-02. Profilsida tillagd, det går nu att uppdatera lösenordet.</p>
           <p>2021-01-01. I mina timmar går det nu att leta fram rapporterade timmar och uppdatera informationen.</p>  
           <p>2021-01-28. Rapportera timmar klarar bara ett inlägg per datum men nu går det lägga in fler timmar på samma projekt och samma dag.</p>  
           <p>2021-01-26. Mindre ändringar på design. Funktion som kollar efter dubletter av användare. Ändringar på struktur i databastabeller.</p>          
