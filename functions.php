@@ -82,6 +82,42 @@ if (isset($_POST['action'])) {
         deleteMachine(); // call function
     }
 
+    if ($_POST['action'] == 'newVehicle') {
+        addNewVehicle(); // call function
+    }
+
+    if ($_POST['action'] == 'editVehicle') {
+        updateVehicle(); // call function
+    }
+
+    if ($_POST['action'] == 'deleteVehicle') {
+        deleteVehicle(); // call function
+    }
+
+    if ($_POST['action'] == 'newTool') {
+        addNewTool(); // call function
+    }
+
+    if ($_POST['action'] == 'editTool') {
+        updateTool(); // call function
+    }
+
+    if ($_POST['action'] == 'deleteTool') {
+        deleteTool(); // call function
+    }
+
+    if ($_POST['action'] == 'newMaterial') {
+        addNewMaterial(); // call function
+    }
+
+    if ($_POST['action'] == 'editMaterial') {
+        updateMaterial(); // call function
+    }
+
+    if ($_POST['action'] == 'deleteMaterial') {
+        deleteMaterial(); // call function
+    }
+
     if ($_POST['action'] == 'checkIn') {        
         checkIn(); // call function
     }
@@ -742,13 +778,11 @@ function addNewMachine(){
 
     $stmt->close();
     $db->close();
-            
-            
-      
         
 }
 
 function updateMachine(){
+
     // set global db variable from dbconnect
     global $db;
 
@@ -817,6 +851,342 @@ function deleteMachine(){
             <script src='vendor/jquery/jquery.min.js'></script>
             <script>$(document).ready(function(){
                 alert('Maskinen har tagits bort');
+                    $('#page-content').load('content/page_equipment.php');                      
+                });                        
+            </script>
+        ";
+    } else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+    }
+}
+
+function addNewVehicle(){
+
+    // set global db variable from dbconnect
+    global $db;        
+            
+    // prepare sql query and bind
+    $stmt = $db->prepare("INSERT INTO tbl_vehicle (                        
+                                        ve_name,
+                                        ve_regnr,
+                                        ve_mileage,
+                                        ve_description,                
+                                        ve_status,
+                                        ve_owner)
+
+                        VALUES (
+                            ?,?,?,?,?,?)");
+
+    // get _POST form values and bind.
+    // set parameters and execute
+                
+    $stmt->bind_param("sssssi", $cname, $creg, $cmile, $cdesc, $cstatus, $companyID);            
+        
+    $cname      = $_POST['vehiclenameInput'];
+    $creg       = $_POST['regnrInput'];
+    $cmile      = $_POST['mileageInput'];
+    $cdesc      = $_POST['descriptionInput'];
+    $cstatus    = "1";
+    $companyID  = $_SESSION['user_company_ID'];
+
+    $stmt->execute();
+
+    echo "
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>
+                alert('Nytt fordon sparad.');
+                $('#page-content').load('content/page_schema.php');                           
+            </script>
+        ";
+
+    $stmt->close();
+    $db->close();
+}
+
+function updateVehicle(){
+
+    // set global db variable from dbconnect
+    global $db;
+
+    $ID  = $_POST['id'];
+    
+    // prepare sql query and bind
+    $stmt = $db->prepare("UPDATE tbl_vehicle
+                            SET
+                            ve_name = ?,
+                            ve_regnr = ?,
+                            ve_mileage = ?,
+                            ve_description = ?,
+                            ve_status =  ?,
+                            ve_owner = ?
+                            WHERE
+                            ve_ID = $ID");
+    
+    // get _POST form values and bind.
+    // set parameters and execute
+    $stmt->bind_param("sssssi", $name, $regnr, $mileage, $desc,  $status, $owner);
+    
+    $name       = $_POST['vehiclenameInput'];
+    $regnr      = strtoupper($_POST['regnrInput']);
+    $mileage    = $_POST['mileageInput'];
+    $desc       = $_POST['descriptionInput'];
+    $status     = "1";
+    $owner      = $_SESSION['user_company_ID'];
+    
+    if ($stmt !== false) {
+        $stmt->execute();
+        $db->close();
+        $stmt->close();
+        
+        echo "
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>$(document).ready(function(){
+                alert('Uppdateringen genomförd.');
+                    $('#page-content').load('content/page_equipment.php');                      
+                });                        
+            </script>
+        ";
+    } else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+    }
+}
+
+function deleteVehicle(){
+    // set global db variable from dbconnect
+    global $db;
+        
+    $ID = $_POST['removeThisID'];
+
+    $stmt = $db->prepare("DELETE FROM tbl_vehicle
+                          WHERE ve_ID = ?");
+
+    $stmt->bind_param('i', $ID);
+
+    if ($stmt !== false) {
+        $stmt->execute();
+        $stmt->close();
+        $db->close();
+        
+        echo "  
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>$(document).ready(function(){
+                alert('Fordonet har tagits bort');
+                    $('#page-content').load('content/page_equipment.php');                      
+                });                        
+            </script>
+        ";
+    } else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+    }
+}
+
+function addNewTool(){
+
+    // set global db variable from dbconnect
+    global $db;        
+            
+    // prepare sql query and bind
+    $stmt = $db->prepare("INSERT INTO tbl_tools (                        
+                                        to_name,
+                                        to_description,  
+                                        to_owner)
+
+                        VALUES (
+                            ?,?,?)");
+
+    // get _POST form values and bind.
+    // set parameters and execute
+                
+    $stmt->bind_param("ssi", $cname, $cdesc, $companyID);            
+        
+    $cname      = $_POST['toolnameInput'];
+    $cdesc      = $_POST['descriptionInput'];
+    $companyID  = $_SESSION['user_company_ID'];
+
+    $stmt->execute();
+
+    echo "
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>
+                alert('Nytt verktyg sparad.');
+                $('#page-content').load('content/page_schema.php');                           
+            </script>
+        ";
+
+    $stmt->close();
+    $db->close();
+}
+
+function updateTool(){
+
+    // set global db variable from dbconnect
+    global $db;
+
+    $ID  = $_POST['id'];
+    
+    // prepare sql query and bind
+    $stmt = $db->prepare("UPDATE tbl_tools
+                            SET
+                            to_name = ?,
+                            to_description = ?,
+                            to_owner = ?
+                            WHERE
+                            to_ID = $ID");
+    
+    // get _POST form values and bind.
+    // set parameters and execute
+    $stmt->bind_param("ssi", $name, $desc,  $owner);
+    
+    $name       = $_POST['toolnameInput'];
+    $desc       = $_POST['descriptionInput'];
+    $owner      = $_SESSION['user_company_ID'];
+    
+    if ($stmt !== false) {
+        $stmt->execute();
+        $db->close();
+        $stmt->close();
+        
+        echo "
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>$(document).ready(function(){
+                alert('Uppdateringen genomförd.');
+                    $('#page-content').load('content/page_equipment.php');                      
+                });                        
+            </script>
+        ";
+    } else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+    }
+}
+
+function deleteTool(){
+    // set global db variable from dbconnect
+    global $db;
+        
+    $ID = $_POST['removeThisID'];
+
+    $stmt = $db->prepare("DELETE FROM tbl_tools
+                          WHERE to_ID = ?");
+
+    $stmt->bind_param('i', $ID);
+
+    if ($stmt !== false) {
+        $stmt->execute();
+        $stmt->close();
+        $db->close();
+        
+        echo "  
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>$(document).ready(function(){
+                alert('Verktyget har tagits bort');
+                    $('#page-content').load('content/page_equipment.php');                      
+                });                        
+            </script>
+        ";
+    } else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+    }
+}
+
+function deleteMaterial(){
+    // set global db variable from dbconnect
+    global $db;
+        
+    $ID = $_POST['removeThisID'];
+
+    $stmt = $db->prepare("DELETE FROM tbl_materials
+                          WHERE ma_ID = ?");
+
+    $stmt->bind_param('i', $ID);
+
+    if ($stmt !== false) {
+        $stmt->execute();
+        $stmt->close();
+        $db->close();
+        
+        echo "  
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>$(document).ready(function(){
+                alert('Materielet har tagits bort');
+                    $('#page-content').load('content/page_equipment.php');                      
+                });                        
+            </script>
+        ";
+    } else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+    }
+}
+
+function addNewMaterial(){
+
+    // set global db variable from dbconnect
+    global $db;        
+            
+    // prepare sql query and bind
+    $stmt = $db->prepare("INSERT INTO tbl_materials (                        
+                                        ma_name,
+                                        ma_description,  
+                                        ma_owner)
+
+                        VALUES (
+                            ?,?,?)");
+
+    // get _POST form values and bind.
+    // set parameters and execute
+                
+    $stmt->bind_param("ssi", $cname, $cdesc, $companyID);            
+        
+    $cname      = $_POST['materialnameInput'];
+    $cdesc      = $_POST['descriptionInput'];
+    $companyID  = $_SESSION['user_company_ID'];
+
+    $stmt->execute();
+
+    echo "
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>
+                alert('Nytt materiel sparad.');
+                $('#page-content').load('content/page_schema.php');                           
+            </script>
+        ";
+
+    $stmt->close();
+    $db->close();
+}
+
+function updateMaterial(){
+
+    // set global db variable from dbconnect
+    global $db;
+
+    $ID  = $_POST['id'];
+    
+    // prepare sql query and bind
+    $stmt = $db->prepare("UPDATE tbl_materials
+                            SET
+                            ma_name = ?,
+                            ma_description = ?,
+                            ma_owner = ?
+                            WHERE
+                            ma_ID = $ID");
+    
+    // get _POST form values and bind.
+    // set parameters and execute
+    $stmt->bind_param("ssi", $name, $desc,  $owner);
+    
+    $name       = $_POST['materialnameInput'];
+    $desc       = $_POST['descriptionInput'];
+    $owner      = $_SESSION['user_company_ID'];
+    
+    if ($stmt !== false) {
+        $stmt->execute();
+        $db->close();
+        $stmt->close();
+        
+        echo "
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>$(document).ready(function(){
+                alert('Uppdateringen genomförd.');
                     $('#page-content').load('content/page_equipment.php');                      
                 });                        
             </script>
@@ -944,6 +1314,153 @@ function getAllMachines()
             echo "Reg. nr. " . $row["ma_regnr"] ."<br><br>";   
             if ($_SESSION['user_role'] == 2) {
                 echo "<button class='btn btn-success btn-sm' id='btn-edit-machine' maid='" . $row['ma_ID'] . "' title='Redigera'>";
+                echo "<i class='fa fa-pencil-alt'></i> <span>Redigera</span></button>";     
+            }     
+            echo "</div>";
+            echo "</div>";
+            echo "<p></p>";
+        }
+    }else {
+        echo "<div class='alert alert-secondary' role='alert'>Inga poster hittades.</div>";
+    }
+    
+    // free sql result
+    mysqli_free_result($result);
+    
+    // return result
+    return $result;
+    
+    // close connection
+    $db->close();
+}
+
+function getAllVehicles()
+{
+    global $db;
+    
+    $company = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT *
+            FROM tbl_vehicle a
+            WHERE a.ve_owner = $company
+            ORDER BY a.ve_name ASC";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            echo "<div class='card'>";
+            echo "<div class='card-body'>";
+            echo "<strong><a href='#' id='vehicle-link' maid='" . $row["ve_ID"] . "'>" . $row["ve_name"] . "</a></strong><br>";
+            echo "Reg. nr. " . $row["ve_regnr"] ."<br><br>";   
+            if ($_SESSION['user_role'] == 2) {
+                echo "<button class='btn btn-success btn-sm' id='btn-edit-vehicle' maid='" . $row['ve_ID'] . "' title='Redigera'>";
+                echo "<i class='fa fa-pencil-alt'></i> <span>Redigera</span></button>";     
+            }     
+            echo "</div>";
+            echo "</div>";
+            echo "<p></p>";
+        }
+    }else {
+        echo "<div class='alert alert-secondary' role='alert'>Inga poster hittades.</div>";
+    }
+    
+    // free sql result
+    mysqli_free_result($result);
+    
+    // return result
+    return $result;
+    
+    // close connection
+    $db->close();
+}
+
+function getAllTools()
+{
+    global $db;
+    
+    $company = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT *
+            FROM tbl_tools a
+            WHERE a.to_owner = $company
+            ORDER BY a.to_name ASC";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            echo "<div class='card'>";
+            echo "<div class='card-body'>";
+            echo "<strong><a href='#' id='tool-link' maid='" . $row["to_ID"] . "'>" . $row["to_name"] . "</a></strong><br><br>";
+            
+            if ($_SESSION['user_role'] == 2) {
+                echo "<button class='btn btn-success btn-sm' id='btn-edit-tool' maid='" . $row['to_ID'] . "' title='Redigera'>";
+                echo "<i class='fa fa-pencil-alt'></i> <span>Redigera</span></button>";     
+            }     
+            echo "</div>";
+            echo "</div>";
+            echo "<p></p>";
+        }
+    }else {
+        echo "<div class='alert alert-secondary' role='alert'>Inga poster hittades.</div>";
+    }
+    
+    // free sql result
+    mysqli_free_result($result);
+    
+    // return result
+    return $result;
+    
+    // close connection
+    $db->close();
+}
+
+function getAllMaterials()
+{
+    global $db;
+    
+    $company = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT *
+            FROM tbl_materials a
+            WHERE a.ma_owner = $company
+            ORDER BY a.ma_name ASC";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            echo "<div class='card'>";
+            echo "<div class='card-body'>";
+            echo "<strong><a href='#' id='material-link' maid='" . $row["ma_ID"] . "'>" . $row["ma_name"] . "</a></strong><br><br>";
+            
+            if ($_SESSION['user_role'] == 2) {
+                echo "<button class='btn btn-success btn-sm' id='btn-edit-material' maid='" . $row['ma_ID'] . "' title='Redigera'>";
                 echo "<i class='fa fa-pencil-alt'></i> <span>Redigera</span></button>";     
             }     
             echo "</div>";

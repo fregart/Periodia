@@ -32,7 +32,7 @@ include('session.php');
 
 <body>
 
-  <div class="d-flex" id="wrapper">
+<div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">

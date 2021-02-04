@@ -62,18 +62,32 @@
                 </div>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionPeriodia">
                     <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                        squid. 3
-                        wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum
-                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee
-                        nulla
-                        assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt
-                        sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                        farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                        accusamus
-                        labore sustainable VHS.
+                        
+                    <div class="row">
+                            <div class="col">
+                                <?php
+                                    if ($_SESSION['user_role'] == 2) {?>
+                                <button class="btn btn-primary btn-sm float-right" id="btn-add-new-vehicle" title="Lägg till nytt fordon">
+                                    <i class="fa fa-plus-circle"></i> <span>Lägg till</span></button>
+                                <?php
+                                    }
+                                ?>
+                            </div>
+                        </div>
+
+                        <p></p>
+
+
+                        <div class="row">
+                            <div class="col">
+                               
+                                <?php 
+                                    getAllVehicles();
+                                ?>
+                                  
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -88,18 +102,32 @@
                 </div>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionPeriodia">
                     <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                        squid. 3
-                        wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum
-                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee
-                        nulla
-                        assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt
-                        sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                        farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                        accusamus
-                        labore sustainable VHS.
+                    <div class="row">
+                            <div class="col">
+                                <?php
+                                    if ($_SESSION['user_role'] == 2) {?>
+                                <button class="btn btn-primary btn-sm float-right" id="btn-add-new-tool" title="Lägg till nytt verktyg">
+                                    <i class="fa fa-plus-circle"></i> <span>Lägg till</span></button>
+                                <?php
+                                    }
+                                ?>
+                            </div>
+                        </div>
+
+                        <p></p>
+
+
+                        <div class="row">
+                            <div class="col">
+                               
+                                <?php 
+                                    getAllTools();
+                                ?>
+                                  
+                            </div>
+                        </div>
+
+                    </div>
                     </div>
                 </div>
             </div>
@@ -114,18 +142,36 @@
                 </div>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionPeriodia">
                     <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                        squid. 3
-                        wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum
-                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee
-                        nulla
-                        assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt
-                        sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                        farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them
-                        accusamus
-                        labore sustainable VHS.
+                       
+
+                    <div class="row">
+                            <div class="col">
+                                <?php
+                                    if ($_SESSION['user_role'] == 2) {?>
+                                <button class="btn btn-primary btn-sm float-right" id="btn-add-new-material" title="Lägg till nytt materiel">
+                                    <i class="fa fa-plus-circle"></i> <span>Lägg till</span></button>
+                                <?php
+                                    }
+                                ?>
+                            </div>
+                        </div>
+
+                        <p></p>
+
+
+                        <div class="row">
+                            <div class="col">
+                               
+                                <?php 
+                                    getAllMaterials();
+                                ?>
+                                  
+                            </div>
+                        </div>
+
+                    </div>
+
+
                     </div>
                 </div>
             </div>
@@ -150,6 +196,57 @@ $(document).ready(function() {
     // add new machine button listener
     $("#btn-add-new-machine").click(function() {
         $('#page-content').load('content/page_newmachine.php');
+    });
+
+    // vehicle list click listener
+    $(document).on("click", "#vehicle-link", function() {
+        var id = $(this).attr('maid');
+        $("#page-content").load('content/page_showvehicle.php?id=' + id, true);
+    });
+
+    // vehicle edit button click listener
+    $(document).on("click", "#btn-edit-vehicle", function() {
+        var id = $(this).attr('maid');
+        $("#page-content").load('content/page_editvehicle.php?id=' + id, true);
+    });
+
+    // add new vehicle button listener
+    $("#btn-add-new-vehicle").click(function() {
+        $('#page-content').load('content/page_newvehicle.php');
+    });
+
+    // tool list click listener
+    $(document).on("click", "#tool-link", function() {
+        var id = $(this).attr('maid');
+        $("#page-content").load('content/page_showtool.php?id=' + id, true);
+    });
+
+    // tool edit button click listener
+    $(document).on("click", "#btn-edit-tool", function() {
+        var id = $(this).attr('maid');
+        $("#page-content").load('content/page_edittool.php?id=' + id, true);
+    });
+
+    // add new tool button listener
+    $("#btn-add-new-tool").click(function() {
+        $('#page-content').load('content/page_newtool.php');
+    });
+
+    // material list click listener
+    $(document).on("click", "#material-link", function() {
+        var id = $(this).attr('maid');
+        $("#page-content").load('content/page_showmaterial.php?id=' + id, true);
+    });
+
+    // material edit button click listener
+    $(document).on("click", "#btn-edit-material", function() {
+        var id = $(this).attr('maid');
+        $("#page-content").load('content/page_editmaterial.php?id=' + id, true);
+    });
+
+    // add new material button listener
+    $("#btn-add-new-material").click(function() {
+        $('#page-content').load('content/page_newmaterial.php');
     });
 
 });

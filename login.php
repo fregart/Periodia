@@ -129,7 +129,8 @@ session_start();
                      <input type = "submit" value = " Logga in " class="btn btn-primary mb-2" /><br />
                   </form>
                
-                  <?php if (!($error == "")) {
+                  <?php    
+                     if (!($error == "")) {
                      echo "<div class='alert alert-danger'>";
                      echo $error;
                      echo "</div>";
