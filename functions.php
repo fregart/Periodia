@@ -2158,9 +2158,7 @@ function getWorkHoursForDate($cdate)
         
     if(isset($_SESSION['user_ID'])){ 
         $userID = $_SESSION['user_ID'];
-    } else{ 
-      header("location:login.php");
-    }       
+      
     
     $sql = "SELECT
                 a.wo_total          
@@ -2232,6 +2230,7 @@ function getWorkHoursForDate($cdate)
         return 0;
 
     }
+}
     
 }
 
