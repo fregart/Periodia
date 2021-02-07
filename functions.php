@@ -2232,9 +2232,9 @@ function getWorkHoursForDate($cdate)
 
     }else{
         /* Redirect browser */
-        session_destroy();
-        header("Location: login.php"); 
+        session_destroy(); 
         exit();
+        
     }
     
 }
