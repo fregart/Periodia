@@ -95,7 +95,7 @@ if(isset($_GET['setProjectID'])){
                     <div class="col">
                         <div class="form-group">
                         <label for="calcInput">Timmar</label>                   
-                        <input type="text" class="form-control font-weight-bold text-success" id="calcInput" name="calcInput" value="" />                                                
+                        <input type="text" class="form-control font-weight-bold text-success" id="calcInput" name="calcInput" value="" disabled />                                                
                         </div>
                     </div>
                 </div>
