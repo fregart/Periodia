@@ -2233,8 +2233,8 @@ function getWorkHoursForDate($cdate)
     }else{
         /* Redirect browser */
         session_destroy(); 
+        echo "<script type='text/javascript'>window.top.location='https://app.periodia.se/';</script>";
         exit();
-        
     }
     
 }
