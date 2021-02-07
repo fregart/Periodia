@@ -2160,77 +2160,82 @@ function getWorkHoursForDate($cdate)
         $userID = $_SESSION['user_ID'];
       
     
-    $sql = "SELECT
-                a.wo_total          
-            FROM
-                tbl_workinghours a            
-            WHERE
-                a.wo_userID = $userID
-            AND
-                a.wo_date = '$date'
-            ";
-    
-    $result = mysqli_query($db, $sql);
-    
-    // print error message if something happend
-    if (!$result) {
-        printf("Error: %s\n", mysqli_error($db));
+        $sql = "SELECT
+                    a.wo_total          
+                FROM
+                    tbl_workinghours a            
+                WHERE
+                    a.wo_userID = $userID
+                AND
+                    a.wo_date = '$date'
+                ";
+        
+        $result = mysqli_query($db, $sql);
+        
+        // print error message if something happend
+        if (!$result) {
+            printf("Error: %s\n", mysqli_error($db));
+            exit();
+        }
+        
+        $count = mysqli_num_rows($result);    
+        
+        // if a date was found split wo_total time like 08:00 to 08 and 00
+        // remove first 0 and return only 8 to time panel
+        // if wo_total time is 00:00 return only 0 to time panel
+        global $calchours;
+        global $calcminutes;
+        $calchours = 0;
+        $calcminutes = 0;
+        if ($count > 0) {
+            while ($row = mysqli_fetch_array($result)) {
+
+                $str     = $row['wo_total'];            
+                $str_exp = (explode(':', $str));                    
+                
+                // calc hours
+                if ($str_exp[0][0] == 0 AND $str_exp[0][1] !=0) {
+                    $calchours += str_replace('0', '', $str_exp[0]);                                                                                             
+
+                } elseif ($str_exp[0][0] == 0 AND $str_exp[0][1] == 0) {                
+                    $calchours += $str_exp[0][1];                                      
+
+                }else {                
+                    $calchours += $str_exp[0];                                                            
+
+                }
+                
+                //calc minutes
+                if ($str_exp[1][0] == 0 AND $str_exp[1][1] !=0) {
+                    $calcminutes += str_replace('0', '', $str_exp[1]);                                                                                             
+
+                } elseif ($str_exp[1][0] == 0 AND $str_exp[1][1] == 0) {                
+                    $calcminutes += $str_exp[1][1];                                      
+
+                }else {                
+                    $calcminutes += $str_exp[1];                                                            
+
+                }
+
+                // if minutes are more then or equal 60 add +1 calchours
+                if (($calcminutes / 60)  >=1) {
+                    $calchours += bcdiv(($calcminutes / 60), 1, 0);
+                }            
+                
+            }
+            // return $calchours;                
+            return $calchours;
+            
+        } else {
+            return 0;
+        }
+
+    }else{
+        /* Redirect browser */
+        session_destroy();
+        header("Location: login.php"); 
         exit();
     }
-    
-    $count = mysqli_num_rows($result);    
-    
-    // if a date was found split wo_total time like 08:00 to 08 and 00
-    // remove first 0 and return only 8 to time panel
-    // if wo_total time is 00:00 return only 0 to time panel
-    global $calchours;
-    global $calcminutes;
-    $calchours = 0;
-    $calcminutes = 0;
-    if ($count > 0) {
-        while ($row = mysqli_fetch_array($result)) {
-
-            $str     = $row['wo_total'];            
-            $str_exp = (explode(':', $str));                    
-            
-            // calc hours
-            if ($str_exp[0][0] == 0 AND $str_exp[0][1] !=0) {
-                $calchours += str_replace('0', '', $str_exp[0]);                                                                                             
-
-            } elseif ($str_exp[0][0] == 0 AND $str_exp[0][1] == 0) {                
-                $calchours += $str_exp[0][1];                                      
-
-            }else {                
-                $calchours += $str_exp[0];                                                            
-
-            }
-            
-            //calc minutes
-            if ($str_exp[1][0] == 0 AND $str_exp[1][1] !=0) {
-                $calcminutes += str_replace('0', '', $str_exp[1]);                                                                                             
-
-            } elseif ($str_exp[1][0] == 0 AND $str_exp[1][1] == 0) {                
-                $calcminutes += $str_exp[1][1];                                      
-
-            }else {                
-                $calcminutes += $str_exp[1];                                                            
-
-            }
-
-            // if minutes are more then or equal 60 add +1 calchours
-            if (($calcminutes / 60)  >=1) {
-                $calchours += bcdiv(($calcminutes / 60), 1, 0);
-            }            
-            
-        }
-        // return $calchours;                
-        return $calchours;
-        
-    } else {
-        return 0;
-
-    }
-}
     
 }
 

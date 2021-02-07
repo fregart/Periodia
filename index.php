@@ -54,7 +54,7 @@ include('session.php');
       <div class="list-group list-group-flush">      
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_schema"><div class="sidebar-icon"><i class="fas fa-home"></i></div> Startsida</a>  
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_projekt"><div class="sidebar-icon"><i class="fas fa-tasks"></i></div> Projekt</a>         
-        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_equipment"><div class="sidebar-icon"><i class="fas fa-tools"></i></div> Inventarier</a>           
+        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_equipment"><div class="sidebar-icon"><i class="fas fa-tools"></i></div> Inventarier <div class="badge badge-pill badge-danger"><small>Ny</small></div> </a>          
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_myhours"><div class="sidebar-icon"><i class="fas fa-user-clock"></i></div> Mina timmar</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reporttime"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera tid</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportabsence"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera frånvaro</a>
@@ -63,6 +63,7 @@ include('session.php');
           if ($_SESSION['user_role'] == 2) {
             echo "
             <div class='dropdown-divider'></div>
+            <a href='#' class='list-group-item list-group-item-action bg-dark disabled' data-target='page_planning'><div class='sidebar-icon'><i class='fas fa-pencil-ruler'></i></div> Planering</a>
             <a href='#' class='list-group-item list-group-item-action bg-dark disabled' data-target='page_staff'><div class='sidebar-icon'><i class='fas fa-users'></i></div> Personal</a>     
             <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_reports'><div class='sidebar-icon'><i class='far fa-file-alt'></i></div> Rapporter</a>
             <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_inställningar'><div class='sidebar-icon'><i class='fas fa-cog'></i></div> Inställningar</a>
@@ -80,12 +81,10 @@ include('session.php');
 
         <div class="alert alert-secondary small" role="alert">
         <h6>Uppdateringar</h6>
-          <p>2021-02. Omdesign av projektsidorna. Inventarielistor, maskin, materiel. Lägga in inlägg i projekt med bilder. Mina timmar ska få val för frånvarotimmar.</p>       
+          <p>2021-02. Omdesign av projektsidorna. Lägga in inlägg i projekt med bilder. Mina timmar ska få val för frånvarotimmar.</p>       
+          <p>2021-02-04. Det finns nu tillgång till inventerielistor för maskiner, fordon, verktyg och materiel.</p>
           <p>2021-02-02. Profilsida tillagd, det går nu att uppdatera lösenordet.</p>
           <p>2021-01-01. I mina timmar går det nu att leta fram rapporterade timmar och uppdatera informationen.</p>  
-          <p>2021-01-28. Rapportera timmar klarar bara ett inlägg per datum men nu går det lägga in fler timmar på samma projekt och samma dag.</p>  
-          <p>2021-01-26. Mindre ändringar på design. Funktion som kollar efter dubletter av användare. Ändringar på struktur i databastabeller.</p>          
-          
         </div>
         
       </div>
