@@ -2450,7 +2450,7 @@ function getUserFullName($cuserID){
 
 }
 
-function getCurrentProjectNotes($cprojectid){
+function getCurrentProjectNotes($cprojectID){
 
     global $db;
             
@@ -2459,11 +2459,9 @@ function getCurrentProjectNotes($cprojectid){
             FROM
             tbl_notes a
             LEFT JOIN tbl_user b ON
-                a.no_userID = b.us_ID  
-            LEFT JOIN tbl_image c ON
-                a.no_ID = c.im_noteID
+                a.no_userID = b.us_ID              
             WHERE
-            a.no_projectID = $cprojectid
+            a.no_projectID = $cprojectID
             ";
 
     $result = mysqli_query($db, $sql);
@@ -2478,13 +2476,64 @@ function getCurrentProjectNotes($cprojectid){
         
     if ($count > 0) {                
         while ($row = mysqli_fetch_array($result)) {
+            echo "<div class='border p-3' style='background-color:#eee;'>";
+                echo "<div class='row'>";
+                        getCurrentProjectNotesImages($row['no_ID']);
+                echo "</div>";
 
-           echo "<div class='card-body'>
-                    <img style='width: 18rem'; class='card-img-top' src='uploads/".ucfirst($row["im_name"]) . "' alt='Card image cap'>
-                    <p></p>
-                    <p class='small'>".ucfirst($row["us_username"]) . "<span class='text-muted'> - " . $row["no_created"] . "</span></p>
-                    <p class='card-text'>".ucfirst($row["no_content"])."</p>
-                </div>";                                  
+                echo "<p></p>";
+
+                echo "<div class='row'>
+                        <div class='col'>
+                            <p class='small'>" . ucfirst($row["us_username"]) . "<span class='text-muted'> - " . $row["no_created"] . "</span></p>
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class='col'>
+                            <p> " . ucfirst($row["no_content"]) . "</p>
+                        </div>
+                    </div>";
+            echo "</div>";
+        }                            
+        
+    }
+    
+}
+
+/**
+ * get all images that belong to note ID
+ */
+function getCurrentProjectNotesImages($noteID){
+
+    global $db;
+            
+    // get notes and user info
+    $sql = "SELECT *
+            FROM
+            tbl_image a            
+            WHERE
+            a.im_noteID = $noteID
+            ";
+
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+        
+    if ($count > 0) {                
+        while ($row = mysqli_fetch_array($result)) {           
+
+            echo "<div class='col-lg-2 col-md-6 col-xs-12'>
+                <a href='#'>
+                    <img class='img-thumbnail img-fluid' src='uploads/" . $row["im_name"] . "' alt='Inlägg bild'>
+                </a>
+            </div>";
         }                            
         
     }
