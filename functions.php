@@ -630,12 +630,14 @@ function addNotes(){
 
     if ($stmt !== false) {
         $stmt->execute();
+        
+        checkIfAnyFileUploaded();
 
         echo "
             <script src='vendor/jquery/jquery.min.js'></script>
             <script>$(document).ready(function(){
                 alert('Ditt inlägg är sparat');
-                $('#page-content').load('content/page_inställningar.php');
+                $('#page-content').load('content/page_projekt.php');
             });
             </script>
         ";
@@ -648,86 +650,72 @@ function addNotes(){
     }
     $stmt->close();
     
-    // get last added note ID from tbl_notes
-    $stmt   = "SELECT MAX(no_ID) FROM tbl_notes";
-    $result = mysqli_query($db, $stmt);
-    $row  = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    $count = mysqli_num_rows($result);
+}
 
-    // if row was found insert noteID and file information to tbl_image
-    if ($count == 1) {
+/**
+ * check if any file uploaded
+ */
+function checkIfAnyFileUploaded(){
 
-        $noteID = $row['MAX(no_ID)'];        
+    $count = count($_FILES['fileToUpload']['name']);
 
-        $name = $_FILES['fileToUpload']['name'];
-        $target_dir = "upload/";
-        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-
-        // Select file type
-        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-        // Valid file extensions
-        $extensions_arr = array("jpg","jpeg","png","gif");
-
-        // Check extension
-        if( in_array($imageFileType,$extensions_arr) ){
-
-        // Insert record
-        $query = "insert into tbl_image(im_name, im_noteID) values('".$name."','".$noteID."')";
+    if($count>0){    
         
-        // execute
-        if (mysqli_query($db,$query)) {
-            
-            $uploadOk = 1;
-            
-        } else {
-            $uploadOk = 0;
-        }
-                    
+        for($j=0; $j < count($_FILES["fileToUpload"]['name']); $j++){ //loop the uploaded file array
 
-        // Check if $uploadOk is set to 0 by an error
-        if ($uploadOk == 0) {
-            echo"
-            <script src='vendor/jquery/jquery.min.js'></script>
-                <script>$(document).ready(function(){
-                    alert('Bilden gick inte att ladda upp.');
-                    $('#page-content').load('content/page_inställningar.php');
-                })";
-
-            // if everything is ok, try to upload file
-        } else {
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir.$name)) {
-                echo "
-                <script src='vendor/jquery/jquery.min.js'></script>
-                <script>$(document).ready(function(){
-                    alert('Bilden ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " har laddats upp.');
-                    $('#page-content').load('content/page_inställningar.php');
-                });
-                </script>";
+            $theFile = $_FILES["fileToUpload"]['name']["$j"]; //file name
             
-            } else {
-                echo "
-                <script src='vendor/jquery/jquery.min.js'></script>
-                <script>$(document).ready(function(){
-                    alert('Ett fel uppstod vid uppladdning av bilden.');
-                    $('#page-content').load('content/page_inställningar.php');
-                });
-                </script>";
-               
+            // create a random name postfix and add it to file name                
+            $postfix = date('YmdHis') . '_' . str_pad(rand(1,10000), 5, '0', STR_PAD_LEFT) . '_';
+
+            // get rid of slashes and add postfix
+            $theFilePostfix = $postfix . stripslashes($theFile);
+
+            $path = 'uploads/'.$theFilePostfix; //generate the destination path
+
+
+            if(move_uploaded_file($_FILES["fileToUpload"]['tmp_name']["$j"],$path)){ //upload the file                                
+
+                // connect the image(s) to the latest note
+                global $db;
+                $stmt   = "SELECT MAX(no_ID) FROM tbl_notes";
+                $result = mysqli_query($db, $stmt);
+                $row  = mysqli_fetch_array($result, MYSQLI_ASSOC);                
+                
+                $noteID = $row['MAX(no_ID)']; // latest note ID
+                $query = "insert into tbl_image(im_name, im_noteID) values('".$theFilePostfix."','".$noteID."')"; // insert into tbl_image
+
+                // execute
+                if (mysqli_query($db,$query)) {
+                
+                    echo"
+                        <script src='vendor/jquery/jquery.min.js'></script>
+                        <script>$(document).ready(function(){
+                            alert('Filen# ".($j+1)." ($theFilePostfix) är sparad.');
+                            $('#page-content').load('content/page_projekt.php');
+                        })";                    
+                
+                } else {
+                    echo"
+                        <script src='vendor/jquery/jquery.min.js'></script>
+                        <script>$(document).ready(function(){
+                            alert('Filen# ".($j+1)." ($theFilePostfix) gick inte att spara på servern.');
+                            $('#page-content').load('content/page_projekt.php');
+                        })";                    
+                }
+
+
             }
         }
-        
-        }
-    } else {
-        die('prepare() failed: ' . htmlspecialchars($db->error));
     }
-    
-
-
-        
-    
-
-    
+    else {        
+        echo"
+        <script src='vendor/jquery/jquery.min.js'></script>
+        <script>$(document).ready(function(){
+            alert('Inga filer hittades att ladda upp.');
+            $('#page-content').load('content/page_projekt.php');
+        })";    
+    }
 }
 
 function addNewMachine(){
@@ -2466,6 +2454,7 @@ function getCurrentProjectNotes($cprojectid){
 
     global $db;
             
+    // get notes and user info
     $sql = "SELECT *
             FROM
             tbl_notes a
@@ -2476,7 +2465,7 @@ function getCurrentProjectNotes($cprojectid){
             WHERE
             a.no_projectID = $cprojectid
             ";
-    
+
     $result = mysqli_query($db, $sql);
     
     // print error message if something happend
@@ -2491,7 +2480,7 @@ function getCurrentProjectNotes($cprojectid){
         while ($row = mysqli_fetch_array($result)) {
 
            echo "<div class='card-body'>
-                    <img style='width: 18rem'; class='card-img-top' src='upload/".ucfirst($row["im_name"]) . "' alt='Card image cap'>
+                    <img style='width: 18rem'; class='card-img-top' src='uploads/".ucfirst($row["im_name"]) . "' alt='Card image cap'>
                     <p></p>
                     <p class='small'>".ucfirst($row["us_username"]) . "<span class='text-muted'> - " . $row["no_created"] . "</span></p>
                     <p class='card-text'>".ucfirst($row["no_content"])."</p>

@@ -71,7 +71,7 @@ echo "<!-- Show project -->
             <a class='nav-link disabled' id='milestone-tab' data-toggle='tab' href='#milestone' role='tab' aria-controls='milestone' aria-selected='false'>Delmål</a>
          </li>
          <li class='nav-item'>
-            <a class='nav-link disabled' id='notes-tab' data-toggle='tab' href='#notes' role='tab' aria-controls='notes' aria-selected='false'>Inlägg</a>
+            <a class='nav-link' id='notes-tab' data-toggle='tab' href='#notes' role='tab' aria-controls='notes' aria-selected='false'>Inlägg</a>
          </li>
 
          <!--
@@ -111,8 +111,8 @@ echo "<!-- Show project -->
                   </div> 
                                 
                   <div class='form-group'>              
-                    <label for='file'>Lägg till bild</label>
-                    <input type='file' name='fileToUpload' class='form-control-file' id='fileToUpload'>
+                    <label for='file'>Lägg till en eller flera bilder</label>
+                    <input type='file' name='fileToUpload[]' class='form-control-file' id='fileToUpload' multiple='multiple'>
                   </div>
 
                   <div class='form-group'>
@@ -256,7 +256,7 @@ echo "<!-- Show project -->
       }
       echo "</section>";
   }else {
-    echo "Inga projekt hittades!";
+    echo "<div class='alert alert-info'>Inga projekt hittades!</div>";
   }
   ?>
 <script>
