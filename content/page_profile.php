@@ -43,7 +43,7 @@ $userID = $_SESSION['user_ID'];
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="account-fn">Användarnamn</label>
-                            <input class="form-control" type="text" id="usernameInput" name="usernameInput" value="<?php echo $row['us_username'] ?>" required="">
+                            <input class="form-control" type="text" id="usernameInput" name="usernameInput" value="<?php echo $row['us_username'] ?>" readonly>
                         </div>
                     </div>
                     <div class="col-md-6">
