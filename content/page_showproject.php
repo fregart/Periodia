@@ -67,9 +67,7 @@ echo "<!-- Show project -->
          <li class='nav-item'>
             <a class='nav-link active' id='företag-tab' data-toggle='tab' href='#företag' role='tab' aria-controls='företag' aria-selected='true'>Information</a>
          </li>
-         <li class='nav-item'>
-            <a class='nav-link disabled' id='milestone-tab' data-toggle='tab' href='#milestone' role='tab' aria-controls='milestone' aria-selected='false'>Delmål</a>
-         </li>
+         
          <li class='nav-item'>
             <a class='nav-link' id='notes-tab' data-toggle='tab' href='#notes' role='tab' aria-controls='notes' aria-selected='false'>Inlägg</a>
          </li>
@@ -127,33 +125,7 @@ echo "<!-- Show project -->
               getCurrentProjectNotes($row['pr_ID']);
               
             echo "</div>
-            
-            <div class='tab-pane' id='milestone' role='tabpanel' aria-labelledby='milestone-tab'>
                   
-              <div class='table-responsive'>
-                <table class='table table-striped table-hover table-m table-bordered table-projectlist'>
-                    <thead class='thead-dark'>                  
-                      <tr class='text-center'>                      
-                          <th scope='col'>Start/Möte</th>
-                          <th scope='col'>Arbete</th>                                            
-                          <th scope='col'>Avslut/Möte</th>
-                          <th scope='col'>Fakturera</th>
-                      </tr>
-                      <tr class='text-center'>                      
-                          <td scope='col'>Klart</td>
-                          <td scope='col'>Pågående</td>                                            
-                          <td scope='col'></td>
-                          <td scope='col'></td>
-                      </tr>
-                    </thead>
-                    <tbody id='projectResultList'>                  
-                    
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-
 
                <div class='tab-pane active' id='företag' role='tabpanel' aria-labelledby='företag-tab'>
                   <form method='post'>
