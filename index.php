@@ -32,8 +32,15 @@ include('session.php');
 
 <body>
 
-<div class="d-flex" id="wrapper">
+<!-- Alert information -->
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    Det går nu göra inlägg med bilder per projekt.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 
+<div class="d-flex" id="wrapper">  
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="d-flex sidebar-heading justify-content-center">
@@ -54,7 +61,7 @@ include('session.php');
       <div class="list-group list-group-flush">      
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_schema"><div class="sidebar-icon"><i class="fas fa-home"></i></div> Startsida</a>  
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_projekt"><div class="sidebar-icon"><i class="fas fa-tasks"></i></div> Projekt</a>         
-        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_equipment"><div class="sidebar-icon"><i class="fas fa-tools"></i></div> Inventarier</div> </a>          
+        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_equipment"><div class="sidebar-icon"><i class="fas fa-tools"></i></div> Inventarier</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_myhours"><div class="sidebar-icon"><i class="fas fa-user-clock"></i></div> Mina timmar</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reporttime"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera tid</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportabsence"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera frånvaro</a>
@@ -82,9 +89,9 @@ include('session.php');
         <div class="alert alert-secondary small" role="alert">
         <h6>Uppdateringar</h6>
           <p>2021-02. Omdesign av projektsidorna. Lägga in inlägg i projekt med bilder. Mina timmar ska få val för frånvarotimmar.</p>       
+          <p>2021-02-10. Nu går det göra inlägg med bilder per projekt.</p>
           <p>2021-02-04. Det finns nu tillgång till inventerielistor för maskiner, fordon, verktyg och materiel.</p>
-          <p>2021-02-02. Profilsida tillagd, det går nu att uppdatera lösenordet.</p>
-          <p>2021-01-01. I mina timmar går det nu att leta fram rapporterade timmar och uppdatera informationen.</p>  
+          <p>2021-02-02. Profilsida tillagd, det går nu att uppdatera lösenordet.</p>           
         </div>
         
       </div>
