@@ -54,7 +54,7 @@ include('session.php');
       <div class="list-group list-group-flush">      
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_schema"><div class="sidebar-icon"><i class="fas fa-home"></i></div> Startsida</a>  
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_projekt"><div class="sidebar-icon"><i class="fas fa-tasks"></i></div> Projekt</a>         
-        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_equipment"><div class="sidebar-icon"><i class="fas fa-tools"></i></div> Inventarier <div class="badge badge-pill badge-danger"><small>Ny</small></div> </a>          
+        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_equipment"><div class="sidebar-icon"><i class="fas fa-tools"></i></div> Inventarier</div> </a>          
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_myhours"><div class="sidebar-icon"><i class="fas fa-user-clock"></i></div> Mina timmar</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reporttime"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera tid</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportabsence"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera frånvaro</a>
