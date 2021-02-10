@@ -32,14 +32,6 @@ include('session.php');
 
 <body>
 
-<!-- Alert information -->
-  <div class="alert alert-info alert-dismissible fade show" role="alert">
-    Det går nu göra inlägg med bilder per projekt.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-
 <div class="d-flex" id="wrapper">  
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
