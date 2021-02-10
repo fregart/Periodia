@@ -2,13 +2,13 @@
 
   // define('DB_SERVER', 'Localhost:3036');
 
-  define('DB_SERVER',   '[server name]');
+  define('DB_SERVER', 'localhost');
 
-  define('DB_USERNAME', '[database username]');
+  define('DB_USERNAME', 'zwwxklcp_wp645');
 
-  define('DB_PASSWORD', '[database password]');
+  define('DB_PASSWORD', '4p3@.7SmEn');
 
-  define('DB_DATABASE', '[database name]');
+  define('DB_DATABASE', 'zwwxklcp_wp645');
 
 
 
