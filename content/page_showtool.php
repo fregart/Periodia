@@ -27,7 +27,7 @@ if($result = $db->query($sql)){
             echo "<div class='card-body'>";
                 echo "<strong>" . $row['to_name'] . "</strong><br>";
                 echo "<hr>";
-                echo "<div class='row text-nowrap'><div class='col-4'>Beskrivning </div><div class='col-4'>" . $row['to_description'] . "<div class='col-auto'></div></div></div>";        
+                echo "<div class='row text-nowrap'><div class='col-sm-6 col-lg-4'>Beskrivning </div><div class='col-sm-6 col-lg-4'>" . $row['to_description'] . "<div class='col-auto'></div></div></div>";        
             echo "</div>";
         echo "</div>";
     }
