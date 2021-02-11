@@ -69,7 +69,7 @@ echo "<!-- Show project -->
          </li>
          
          <li class='nav-item'>
-            <a class='nav-link' id='notes-tab' data-toggle='tab' href='#notes' role='tab' aria-controls='notes' aria-selected='false'>Inlägg</a>
+            <a class='nav-link' id='notes-tab' data-toggle='tab' href='#notes' role='tab' aria-controls='notes' aria-selected='false'>Inlägg <div class='badge badge-pill badge-danger'>Ny</div></a>
          </li>
 
          <!--
