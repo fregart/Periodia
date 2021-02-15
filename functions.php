@@ -2495,7 +2495,7 @@ function getCurrentProjectNotes($cprojectID){
                             <p> " . ucfirst($row["no_content"]) . "</p>
                         </div>
                     </div>";
-            echo "</div>";
+            echo "</div><p></p>";
         }                            
         
     }
