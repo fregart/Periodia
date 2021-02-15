@@ -2461,7 +2461,8 @@ function getCurrentProjectNotes($cprojectID){
             LEFT JOIN tbl_user b ON
                 a.no_userID = b.us_ID              
             WHERE
-            a.no_projectID = $cprojectID
+                a.no_projectID = $cprojectID
+            ORDER BY a.no_created DESC
             ";
 
     $result = mysqli_query($db, $sql);
