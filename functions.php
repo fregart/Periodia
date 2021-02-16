@@ -2144,9 +2144,6 @@ function getWorkHoursForDate($cdate)
     
     $date = $cdate;
         
-    if(isset($_SESSION['user_ID'])){ 
-        $userID = $_SESSION['user_ID'];
-      
     
         $sql = "SELECT
                     a.wo_total          
@@ -2218,13 +2215,7 @@ function getWorkHoursForDate($cdate)
             return 0;
         }
 
-    }else{
-        /* Redirect browser */
-        session_destroy(); 
-        echo "<script type='text/javascript'>window.top.location='https://app.periodia.se/';</script>";
-        exit();
-    }
-    
+   
 }
 
 function getWorkHoursForMonth($cuserID, $cmonth)
