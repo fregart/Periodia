@@ -2143,7 +2143,7 @@ function getWorkHoursForDate($cdate)
     global $db;
     
     $date = $cdate;
-        
+    $userID = $_SESSION['user_ID'];
     
         $sql = "SELECT
                     a.wo_total          
