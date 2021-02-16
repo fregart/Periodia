@@ -2469,23 +2469,24 @@ function getCurrentProjectNotes($cprojectID){
     if ($count > 0) {                
         while ($row = mysqli_fetch_array($result)) {
             echo "<div class='border p-3' style='background-color:#eee;'>";
-                echo "<div class='row'>";
-                        getCurrentProjectNotesImages($row['no_ID']);
-                echo "</div>";
-
-                echo "<p></p>";
-
-                echo "<div class='row'>
+            echo "  <div class='row'>
                         <div class='col'>
                             <p class='small'>" . ucfirst($row["us_username"]) . "<span class='text-muted'> - " . $row["no_created"] . "</span></p>
                         </div>
-                    </div>
-
-                    <div class='row'>
-                        <div class='col'>
-                            <p> " . ucfirst($row["no_content"]) . "</p>
-                        </div>
                     </div>";
+            echo "<div class='row'>";
+                        getCurrentProjectNotesImages($row['no_ID']);
+            echo "</div>";
+
+            echo "<p></p>";
+
+               
+            echo "
+                <div class='row'>
+                    <div class='col'>
+                        <p> " . ucfirst($row["no_content"]) . "</p>
+                    </div>
+                </div>";
             echo "</div><p></p>";
         }                            
         
