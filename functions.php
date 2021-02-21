@@ -125,6 +125,10 @@ if (isset($_POST['action'])) {
     if ($_POST['action'] == 'checkOut') {        
         checkOut(); // call function
     }
+
+    if ($_POST['action'] == 'updatePersonalCard') {        
+        updatePersonalCard(); // call function
+    }
         
 }
 
@@ -2669,6 +2673,70 @@ function getCheckedInUsers(){
     }
     return $result;
 
+}
+
+function updatePersonalCard()
+{
+    $userID     = $_POST['userID'];
+    
+    // set global db variable from dbconnect
+    global $db;
+    
+    // prepare sql query and bind
+    $stmt = $db->prepare("UPDATE tbl_user
+                            SET
+                            us_employeenr = ?,
+                            us_pnr = ?,
+                            us_fname = ?,
+                            us_lname = ?,
+                            us_infotext = ?,
+                            us_address1 = ?,
+                            us_address2 = ?,
+                            us_zip = ?,
+                            us_city = ?,
+                            us_email = ?,
+                            us_phone1 =  ?,
+                            us_phone2 = ?,
+                            us_clearingnr = ?,
+                            us_accountnr = ?
+                            WHERE
+                            us_ID = $userID");
+    
+    // get _POST form values and bind.
+    // set parameters and execute
+    $stmt->bind_param("ssssssssssssss", $employeenr, $pnr, $firstname, $lastname, $infotext, $address1, $address2, $zip, $city, $email, $phone1, $phone2, $clearingnr, $accountnr);
+    
+    $employeenr = $_POST['inputAnst-ID'];
+    $pnr        = $_POST['inputPnr'];
+    $firstname  = $_POST['inputFname'];
+    $lastname   = $_POST['inputLname'];
+    $infotext   = $_POST['inputInfotext'];
+    $address1   = $_POST['inputAddress1'];
+    $address2   = $_POST['inputAddress2'];
+    $zip        = $_POST['inputZip'];
+    $city       = $_POST['inputCity']; 
+    $email      = $_POST['inputEmail'];
+    $phone1     = $_POST['inputPhone1'];
+    $phone2     = $_POST['inputPhone2'];
+    $clearingnr = $_POST['inputClearnr'];
+    $accountnr  = $_POST['inputAccountnr'];
+    
+    if ($stmt !== false) {
+        $stmt->execute();
+        $db->close();
+        $stmt->close();
+        
+        echo "
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>$(document).ready(function(){
+                alert('Uppdateringen genomförd');
+                    $('#page-content').load('content/page_staff.php');                      
+                });                        
+            </script>
+        ";
+    } else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+    }
 }
 
 // set global current week total work hours from time panel
