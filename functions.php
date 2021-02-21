@@ -2471,7 +2471,7 @@ function getCurrentProjectNotes($cprojectID){
             echo "<div class='border p-3' style='background-color:#eee;'>";
             echo "  <div class='row'>
                         <div class='col'>
-                            <p class='small'>" . ucfirst($row["us_username"]) . "<span class='text-muted'> - " . $row["no_created"] . "</span></p>
+                            <p class='small'>" . ucfirst($row["us_username"]) . "<span class='text-muted'> - " . date('Y-m-d H:i',strtotime($row["no_created"])) . "</span></p>
                         </div>
                     </div>";
             echo "<div class='row'>";
@@ -2488,8 +2488,10 @@ function getCurrentProjectNotes($cprojectID){
                     </div>
                 </div>";
             echo "</div><p></p>";
-        }                            
+        }            
         
+    }else {
+        echo "Inga inlägg hittades";
     }
     
 }
@@ -2523,9 +2525,9 @@ function getCurrentProjectNotesImages($noteID){
         while ($row = mysqli_fetch_array($result)) {           
 
             echo "<div class='col-lg-2 col-md-6 col-xs-12'>
-                <a href='#'>
+            
                     <img class='img-thumbnail img-fluid' src='uploads/" . $row["im_name"] . "' alt='Inlägg bild'>
-                </a>
+                
             </div>";
         }                            
         
