@@ -20,7 +20,7 @@ Open the file 'dbconnect.php' and edit:
   define('DB_DATABASE', 'periodiadb');
 
 # Log in
-There are 3 users at start which you can use to log in and test the functions:
+There are 3 users at start which you can use to log in and test the functions on app.periodia.se:
 
   user: test1
   pass: test1
@@ -32,6 +32,9 @@ There are 3 users at start which you can use to log in and test the functions:
   pass: test3
 
 test1 and test2 works at the same company and test3 works at another company.
+
+If you want to try it out locally after you have runned the installation script you have to add
+a company in tbl_company, a user in tbl_user and a relation between them under tbl_employees.
 
 # User types and restrictions
 There are 3 user types:
