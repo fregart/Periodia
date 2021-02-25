@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.5
 -- https://www.phpmyadmin.net/
 --
--- Värd: 127.0.0.1
--- Tid vid skapande: 16 dec 2020 kl 11:56
--- Serverversion: 10.4.14-MariaDB
--- PHP-version: 7.4.10
+-- Värd: localhost:3306
+-- Tid vid skapande: 25 feb 2021 kl 16:29
+-- Serverversion: 10.1.30-MariaDB
+-- PHP-version: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -51,17 +52,6 @@ CREATE TABLE `tbl_absencetype` (
   `abt_name` varchar(30) NOT NULL COMMENT 'frånvarotyp'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumpning av Data i tabell `tbl_absencetype`
---
-
-INSERT INTO `tbl_absencetype` (`abt_ID`, `abt_name`) VALUES
-(1, 'Föräldraledighet'),
-(2, 'Sjuk'),
-(3, 'Tjänstledig'),
-(4, 'Övrig frånvaro'),
-(5, 'Semester');
-
 -- --------------------------------------------------------
 
 --
@@ -76,6 +66,19 @@ CREATE TABLE `tbl_activity` (
 -- --------------------------------------------------------
 
 --
+-- Tabellstruktur `tbl_checkin`
+--
+
+CREATE TABLE `tbl_checkin` (
+  `ch_ID` int(11) NOT NULL,
+  `ch_projectID` int(11) NOT NULL,
+  `ch_userID` int(11) NOT NULL,
+  `ch_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Tabellstruktur `tbl_company`
 --
 
@@ -86,16 +89,8 @@ CREATE TABLE `tbl_company` (
   `co_description` varchar(300) DEFAULT NULL COMMENT 'beskrivning',
   `co_startdate` date DEFAULT NULL COMMENT 'startdatum',
   `co_enddate` date DEFAULT NULL COMMENT 'slutdatum',
-  `co_isactive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'företag aktiverat'
+  `co_isactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'företag aktiverat'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumpning av Data i tabell `tbl_company`
---
-
-INSERT INTO `tbl_company` (`co_ID`, `co_name`, `co_orgnbr`, `co_description`, `co_startdate`, `co_enddate`, `co_isactive`) VALUES
-(1, 'Företaget AB', '202015-1234', 'Adress:\r\nFöretagsgatan 15\r\n123 45 Storstaden', '2020-07-30', NULL, 1),
-(2, 'Snålis AB', NULL, NULL, '2020-08-03', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -108,7 +103,7 @@ CREATE TABLE `tbl_customer` (
   `cu_contractID` varchar(30) DEFAULT NULL COMMENT 'eget avtalsnummer',
   `cu_name` varchar(30) NOT NULL COMMENT 'kundnamn',
   `cu_description` varchar(300) DEFAULT NULL COMMENT 'beskrivning',
-  `cu_isactive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'kunden aktiv'
+  `cu_isactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'kunden aktiv'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -122,15 +117,6 @@ CREATE TABLE `tbl_employees` (
   `em_userID` int(11) NOT NULL COMMENT 'användare'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumpning av Data i tabell `tbl_employees`
---
-
-INSERT INTO `tbl_employees` (`em_companyID`, `em_userID`) VALUES
-(1, 2),
-(1, 3),
-(2, 16);
-
 -- --------------------------------------------------------
 
 --
@@ -139,10 +125,8 @@ INSERT INTO `tbl_employees` (`em_companyID`, `em_userID`) VALUES
 
 CREATE TABLE `tbl_image` (
   `im_ID` int(11) NOT NULL,
-  `im_date` date NOT NULL COMMENT 'uppladdningsdatum',
-  `im_filename` varchar(30) NOT NULL COMMENT 'filnamn',
-  `im_fileextension` varchar(5) NOT NULL COMMENT 'filändelse',
-  `im_filepath` varchar(300) NOT NULL COMMENT 'bildens sökväg'
+  `im_name` varchar(200) NOT NULL COMMENT 'filnamn',
+  `im_noteID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -162,12 +146,18 @@ CREATE TABLE `tbl_machine` (
   `ma_owner` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumpning av Data i tabell `tbl_machine`
+-- Tabellstruktur `tbl_materials`
 --
 
-INSERT INTO `tbl_machine` (`ma_ID`, `ma_name`, `ma_regnr`, `ma_description`, `ma_mileage`, `ma_hours`, `ma_status`, `ma_owner`) VALUES
-(1, 'Doosan 140LC', 'LBH 450', NULL, '6522', '4235', '1', 1);
+CREATE TABLE `tbl_materials` (
+  `ma_ID` int(11) NOT NULL,
+  `ma_name` varchar(30) NOT NULL,
+  `ma_description` varchar(300) DEFAULT NULL,
+  `ma_owner` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -192,9 +182,10 @@ CREATE TABLE `tbl_milestone` (
 
 CREATE TABLE `tbl_notes` (
   `no_ID` int(11) NOT NULL,
-  `no_created` date NOT NULL COMMENT 'Skapad',
+  `no_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Skapad',
   `no_content` varchar(50) NOT NULL COMMENT 'Innehåll',
-  `no_userID` int(11) NOT NULL COMMENT 'Skriven av'
+  `no_userID` int(11) NOT NULL COMMENT 'Skriven av',
+  `no_projectID` int(11) NOT NULL COMMENT 'Projekt ID'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -210,21 +201,11 @@ CREATE TABLE `tbl_project` (
   `pr_description` varchar(300) DEFAULT NULL COMMENT 'beskrivning',
   `pr_startdate` date NOT NULL COMMENT 'startdatum',
   `pr_enddate` date DEFAULT NULL COMMENT 'slutdatum',
-  `pr_status` int(11) NOT NULL DEFAULT 1 COMMENT 'projektstatus',
-  `pr_billed` tinyint(1) NOT NULL DEFAULT 0 COMMENT 'faktuerad',
+  `pr_status` int(11) NOT NULL DEFAULT '1' COMMENT 'projektstatus',
+  `pr_billed` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'faktuerad',
   `pr_billdate` date DEFAULT NULL COMMENT 'fakturadatum',
   `pr_companyID` int(11) NOT NULL COMMENT 'tillhör företag'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumpning av Data i tabell `tbl_project`
---
-
-INSERT INTO `tbl_project` (`pr_ID`, `pr_internID`, `pr_name`, `pr_description`, `pr_startdate`, `pr_enddate`, `pr_status`, `pr_billed`, `pr_billdate`, `pr_companyID`) VALUES
-(1, '', 'Kabelgrävning, Gällivare', '', '2020-10-05', '2020-10-22', 5, 0, '0000-00-00', 2),
-(2, NULL, 'väg, lillström 146', NULL, '2020-08-13', NULL, 2, 0, NULL, 1),
-(3, '1122', 'markarbete, kovland', NULL, '2020-09-02', '2020-09-08', 3, 0, NULL, 1),
-(4, '', 'Dränering, Granlo', '', '2020-08-11', '2020-08-14', 5, 0, '0000-00-00', 1);
 
 -- --------------------------------------------------------
 
@@ -236,15 +217,6 @@ CREATE TABLE `tbl_role` (
   `ro_ID` int(11) NOT NULL,
   `ro_name` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumpning av Data i tabell `tbl_role`
---
-
-INSERT INTO `tbl_role` (`ro_ID`, `ro_name`) VALUES
-(1, 'superuser'),
-(2, 'admin'),
-(3, 'user');
 
 -- --------------------------------------------------------
 
@@ -258,16 +230,18 @@ CREATE TABLE `tbl_status` (
   `st_hex` varchar(6) NOT NULL COMMENT 'Färg för status'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumpning av Data i tabell `tbl_status`
+-- Tabellstruktur `tbl_tools`
 --
 
-INSERT INTO `tbl_status` (`st_ID`, `st_name`, `st_hex`) VALUES
-(1, 'Nytt', '63B3D3'),
-(2, 'Pågående', 'FB8334'),
-(3, 'Klart', '4BA33B'),
-(4, 'Avvikelse', 'DB5383'),
-(5, 'Arkiverad', '9F9F9F');
+CREATE TABLE `tbl_tools` (
+  `to_ID` int(11) NOT NULL,
+  `to_name` varchar(30) NOT NULL,
+  `to_description` varchar(300) DEFAULT NULL,
+  `to_owner` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -277,27 +251,42 @@ INSERT INTO `tbl_status` (`st_ID`, `st_name`, `st_hex`) VALUES
 
 CREATE TABLE `tbl_user` (
   `us_ID` int(11) NOT NULL,
+  `us_employeenr` varchar(30) DEFAULT NULL,
+  `us_pnr` varchar(13) DEFAULT NULL,
   `us_username` varchar(20) NOT NULL COMMENT 'användarnamn',
   `us_password` varchar(255) NOT NULL COMMENT 'lösenord',
   `us_fname` varchar(30) DEFAULT NULL COMMENT 'förnamn',
   `us_lname` varchar(30) DEFAULT NULL COMMENT 'efternamn',
+  `us_infotext` varchar(300) DEFAULT NULL,
+  `us_address1` varchar(30) DEFAULT NULL,
+  `us_address2` varchar(30) DEFAULT NULL,
+  `us_zip` varchar(6) DEFAULT NULL,
+  `us_city` varchar(30) DEFAULT NULL,
   `us_email` varchar(30) DEFAULT NULL COMMENT 'epost',
   `us_phone1` varchar(20) DEFAULT NULL COMMENT 'telefon1',
   `us_phone2` varchar(20) DEFAULT NULL COMMENT 'telefon2',
+  `us_clearingnr` varchar(10) DEFAULT NULL,
+  `us_accountnr` varchar(50) DEFAULT NULL,
   `us_roleID` int(11) NOT NULL COMMENT 'begränsning',
-  `us_isactive` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'användare aktiv',
+  `us_isactive` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'användare aktiv',
   `us_created` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumpning av Data i tabell `tbl_user`
+-- Tabellstruktur `tbl_vehicle`
 --
 
-INSERT INTO `tbl_user` (`us_ID`, `us_username`, `us_password`, `us_fname`, `us_lname`, `us_email`, `us_phone1`, `us_phone2`, `us_roleID`, `us_isactive`, `us_created`) VALUES
-(1, 'plana_admin', '1234', NULL, NULL, NULL, NULL, NULL, 1, 1, NULL),
-(2, 'test1', 'test1', 'Kalle', 'Andersson', '', '040-123456', '', 2, 1, NULL),
-(3, 'test2', 'test2', '', '', '', '', '', 3, 1, NULL),
-(16, 'test3', 'test3', '', '', '', '', '', 3, 1, NULL);
+CREATE TABLE `tbl_vehicle` (
+  `ve_ID` int(11) NOT NULL,
+  `ve_name` varchar(30) NOT NULL,
+  `ve_regnr` varchar(10) DEFAULT NULL COMMENT 'Registreringsnummer',
+  `ve_description` varchar(300) DEFAULT NULL,
+  `ve_mileage` varchar(10) DEFAULT NULL,
+  `ve_status` varchar(20) NOT NULL,
+  `ve_owner` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -316,16 +305,6 @@ CREATE TABLE `tbl_workinghours` (
   `wo_notes` varchar(250) DEFAULT NULL,
   `wo_projectID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumpning av Data i tabell `tbl_workinghours`
---
-
-INSERT INTO `tbl_workinghours` (`wo_ID`, `wo_userID`, `wo_date`, `wo_starttime`, `wo_endtime`, `wo_rest`, `wo_total`, `wo_notes`, `wo_projectID`) VALUES
-(24, 2, '2020-09-28', '07:00', '16:00', '01:00', '08:00', '', 1),
-(31, 2, '2020-10-20', '07:00', '16:00', '01:00', '08:00', '', 2),
-(45, 2, '2020-10-19', '07:30', '16:00', '01:00', '07:30', '', 4),
-(46, 2, '2020-10-21', '07:20', '16:00', '01:00', '07:40', '', 4);
 
 --
 -- Index för dumpade tabeller
@@ -352,6 +331,12 @@ ALTER TABLE `tbl_activity`
   ADD PRIMARY KEY (`ac_ID`);
 
 --
+-- Index för tabell `tbl_checkin`
+--
+ALTER TABLE `tbl_checkin`
+  ADD PRIMARY KEY (`ch_ID`);
+
+--
 -- Index för tabell `tbl_company`
 --
 ALTER TABLE `tbl_company`
@@ -374,12 +359,20 @@ ALTER TABLE `tbl_employees`
 -- Index för tabell `tbl_image`
 --
 ALTER TABLE `tbl_image`
-  ADD PRIMARY KEY (`im_ID`);
+  ADD PRIMARY KEY (`im_ID`),
+  ADD KEY `tbl_image_im_noteID tbl_notes_no_ID` (`im_noteID`) USING BTREE;
 
 --
 -- Index för tabell `tbl_machine`
 --
 ALTER TABLE `tbl_machine`
+  ADD PRIMARY KEY (`ma_ID`),
+  ADD KEY `tbl_machines_ma_owner tbl_company_co_ID` (`ma_owner`);
+
+--
+-- Index för tabell `tbl_materials`
+--
+ALTER TABLE `tbl_materials`
   ADD PRIMARY KEY (`ma_ID`),
   ADD KEY `tbl_machines_ma_owner tbl_company_co_ID` (`ma_owner`);
 
@@ -393,7 +386,9 @@ ALTER TABLE `tbl_milestone`
 -- Index för tabell `tbl_notes`
 --
 ALTER TABLE `tbl_notes`
-  ADD PRIMARY KEY (`no_ID`);
+  ADD PRIMARY KEY (`no_ID`),
+  ADD KEY `tbl_notes_no_project ID tbl_project_pr_ID` (`no_projectID`),
+  ADD KEY `tbl_notes_no_userID tbl_user_us_ID` (`no_userID`);
 
 --
 -- Index för tabell `tbl_project`
@@ -416,10 +411,24 @@ ALTER TABLE `tbl_status`
   ADD PRIMARY KEY (`st_ID`);
 
 --
+-- Index för tabell `tbl_tools`
+--
+ALTER TABLE `tbl_tools`
+  ADD PRIMARY KEY (`to_ID`),
+  ADD KEY `tbl_machines_ma_owner tbl_company_co_ID` (`to_owner`);
+
+--
 -- Index för tabell `tbl_user`
 --
 ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`us_ID`);
+
+--
+-- Index för tabell `tbl_vehicle`
+--
+ALTER TABLE `tbl_vehicle`
+  ADD PRIMARY KEY (`ve_ID`),
+  ADD KEY `tbl_machines_ma_owner tbl_company_co_ID` (`ve_owner`);
 
 --
 -- Index för tabell `tbl_workinghours`
@@ -442,7 +451,7 @@ ALTER TABLE `tbl_absence`
 -- AUTO_INCREMENT för tabell `tbl_absencetype`
 --
 ALTER TABLE `tbl_absencetype`
-  MODIFY `abt_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `abt_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT för tabell `tbl_activity`
@@ -451,10 +460,16 @@ ALTER TABLE `tbl_activity`
   MODIFY `ac_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT för tabell `tbl_checkin`
+--
+ALTER TABLE `tbl_checkin`
+  MODIFY `ch_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT för tabell `tbl_company`
 --
 ALTER TABLE `tbl_company`
-  MODIFY `co_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `co_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT för tabell `tbl_customer`
@@ -472,7 +487,13 @@ ALTER TABLE `tbl_image`
 -- AUTO_INCREMENT för tabell `tbl_machine`
 --
 ALTER TABLE `tbl_machine`
-  MODIFY `ma_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ma_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT för tabell `tbl_materials`
+--
+ALTER TABLE `tbl_materials`
+  MODIFY `ma_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT för tabell `tbl_milestone`
@@ -490,31 +511,43 @@ ALTER TABLE `tbl_notes`
 -- AUTO_INCREMENT för tabell `tbl_project`
 --
 ALTER TABLE `tbl_project`
-  MODIFY `pr_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `pr_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT för tabell `tbl_role`
 --
 ALTER TABLE `tbl_role`
-  MODIFY `ro_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ro_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT för tabell `tbl_status`
 --
 ALTER TABLE `tbl_status`
-  MODIFY `st_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `st_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT för tabell `tbl_tools`
+--
+ALTER TABLE `tbl_tools`
+  MODIFY `to_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT för tabell `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `us_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `us_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT för tabell `tbl_vehicle`
+--
+ALTER TABLE `tbl_vehicle`
+  MODIFY `ve_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT för tabell `tbl_workinghours`
 --
 ALTER TABLE `tbl_workinghours`
-  MODIFY `wo_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `wo_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restriktioner för dumpade tabeller
@@ -535,10 +568,23 @@ ALTER TABLE `tbl_employees`
   ADD CONSTRAINT `tbl_employees_em_userID tbl_user_us_ID` FOREIGN KEY (`em_userID`) REFERENCES `tbl_user` (`us_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Restriktioner för tabell `tbl_image`
+--
+ALTER TABLE `tbl_image`
+  ADD CONSTRAINT `tbl_image_im_ID tbl_notes_no_ID` FOREIGN KEY (`im_noteID`) REFERENCES `tbl_notes` (`no_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Restriktioner för tabell `tbl_machine`
 --
 ALTER TABLE `tbl_machine`
   ADD CONSTRAINT `tbl_machines_ma_owner tbl_company_co_ID` FOREIGN KEY (`ma_owner`) REFERENCES `tbl_company` (`co_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Restriktioner för tabell `tbl_notes`
+--
+ALTER TABLE `tbl_notes`
+  ADD CONSTRAINT `tbl_notes_no_project ID tbl_project_pr_ID` FOREIGN KEY (`no_projectID`) REFERENCES `tbl_project` (`pr_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_notes_no_userID tbl_user_us_ID` FOREIGN KEY (`no_userID`) REFERENCES `tbl_user` (`us_ID`);
 
 --
 -- Restriktioner för tabell `tbl_project`
