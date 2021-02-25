@@ -2746,6 +2746,120 @@ function updatePersonalCard()
     }
 }
 
+
+function countAllMachines(){
+
+    global $db;
+    
+    $company = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT
+                *
+            FROM
+                tbl_machine a            
+            WHERE
+                a.ma_owner = $company";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        return $count;        
+    }    
+}
+
+function countAllVehicle(){
+
+    global $db;
+    
+    $company = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT
+                *
+            FROM
+                tbl_vehicle a            
+            WHERE
+                a.ve_owner = $company";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        return $count;        
+    }    
+}
+
+function countAllTools(){
+
+    global $db;
+    
+    $company = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT
+                *
+            FROM
+                tbl_tools a            
+            WHERE
+                a.to_owner = $company";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        return $count;        
+    }    
+}
+
+function countAllMaterials(){
+
+    global $db;
+    
+    $company = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT
+                *
+            FROM
+                tbl_materials a            
+            WHERE
+                a.ma_owner = $company";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        return $count;        
+    }    
+}
+
+
 // set global current week total work hours from time panel
 $totalWeekHours = 0;
 function setWeekTotalHours($hours)
