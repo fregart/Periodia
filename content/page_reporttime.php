@@ -37,105 +37,110 @@ if(isset($_GET['setProjectID'])){
 ?>
 
 <!-- Rapportera timmar -->
-<section class="page-reporttime">
-    <div class="container-fluid">
-        <h4 class="mt-4">Rapportera timmar</h4>
-        <br />
 
-        <div class="col-sm-12 col-m-8 col-lg-4">
-            <div class="card" style="background-color:#dfe5e8;">
-            <div class="card-body">
-            
-            
-            <form method="post">         
-            <input type="hidden" name="action" value="reportTime" />     
-                <div class="row w-50">
-                    <div class="form-group">
-                        <div class="col">
-                            <label for="datumInput">Datum</label>                            
-                            <input type="date" class="form-control" id="datumInput" name="datumInput" value="<?php echo $setDate; ?>" />
-                        </div>
-                        
-                    </div>
-                </div>
+<div class="container-fluid">
+    <h4 class="mt-4">Rapportera timmar</h4>
+    <br />
 
-                <div class="row">
-                    <div class="col">
+    <div class="col-sm-12 col-m-8 col-lg-4">
+        <div class="card" style="background-color:#dfe5e8;">
+            <div class="card-body">       
+        
+                <form method="post" enctype='multipart/form-data'>         
+                    <input type="hidden" name="action" value="reportTime" />     
+                    <div class="row w-50">
                         <div class="form-group">
-                            <label for="projekInput">Projekt</label> <!--<i class="far fa-question-circle small"></i>-->
-                            <select class="form-control" id="projektInput" name="projektInput">
-                                <?php getAllProjectsSelectList($setProjectID);?>                    
-                            </select>
-                        </div>
-                    </div>                    
-                </div> 
-
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="tidfrånInput">Från</label>
-                            <input type="time" class="form-control" id="tidfrånInput" name="tidfrånInput" value="<?php echo $row['wo_starttime']; ?>" />
-                        </div>
-                    </div>                    
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="tidtillInput">Till</label>
-                            <input type="time" class="form-control" id="tidtillInput" name="tidtillInput" value="<?php echo $row['wo_endtime']; ?>" />
+                            <div class="col">
+                                <label for="datumInput">Datum</label>                            
+                                <input type="date" class="form-control" id="datumInput" name="datumInput" value="<?php echo $setDate; ?>" />
+                            </div>
+                            
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="rastInput">Rast</label>
-                            <input type="time" class="form-control" id="rastInput" name="rastInput" value="<?php echo $row['wo_rest']; ?>" />
-                        </div>
-                    </div>                    
-                    <div class="col">
-                        <div class="form-group">
-                        <label for="calcInput">Timmar</label>                   
-                        <input type="text" class="form-control font-weight-bold text-success" id="calcInput" name="calcInput" value="" readonly />                                                
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                       <hr>
-                    </div>                    
-                </div>                                 
-
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="rastInput">Noteringar</label>
-                            <textarea class="form-control" name="notesInput" rows="5"><?php echo $row['wo_notes']; ?></textarea>                         
-                        </div>
-                    </div>                    
-                </div>
-                
-                <div class="form-group">
                     <div class="row">
                         <div class="col">
-                            <button type="submit" class="btn btn-success" title='Spara'>Spara</button>
-                            <button type="button" class="btn btn-primary" title='Avbryt'>Avbryt</button>
-                            </form>
+                            <div class="form-group">
+                                <label for="projectInput">Projekt</label> <!--<i class="far fa-question-circle small"></i>-->
+                                <select class="form-control" id="projectInput" name="projectInput">
+                                    <?php getAllProjectsSelectList($setProjectID);?>                    
+                                </select>
+                            </div>
+                        </div>                    
+                    </div> 
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="timefromInput">Från</label>
+                                <input type="time" class="form-control" id="timefromInput" name="timefromInput" value="<?php echo $row['wo_starttime']; ?>" />
+                            </div>
+                        </div>                    
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="timetoInput">Till</label>
+                                <input type="time" class="form-control" id="timetoInput" name="timetoInput" value="<?php echo $row['wo_endtime']; ?>" />
+                            </div>
                         </div>
-                           
                     </div>
-            
-            
 
-                </div>
-           
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="breakInput">Rast</label>
+                                <input type="time" class="form-control" id="breakInput" name="breakInput" value="<?php echo $row['wo_rest']; ?>" />
+                            </div>
+                        </div>                    
+                        <div class="col">
+                            <div class="form-group">
+                            <label for="calcInput">Timmar</label>                   
+                            <input type="text" class="form-control font-weight-bold text-success" id="calcInput" name="calcInput" value="" readonly />                                                
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col">
+                            <hr>
+                        </div>                    
+                    </div>                                 
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for='notesTextarea'>Noteringar</label>
+                                <textarea class='form-control' name='notesTextarea' id='notesTextarea' rows='5'></textarea>
+                            </div>
+                        </div>                    
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">                                
+                                <label for='file'>Bilder</label>
+                                <input type='file' name='fileToUpload[]' class='form-control-file' id='fileToUpload'
+                                    multiple='multiple'>                         
+                            </div>
+                        </div>                    
+                    </div>
+                    
+                    <br>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-success" title='Spara'>Spara</button>
+                                <button type="button" class="btn btn-primary" title='Avbryt'>Avbryt</button>                          
+                            </div>                                    
+                        </div>
+                    </div>
+                </form>
+        
             </div>
-            </div>
-
         </div>
     </div>
-</section>
+</div>
+
 <script>
 
 
@@ -144,9 +149,9 @@ if(isset($_GET['setProjectID'])){
     
     // calc workhours
     function calcTime() {
-        var timefrom = $("#tidfrånInput").val();
-        var timeto = $("#tidtillInput").val();
-        var timebreak = $("#rastInput").val();    
+        var timefrom = $("#timefromInput").val();
+        var timeto = $("#timetoInput").val();
+        var timebreak = $("#breakInput").val();    
     
         hours = timeto.split(':')[0] - timefrom.split(':')[0] - timebreak.split(':')[0],
         minutes = timeto.split(':')[1] - timefrom.split(':')[1] - timebreak.split(':')[1];

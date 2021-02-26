@@ -625,11 +625,11 @@ function addNotes(){
     
     // get $_POST form values and bind.
     // set parameters and execute
-    $stmt->bind_param("sii", $noteInput, $userID, $projectIDInput);
+    $stmt->bind_param("sii", $noteInput, $userID, $projectInput);
     
     $noteInput = mysqli_real_escape_string($db, $_POST['notesTextarea']);
     $userID = $_SESSION['user_ID'];
-    $projectIDInput = $_POST['projectIDInput'];        
+    $projectInput = $_POST['projectInput'];        
 
 
     if ($stmt !== false) {
@@ -645,14 +645,16 @@ function addNotes(){
             });
             </script>
         ";
+
+        $stmt->close();
+        $db->close();
         
     }else {
         die('prepare() failed: ' . htmlspecialchars($db->error));
         if(!$stmt){
             echo "Error: " . mysqli_error($db);
             }
-    }
-    $stmt->close();
+    }    
     
 }
 
@@ -707,8 +709,6 @@ function checkIfAnyFileUploaded(){
                             $('#page-content').load('content/page_projekt.php');
                         })";                    
                 }
-
-
             }
         }
     }
@@ -1656,39 +1656,41 @@ function reportTime()
         wo_starttime,
         wo_endtime,
         wo_rest,
-        wo_total,
-        wo_notes,
-        wo_projectID)
+        wo_total,        
+        wo_projectID
+        )
 
         VALUES (
-            ?,?,?,?,?,?,?,?)");
+            ?,?,?,?,?,?,?)");
         
         // get $_POST form values and bind.
         // set parameters and execute
                     
-        $stmt->bind_param("issssssi", $userID, $date, $timefrom, $timeto, $break, $total, $notes, $projectID);            
+        $stmt->bind_param("isssssi", $userID, $date, $timefrom, $timeto, $break, $total, $projectID);            
             
         $userID    = $_SESSION['user_ID'];
         $date      = $_POST['datumInput'];
-        $timefrom  = $_POST['tidfrånInput'];
-        $timeto    = $_POST['tidtillInput'];
-        $break     = $_POST['rastInput'];
-        $total     = $_POST['calcInput'];
-        $notes     = $_POST['notesInput'];
-        $projectID = $_POST['projektInput'];
+        $timefrom  = $_POST['timefromInput'];
+        $timeto    = $_POST['timetoInput'];
+        $break     = $_POST['breakInput'];
+        $total     = $_POST['calcInput'];       
+        $projectID = $_POST['projectInput'];
         
-        $stmt->execute();
+        $stmt->execute();                        
         
-        echo "
+        if (isset($_POST['notesTextarea'])) { // check if there is a note
+            addNotes();            
+        }else {
+            echo "
             <script src='vendor/jquery/jquery.min.js'></script>
             <script>
                 alert('Tidrapport inlagd');
                 $('#page-content').load('content/page_schema.php');                           
             </script>
             ";
-
-        $stmt->close();
-        $db->close();
+            $stmt->close();
+            $db->close();
+        }
             
 }
 
