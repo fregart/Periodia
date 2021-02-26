@@ -6,7 +6,7 @@
     <br><br>
 
     <div class="row ml-2">
-        <div class="col">
+        <div class="col-sm-6 col-lg-4 mt-2">
             <h5>Anställda</h5>
 
             <ul>
@@ -14,8 +14,20 @@
                 <li>Frånvaro</li>
             </ul>
         </div>
+        
+        
 
-        <div class="col">
+        <div class="col-sm-6 col-lg-4 mt-2">
+            <h5>Projekt</h5>
+
+            <ul>                
+                <li>Timmar per projekt</li>
+            </ul>
+        </div>
+
+        
+
+        <div class="col-sm-6 col-lg-4 mt-2">
             <h5>Tankning</h5>
 
             <ul>

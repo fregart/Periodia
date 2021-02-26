@@ -168,7 +168,7 @@
     var $cyear  = $("#yearInput").children("option:selected").val();
     var $cmonth = $("#monthInput").children("option:selected").val();    
 
-    var $file = 'page_reports' + '.php?setYear='+ $cyear +'&setMonth=' + $cmonth +'&setUser=' + $cuser;
+    var $file = 'page_reports_time' + '.php?setYear='+ $cyear +'&setMonth=' + $cmonth +'&setUser=' + $cuser;
     var $path = 'content/';
 
     $('#page-content').load($path + $file);            
