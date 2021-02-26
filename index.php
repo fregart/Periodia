@@ -63,7 +63,7 @@ include('session.php');
             echo "
             <div class='dropdown-divider'></div>
             <a href='#' class='list-group-item list-group-item-action bg-dark disabled' data-target='page_planning'><div class='sidebar-icon'><i class='fas fa-pencil-ruler'></i></div> Planering</a>
-            <a href='#' class='list-group-item list-group-item-action bg-dark disabled' data-target='page_staff'><div class='sidebar-icon'><i class='fas fa-users'></i></div> Personal</a>     
+            <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_staff'><div class='sidebar-icon'><i class='fas fa-users'></i></div> Personal</a>
             <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_reports'><div class='sidebar-icon'><i class='far fa-file-alt'></i></div> Rapporter</a>
             <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_inställningar'><div class='sidebar-icon'><i class='fas fa-cog'></i></div> Inställningar</a>
             <div class='dropdown-divider'></div>";
