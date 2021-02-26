@@ -121,7 +121,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="inputInfotext">Infotext</label>
-                            <textarea class="form-control" id="inputInfotext" name="inputInfotext" rows="3"><?php echo $row['us_infotext'] ?></textarea>
+                            <textarea class="form-control" id="inputInfotext" name="inputInfotext" rows="5"><?php echo $row['us_infotext'] ?></textarea>
                         </div>
                     </div>
 
