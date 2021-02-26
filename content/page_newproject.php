@@ -51,11 +51,6 @@
                     </div>
                 </div>
 
-               
-
-                
-
-              
                 <div class="row">
                     <div class="col">
                        <hr>
@@ -79,21 +74,7 @@
                             </form>
                         </div>
                 
-
-                        <div class="col">
-                <form method="post">
-                <input type="hidden" name="action" value="deleteReport">
-                <input type="hidden" name="removeThisDate" value="<?php echo $setDate ?>">
-                            <?php
-                                if (isset($_GET['setDate'])) {
-                                   echo "<button type='submit' class='btn btn-danger float-right' title='Ta bort'>X</button>";
-                                }
-                            ?>
-                        </div>
-                    </div>
-            
-            
-
+                    </div>                        
                 </div>
             </form>
 
