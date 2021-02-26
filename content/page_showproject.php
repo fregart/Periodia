@@ -135,7 +135,7 @@ global $db;
                         <p></p>
                         <form method='post' enctype='multipart/form-data'>
                             <input type='hidden' name='action' value='addNotes'>
-                            <input type='hidden' name='projectIDInput' value='".$row[' pr_ID']."'>
+                            <input type='hidden' name='projectIDInput' value='<?php echo $row['pr_ID'] ?>'>
                             <div class='form-group'>
                                 <label for='notesTextarea'>Skriv inlägg.</label>
                                 <textarea class='form-control' name='notesTextarea' id='notesTextarea'
