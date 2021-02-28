@@ -95,24 +95,22 @@ global $db;
                     <p class="small"><strong>Beskrivning</strong></p>
                     <?php echo $row["pr_description"]; ?>
 
-
-
-                    <hr>
-
-                    <div class="btn-group"></div>
-                    <!-- Admin section -->
-                    <div class="row">
-                        <div class="col col-md-4 col-lg-2">
-                            <button type="button" class="btn btn-primary btn-block">Redigera</button>
-                        </div>
+                    <hr>                                       
+                   
+                    <div class="form-group">
+                    <form action="post">
+                        <div class="row">
+                            <div class="col">
+                                <!-- Admin section -->
+                                <button type="submit" class="btn btn-success">Redigera</button>
+                                <input type="hidden" name="action" value="newProject" />   
+                                <!-- End Admin section -->
+                                <button type="button" class="btn btn-primary" id="btn-close" title='Avbryt'>Stäng</button>                                
+                            </div>                    
+                        </div>      
+                    </form>                  
                     </div>
-                    <!-- End Admin section -->
-
-                    <div class="row mt-2">
-                        <div class="col col-md-4 col-lg-2">
-                            <button class="btn btn-light btn-block" onclick="window.history.back();">Stäng</button>
-                        </div>
-                    </div>
+                    
                 </div>
 
             </div>
@@ -185,19 +183,28 @@ global $db;
   }
   ?>
 <script>
-// enables the delete button on checked
-$('#enableCheck').click(function() {
 
-    if ($(this).is(':checked')) {
-        $('#btndelete').removeAttr('disabled');
+    // enables the delete button on checked
+    $('#enableCheck').click(function() {
 
-    } else {
-        $('#btndelete').attr('disabled', true);
-    }
-});
+        if ($(this).is(':checked')) {
+            $('#btndelete').removeAttr('disabled');
 
-// enables form for notes
-$("#addnotesbutton").click(function() {
-    $("#addnotesdiv").toggle("slow", function() {});
-});
+        } else {
+            $('#btndelete').attr('disabled', true);
+        }
+    });
+
+    // enables form for notes
+    $("#addnotesbutton").click(function() {
+        $("#addnotesdiv").toggle("slow", function() {});
+    });
+
+
+
+    // cancel button listener
+    $("#btn-avbryt").click(function(){
+        $('#page-content').load('content/page_projekt.php');
+    });
+    
 </script>
