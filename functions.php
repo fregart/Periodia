@@ -2364,7 +2364,7 @@ function getWorkedHours($cdate)
 
 }
 
-function getWorkedHoursForReport($cuserID, $cyear, $cmonth)
+function getWorkedHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
 {        
     global $db;
                     
@@ -2399,7 +2399,7 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth)
                 <br>
                 <div class='ml-1 small'>".$row["pr_name"]."</div>";
                 
-                    if (checkUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"]) == true) {
+                    if (checkUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"]) == true && $_SESSION['user_role'] == 2 && $disableNotesLink == false) {
                         echo "<div class='ml-1 small'><a title='Visa notering' id='showNoteLink' href='#'><i class='fas fa-comment-alt'></i> Visa Notering</a></div>";
                     }                  
             echo "

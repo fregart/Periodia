@@ -134,7 +134,8 @@
                         
                         <!-- Get worked hours for user -->
                         <?php                                                   
-                            getWorkedHoursForReport($cuserID, $currentYear, $cmonth);                                                                                                                
+                             $disableNotesLink = false;
+                             getWorkedHoursForReport($cuserID, $currentYear, $cmonth, $disableNotesLink);                                                                                                                
                         ?>
 
                         <tr>
