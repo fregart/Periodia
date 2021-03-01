@@ -2397,7 +2397,7 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
             <tr id='".$row["wo_ID"]."' class='workedHoursDiv'>
                 <td>".$row["wo_date"]."
                 <br>
-                <div class='ml-1 small'>".$row["pr_name"]."</div>";
+                <div class='ml-1 small'>".ucfirst($row["pr_name"])."</div>";
                 
                     if (checkUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"]) == true && $_SESSION['user_role'] == 2 && $disableNotesLink == false) {
                         echo "<div class='ml-1 small'><a title='Visa notering' id='showNoteLink' href='#'><i class='fas fa-comment-alt'></i> Visa Notering</a></div>";

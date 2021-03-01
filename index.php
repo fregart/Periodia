@@ -79,11 +79,14 @@ include('session.php');
         </div>
 
         <div class="alert alert-secondary small" role="alert">
-        <h6>Uppdateringar</h6>
-          <p>2021-02. Omdesign av projektsidorna. Lägga in inlägg i projekt med bilder. Mina timmar ska få val för frånvarotimmar.</p>       
-          <p>2021-02-10. Nu går det göra inlägg med bilder per projekt.</p>
-          <p>2021-02-04. Det finns nu tillgång till inventerielistor för maskiner, fordon, verktyg och materiel.</p>
-          <p>2021-02-02. Profilsida tillagd, det går nu att uppdatera lösenordet.</p>           
+        <h6>Kommande uppdateringar</h6>
+          <p>2021-03. Omdesign av projektsidorna. Mina timmar ska få val för frånvarotimmar.
+          Rapportera bränsle. Önskemål om semester(kalendeder). Planeringssida för projekt.
+          När projekt är klara att fakturera, datum och status.</p>       
+        <h6>Färdiga uppdateringar</h6>
+          <p>2021-03-01. Bilder går nu lägga in när du rapporterar din tid.</p>
+          <p>2021-03-01. Admins kan nu se noteringar och bilder i tidrapporter.</p>
+          <p>2021-02-10. Nu går det göra inlägg med bilder per projekt.</p>          
         </div>
         
       </div>
