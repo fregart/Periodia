@@ -2373,9 +2373,9 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth)
             FROM
                 tbl_workinghours a
             LEFT JOIN tbl_project b ON
-                b.pr_ID = a.wo_projectID 
+                b.pr_ID = a.wo_projectID             
             WHERE
-                a.wo_userID = $cuserID
+                a.wo_userID = $cuserID                
                 AND YEAR(a.wo_date) = $cyear
                 AND MONTH(a.wo_date) = $cmonth                
                 ORDER BY a.wo_date ASC
@@ -2397,13 +2397,23 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth)
             <tr id='".$row["wo_ID"]."' class='workedHoursDiv'>
                 <td>".$row["wo_date"]."
                 <br>
-                <div class='ml-1 small'>".$row["pr_name"]."</div>
+                <div class='ml-1 small'>".$row["pr_name"]."</div>";
+                
+                    if (checkUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"]) == true) {
+                        echo "<div class='ml-1 small'><a title='Visa notering' id='showNoteLink' href='#'><i class='fas fa-comment-alt'></i> Visa Notering</a></div>";
+                    }                  
+            echo "
                 </td>
                 <td class='text-center'>".$row["wo_starttime"]."</td>
                 <td class='text-center'>".$row["wo_endtime"]."</td>
                 <td class='text-center'>".$row["wo_rest"]."</td>
                 <td class='text-center'>".$row["wo_total"]."</td>
             </tr>";
+
+            echo "                
+                <tr>";
+                    echo getUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"]);
+            echo "</tr>"; 
         }
 
     }
@@ -2505,6 +2515,100 @@ function getCurrentProjectNotes($cprojectID){
         
     }else {
         echo "Inga inlägg hittades";
+    }
+    
+}
+
+function getUserNotesAtDate($cprojectID, $cuserID, $cdate){
+
+    global $db;
+            
+    // get notes and user info
+    $sql = "SELECT *
+            FROM
+            tbl_notes a
+            LEFT JOIN tbl_user b
+            ON a.no_userID = b.us_ID
+            WHERE
+                a.no_projectID = $cprojectID
+                AND a.no_userID = $cuserID
+                AND DATE(a.no_created) = '$cdate'
+            ORDER BY a.no_created DESC
+            ";
+
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+        
+    if ($count > 0) {                
+        while ($row = mysqli_fetch_array($result)) {
+            echo "<td colspan='5' id='showNotediv' style='display: none'>";
+            echo "<div class='border p-3' style='background-color:#eee;'>";
+            echo "  <div class='row'>
+                        <div class='col'>
+                            <p class='small'>" . ucfirst($row["us_username"]) . "<span class='text-muted'> - " . date('Y-m-d H:i',strtotime($row["no_created"])) . "</span></p>
+                        </div>
+                    </div>";
+            echo "<div class='row'>";
+                        getCurrentProjectNotesImages($row['no_ID']);
+            echo "</div>";
+
+            echo "<p></p>";
+
+               
+            echo "
+                <div class='row'>
+                    <div class='col'>
+                        <p> " . ucfirst($row["no_content"]) . "</p>
+                    </div>
+                </div>";
+            echo "</div><p></p>";
+            echo "</td>";
+        }             
+        
+    }else {
+        return false;
+    }
+    
+}
+
+function checkUserNotesAtDate($cprojectID, $cuserID, $cdate){
+
+    global $db;
+            
+    // get notes and user info
+    $sql = "SELECT *
+            FROM
+            tbl_notes a
+            LEFT JOIN tbl_user b
+            ON a.no_userID = b.us_ID
+            WHERE
+                a.no_projectID = $cprojectID
+                AND a.no_userID = $cuserID
+                AND DATE(a.no_created) = '$cdate'
+            ORDER BY a.no_created DESC
+            ";
+
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+        
+    if ($count > 0) {                
+        return true;            
+    }else {
+        return false;
     }
     
 }

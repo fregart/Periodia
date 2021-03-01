@@ -187,4 +187,9 @@
         $('body').html(originalContents);                               
     }
 
+    // enables div for notes
+    $("#showNoteLink").click(function() {
+        $("#showNotediv").toggle("slow", function() {});
+    });
+
 </script>
