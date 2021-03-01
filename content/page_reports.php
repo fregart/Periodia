@@ -7,7 +7,7 @@
 
     <div class="row ml-2">
         <div class="col-sm-6 col-lg-4 mt-2">
-            <h5>Anställda</h5>
+            <h5>Personal</h5>
 
             <ul>
                 <li><a href="#" data-target="page_reports_time">Arbetade timmar</a></li>  
