@@ -3125,6 +3125,12 @@ function getCurrentDay()
     return $day;
 }
 
+function getCurrentWeek()
+{
+    $week = date("W");
+    return $week;
+}
+
 function getCurrentMonthFullName()
 {
     $monthNr = date("m");

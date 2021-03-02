@@ -19,9 +19,9 @@
                         <div class="row" style="height: 150px">
                         
                            <div class="col d-flex justify-content-center align-items-center">
-                              <div class="row justify-content-center align-items-center text-center bg-dark rounded" style="width: 350px;">
+                              <div class="row justify-content-center align-items-center text-center bg-dark rounded">
                                  <div class="col p-4 border-right text-nowrap">                                 
-                                    Denna vecka
+                                    Vecka <?php echo getCurrentWeek()?>
                                     <div class="text-info font-weight-bold text-nowrap"><?php echo getWeekTotalHours();?> timmar</div>
                                  </div>
                                  <div class="col d-flex justify-content-center">
