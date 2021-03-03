@@ -682,14 +682,14 @@ function checkIfAnyFileUploaded(){
 
             if(move_uploaded_file($_FILES["fileToUpload"]['tmp_name']["$j"],$path)){ //upload the file                                
 
-                // connect the image(s) to the latest note
+                // connect the image(s) to the latest work report
                 global $db;
-                $stmt   = "SELECT MAX(no_ID) FROM tbl_notes";
+                $stmt   = "SELECT MAX(wo_ID) FROM tbl_workinghours";
                 $result = mysqli_query($db, $stmt);
-                $row  = mysqli_fetch_array($result, MYSQLI_ASSOC);                
+                $row  = mysqli_fetch_array($result, MYSQLI_ASSOC);           
                 
-                $noteID = $row['MAX(no_ID)']; // latest note ID
-                $query = "insert into tbl_image(im_name, im_noteID) values('".$theFilePostfix."','".$noteID."')"; // insert into tbl_image
+                $woID = $row['MAX(wo_ID)']; // latest work ID
+                $query = "insert into tbl_image(im_name, im_workID) values('".$theFilePostfix."','".$woID."')"; // insert into tbl_image
 
                 // execute
                 if (mysqli_query($db,$query)) {
@@ -1655,18 +1655,19 @@ function reportTime()
         wo_date,
         wo_starttime,
         wo_endtime,
-        wo_rest,
+        wo_rest,        
         wo_total,        
+        wo_notes,
         wo_projectID
         )
 
         VALUES (
-            ?,?,?,?,?,?,?)");
+            ?,?,?,?,?,?,?,?)");
         
         // get $_POST form values and bind.
         // set parameters and execute
                     
-        $stmt->bind_param("isssssi", $userID, $date, $timefrom, $timeto, $break, $total, $projectID);            
+        $stmt->bind_param("issssssi", $userID, $date, $timefrom, $timeto, $break, $total, $notes, $projectID);            
             
         $userID    = $_SESSION['user_ID'];
         $date      = $_POST['datumInput'];
@@ -1674,22 +1675,31 @@ function reportTime()
         $timeto    = $_POST['timetoInput'];
         $break     = $_POST['breakInput'];
         $total     = $_POST['calcInput'];       
+        $notes     = $_POST['notesTextarea'];
         $projectID = $_POST['projectInput'];
         
-        $stmt->execute();                        
-        
-        if (isset($_POST['notesTextarea'])) { // check if there is a note
-            addNotes();            
-        }else {
+        if ($stmt !== false) {
+            $stmt->execute();
+            
+            checkIfAnyFileUploaded(); // check if there are any images and upload them
+    
             echo "
-            <script src='vendor/jquery/jquery.min.js'></script>
-            <script>
-                alert('Tidrapport inlagd');
-                $('#page-content').load('content/page_schema.php');                           
-            </script>
+                <script src='vendor/jquery/jquery.min.js'></script>
+                <script>$(document).ready(function(){
+                    alert('Ditt inlägg är sparat');
+                    $('#page-content').load('content/page_schema.php');
+                });
+                </script>
             ";
+    
             $stmt->close();
             $db->close();
+            
+        }else {
+            die('prepare() failed: ' . htmlspecialchars($db->error));
+            if(!$stmt){
+                echo "Error: " . mysqli_error($db);
+                }
         }
             
 }
