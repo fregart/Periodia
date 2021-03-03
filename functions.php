@@ -2420,10 +2420,8 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
                 <td class='text-center'>".$row["wo_total"]."</td>
             </tr>";
 
-            echo "                
-                <tr>";
-                    echo getUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"], $row['wo_ID']);
-            echo "</tr>"; 
+            echo getUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"], $row['wo_ID']);
+            
         }
 
     }
@@ -2558,8 +2556,10 @@ function getUserNotesAtDate($cprojectID, $cuserID, $cdate){
         
     if ($count > 0) {                
         while ($row = mysqli_fetch_array($result)) {
-            echo "<td colspan='5' id='".$row['wo_ID']."c'>";
-            echo "<div class='border p-3 notescontent' style='background-color:#eee;'>";
+            
+            echo "<tr id='".$row['wo_ID']."c'>";
+            echo "<td colspan='5' class='notescontent'>";
+            echo "<div class='border p-3' style='background-color:#eee;'>";
             echo "  <div class='row'>
                         <div class='col'>
                             <p class='small'>" . ucfirst($row["us_username"]) . "<span class='text-muted'> - " . $row["wo_date"] . " -- ".$row["wo_starttime"]."</span></p>
@@ -2570,7 +2570,6 @@ function getUserNotesAtDate($cprojectID, $cuserID, $cdate){
             echo "</div>";
 
             echo "<p></p>";
-
                
             echo "
                 <div class='row'>
@@ -2580,6 +2579,8 @@ function getUserNotesAtDate($cprojectID, $cuserID, $cdate){
                 </div>";
             echo "</div><p></p>";
             echo "</td>";
+            echo "</tr>";
+            
         }             
         
     }else {
