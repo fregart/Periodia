@@ -76,8 +76,6 @@ session_start();
          // free sql result
          mysqli_free_result($result);
 
-         $sql->close();
-         $sql2->close();
          $db->close();
          }
 
