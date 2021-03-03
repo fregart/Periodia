@@ -2410,7 +2410,7 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
                 <div class='ml-1 small'>".ucfirst($row["pr_name"])."</div>";
                 
                     if (checkUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"]) == true && $_SESSION['user_role'] == 2 && $disableNotesLink == false) {
-                        echo "<div class='ml-1 small'><a title='Visa notering' id='".$row['wo_ID']."' href='#'><i class='fas fa-comment-alt'></i> Visa</a></div>";
+                        echo "<div class='ml-1 small'><a title='Visa notering' id='".$row['wo_ID']."' href='#".$row['wo_ID']."'><i class='fas fa-comment-alt'></i> Visa</a></div>";
                     }                  
             echo "
                 </td>
