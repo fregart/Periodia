@@ -2536,14 +2536,14 @@ function getUserNotesAtDate($cprojectID, $cuserID, $cdate){
     // get notes and user info
     $sql = "SELECT *
             FROM
-            tbl_notes a
+            tbl_workinghours a
             LEFT JOIN tbl_user b
-            ON a.no_userID = b.us_ID
+            ON a.wo_userID = b.us_ID
             WHERE
-                a.no_projectID = $cprojectID
-                AND a.no_userID = $cuserID
-                AND DATE(a.no_created) = '$cdate'
-            ORDER BY a.no_created DESC
+                a.wo_projectID = $cprojectID
+                AND a.wo_userID = $cuserID
+                AND DATE(a.wo_date) = '$cdate'
+            ORDER BY a.wo_date DESC
             ";
 
     $result = mysqli_query($db, $sql);
@@ -2562,11 +2562,11 @@ function getUserNotesAtDate($cprojectID, $cuserID, $cdate){
             echo "<div class='border p-3' style='background-color:#eee;'>";
             echo "  <div class='row'>
                         <div class='col'>
-                            <p class='small'>" . ucfirst($row["us_username"]) . "<span class='text-muted'> - " . date('Y-m-d H:i',strtotime($row["no_created"])) . "</span></p>
+                            <p class='small'>" . ucfirst($row["us_username"]) . "<span class='text-muted'> - " . $row["wo_date"] . " -- ".$row["wo_starttime"]."</span></p>
                         </div>
                     </div>";
             echo "<div class='row'>";
-                        getCurrentProjectNotesImages($row['no_ID']);
+                        getCurrentProjectNotesImages($row['wo_ID']);
             echo "</div>";
 
             echo "<p></p>";
@@ -2575,7 +2575,7 @@ function getUserNotesAtDate($cprojectID, $cuserID, $cdate){
             echo "
                 <div class='row'>
                     <div class='col'>
-                        <p> " . ucfirst($row["no_content"]) . "</p>
+                        <p> " . ucfirst($row["wo_notes"]) . "</p>
                     </div>
                 </div>";
             echo "</div><p></p>";
@@ -2595,14 +2595,14 @@ function checkUserNotesAtDate($cprojectID, $cuserID, $cdate){
     // get notes and user info
     $sql = "SELECT *
             FROM
-            tbl_notes a
+            tbl_workinghours a
             LEFT JOIN tbl_user b
-            ON a.no_userID = b.us_ID
+            ON a.wo_userID = b.us_ID
             WHERE
-                a.no_projectID = $cprojectID
-                AND a.no_userID = $cuserID
-                AND DATE(a.no_created) = '$cdate'
-            ORDER BY a.no_created DESC
+                a.wo_projectID = $cprojectID
+                AND a.wo_userID = $cuserID
+                AND DATE(a.wo_date) = '$cdate'
+            ORDER BY a.wo_date DESC
             ";
 
     $result = mysqli_query($db, $sql);
@@ -2626,7 +2626,7 @@ function checkUserNotesAtDate($cprojectID, $cuserID, $cdate){
 /**
  * get all images that belong to note ID
  */
-function getCurrentProjectNotesImages($noteID){
+function getCurrentProjectNotesImages($woID){
 
     global $db;
             
@@ -2635,7 +2635,7 @@ function getCurrentProjectNotesImages($noteID){
             FROM
             tbl_image a            
             WHERE
-            a.im_noteID = $noteID
+            a.im_workID = $woID
             ";
 
     $result = mysqli_query($db, $sql);
