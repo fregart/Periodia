@@ -2410,7 +2410,7 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
                 <div class='ml-1 small'>".ucfirst($row["pr_name"])."</div>";
                 
                     if (checkUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"]) == true && $_SESSION['user_role'] == 2 && $disableNotesLink == false) {
-                        echo "<div class='ml-1 small'><a title='Visa notering' id='showNoteLink' href='#'><i class='fas fa-comment-alt'></i> Visa</a></div>";
+                        echo "<div class='ml-1 small'><a title='Visa notering' id='".$row['wo_ID']."' href='#'><i class='fas fa-comment-alt'></i> Visa</a></div>";
                     }                  
             echo "
                 </td>
@@ -2422,7 +2422,7 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
 
             echo "                
                 <tr>";
-                    echo getUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"]);
+                    echo getUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"], $row['wo_ID']);
             echo "</tr>"; 
         }
 
@@ -2558,8 +2558,8 @@ function getUserNotesAtDate($cprojectID, $cuserID, $cdate){
         
     if ($count > 0) {                
         while ($row = mysqli_fetch_array($result)) {
-            echo "<td colspan='5' id='showNotediv' style='display: none'>";
-            echo "<div class='border p-3' style='background-color:#eee;'>";
+            echo "<td colspan='5' id='".$row['wo_ID']."c'>";
+            echo "<div class='border p-3 notescontent' style='background-color:#eee;'>";
             echo "  <div class='row'>
                         <div class='col'>
                             <p class='small'>" . ucfirst($row["us_username"]) . "<span class='text-muted'> - " . $row["wo_date"] . " -- ".$row["wo_starttime"]."</span></p>

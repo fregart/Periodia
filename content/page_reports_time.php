@@ -193,4 +193,13 @@
         $("#showNotediv").toggle("slow", function() {});
     });
 
+    // click listener to view notes
+    $("a").click(function() {        
+        showDivs($(this).attr("id"));        
+    })
+
+    function showDivs(callerId) {        
+        $(".notescontent", "#" + callerId + "c").toggle();  
+    }
+
 </script>
