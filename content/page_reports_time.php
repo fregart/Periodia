@@ -186,12 +186,7 @@
         window.print();   
 
         $('body').html(originalContents);                               
-    }
-
-    // enables div for notes
-    $("#showNoteLink").click(function() {
-        $("#showNotediv").toggle("slow", function() {});
-    });
+    }    
 
     // click listener to view notes
     $("td>a").click(function() {        
