@@ -189,7 +189,7 @@
     }    
 
     // click listener to view notes
-    $("td>a").click(function() {        
+    $(".workedHoursDiv>td>div>a").click(function() {        
         showDivs($(this).attr("id"));        
     })
 
