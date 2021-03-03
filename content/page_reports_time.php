@@ -194,7 +194,7 @@
     });
 
     // click listener to view notes
-    $("a").click(function() {        
+    $("td>a").click(function() {        
         showDivs($(this).attr("id"));        
     })
 
