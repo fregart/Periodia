@@ -2593,16 +2593,13 @@ function checkUserNotesAtDate($cprojectID, $cuserID, $cdate){
     global $db;
             
     // get notes and user info
-    $sql = "SELECT *
+    $sql = "SELECT wo_notes
             FROM
-            tbl_workinghours a
-            LEFT JOIN tbl_user b
-            ON a.wo_userID = b.us_ID
+            tbl_workinghours a                    
             WHERE
                 a.wo_projectID = $cprojectID
                 AND a.wo_userID = $cuserID
                 AND DATE(a.wo_date) = '$cdate'
-            ORDER BY a.wo_date DESC
             ";
 
     $result = mysqli_query($db, $sql);
@@ -2614,8 +2611,9 @@ function checkUserNotesAtDate($cprojectID, $cuserID, $cdate){
     }
     
     $count = mysqli_num_rows($result);
+    $row = mysqli_fetch_array($result);
         
-    if ($count > 0) {                
+    if ($count > 0 && $row['wo_notes'] !=NULL) {  
         return true;            
     }else {
         return false;
