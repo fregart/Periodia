@@ -2500,6 +2500,49 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
 
 }
 
+function getFuelReports()
+{        
+    global $db;
+    
+    $companyID = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT
+                *
+            FROM
+                tbl_fuel a            
+            WHERE
+                a.fu_companyID = $companyID
+            ORDER BY a.fu_date ASC
+            ";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);    
+  
+    if ($count > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            echo "   
+            <tr id='".$row["fu_ID"]."'>
+                <th scope='row'>".$row["fu_date"]."</th>
+                <td>".$row["fu_name"]."</td>
+                <td>".$row["fu_fuel"]."</td>
+                <td>".$row["fu_adblue"]."</td>
+                <td>".$row["fu_mileage"]."</td>
+                <td>".$row["fu_hours"]."</td>
+                <td>".$row["fu_notes"]."</td>
+            </tr>";                        
+        }
+
+    }
+
+}
+
 function getUserFullName($cuserID){
 
     global $db;
@@ -2948,24 +2991,25 @@ function reportFuel()
         fu_adblue,
         fu_mileage,
         fu_hours,
-        fu_notes        
+        fu_notes,
+        fu_companyID   
         )
 
         VALUES (
-            ?,?,?,?,?,?,?)");
+            ?,NOW(),?,?,?,?,?,?)");
         
         // get $_POST form values and bind.
         // set parameters and execute
                     
-        $stmt->bind_param("sssssss", $name, $date, $fuel, $adblue, $mileage, $hours, $notes);
+        $stmt->bind_param("ssssssi", $name, $fuel, $adblue, $mileage, $hours, $notes, $companyID);
                     
-        $name      = $_POST['machineInput'];
-        $date      = $_POST['dateInput'];
+        $name      = $_POST['machineInput'];        
         $fuel      = $_POST['fuelInput'];
         $adblue      = $_POST['adblueInput'];
         $mileage      = $_POST['mileageInput'];
         $hours      = $_POST['hoursInput'];                
         $notes     = $_POST['notesTextarea'];
+        $companyID     = $_SESSION['user_company_ID'];
         
         // check if atleast one field has input and then execute
         if ($_POST['fuelInput'] !="" || $_POST['adblueInput'] !="" || $_POST['hoursInput'] !="") {

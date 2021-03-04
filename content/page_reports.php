@@ -31,9 +31,7 @@
             <h5>Tankning</h5>
 
             <ul>
-                <li>Maskiner</li>  
-                <li>Fordon</li>
-                <li>Verktyg</li>
+                <li><a href="#" data-target="page_reports_fuel">Visa senaste tankningar</a></li>
             </ul>
         </div>
 
