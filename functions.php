@@ -129,6 +129,10 @@ if (isset($_POST['action'])) {
     if ($_POST['action'] == 'updatePersonalCard') {        
         updatePersonalCard(); // call function
     }
+
+    if ($_POST['action'] == 'reportFuel') {        
+        reportFuel(); // call function
+    }
         
 }
 
@@ -1567,6 +1571,74 @@ function getAllProjectsSelectList($cprojectID)
     
 }
 
+
+function getAllMachinesSelectList()
+{
+    
+    global $db;
+    
+    $company = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT *   
+            FROM
+                tbl_machine a
+            WHERE
+                a.ma_owner = $company
+            ORDER BY a.ma_name ASC";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            echo "<option value='" . ucfirst($row["ma_name"]) . " - " . $row["ma_regnr"] . "'>" . ucfirst($row["ma_name"]) . " - " . $row["ma_regnr"] . "</option>";            
+        }
+        
+    }
+    
+}
+
+function getAllVehiclesSelectList()
+{
+    
+    global $db;
+    
+    $company = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT *   
+            FROM
+                tbl_vehicle a
+            WHERE
+                a.ve_owner = $company
+            ORDER BY a.ve_name ASC";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            echo "<option value='" . $row['ve_ID'] . "'>" . ucfirst($row["ve_name"]) . " - " . $row["ve_regnr"] . "</option>";            
+        }
+        
+    }
+
+}
+
+
 function getAllAbscenceTypeSelectList()
 {
     
@@ -2859,6 +2931,79 @@ function updatePersonalCard()
     } else {
         die('prepare() failed: ' . htmlspecialchars($db->error));
     }
+}
+
+
+function reportFuel()
+{    
+
+    // set global db variable from dbconnect
+    global $db;        
+
+    // prepare sql query and bind
+    $stmt = $db->prepare("INSERT INTO tbl_fuel (                        
+        fu_name,
+        fu_date,
+        fu_fuel,
+        fu_adblue,
+        fu_mileage,
+        fu_hours,
+        fu_notes        
+        )
+
+        VALUES (
+            ?,?,?,?,?,?,?)");
+        
+        // get $_POST form values and bind.
+        // set parameters and execute
+                    
+        $stmt->bind_param("sssssss", $name, $date, $fuel, $adblue, $mileage, $hours, $notes);
+                    
+        $name      = $_POST['machineInput'];
+        $date      = $_POST['dateInput'];
+        $fuel      = $_POST['fuelInput'];
+        $adblue      = $_POST['adblueInput'];
+        $mileage      = $_POST['mileageInput'];
+        $hours      = $_POST['hoursInput'];                
+        $notes     = $_POST['notesTextarea'];
+        
+        // check if atleast one field has input and then execute
+        if ($_POST['fuelInput'] !="" || $_POST['adblueInput'] !="" || $_POST['hoursInput'] !="") {
+            if ($stmt !== false) {
+                $stmt->execute();                        
+        
+                echo "
+                    <script src='vendor/jquery/jquery.min.js'></script>
+                    <script>$(document).ready(function(){
+                        alert('Ditt inlägg är sparat');
+                        $('#page-content').load('content/page_schema.php');
+                    });
+                    </script>
+                ";
+        
+                $stmt->close();
+                $db->close();
+                
+            }else {
+                die('prepare() failed: ' . htmlspecialchars($db->error));
+                if(!$stmt){
+                    echo "Error: " . mysqli_error($db);
+                    }
+            }
+        } else {
+            echo "
+                    <script src='vendor/jquery/jquery.min.js'></script>
+                    <script>$(document).ready(function(){
+                        alert('Minst ett fält för bränsle, AdBlue eller timmar måste fyllas i');
+                        $('#page-content').load('content/page_reportfuel.php');
+                    });
+                    </script>
+                ";
+        
+                $stmt->close();
+                $db->close();
+        }
+    
 }
 
 

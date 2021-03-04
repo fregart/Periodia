@@ -57,6 +57,7 @@ include('session.php');
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_myhours"><div class="sidebar-icon"><i class="fas fa-user-clock"></i></div> Mina timmar</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reporttime"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera tid</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportabsence"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera frånvaro</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportfuel"><div class="sidebar-icon"><i class="fas fa-gas-pump"></i></div> Rapportera tankning</a>
         <!-- Admin menu section-->  
         <?php
           if ($_SESSION['user_role'] == 2) {
@@ -156,21 +157,6 @@ include('session.php');
       <!-- Section for page content -->
       <div id="page-content">      
       </div>
-      
-
-     
-
-
-          
-
-      <!-- Timbank 
-      <section class="page-timbank">
-        <div class="container-fluid">
-          <h1 class="mt-4">Timbank</h1>
-          <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-          <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
-        </div>
-      </section> -->
 
     </div>
     <!-- /#page-content-wrapper -->

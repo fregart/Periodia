@@ -77,6 +77,23 @@
                            </div>
                         </div>
 
+
+                        <div class="row border-bottom time-panel-buttons" id="page_reportfuel" style="height: 100px;">
+                           <div class="col d-flex justify-content-left align-items-center">
+                              <div class="row justify-content-center align-items-center text-center" style="margin-left: 3%;">
+
+                              <table class="text-light">
+                                 <tr>
+                                    <td><i class="fas fa-gas-pump fa-2x"></i></td>                                    
+                                    <td class="pl-2 h4">Rapportera tankning</td>
+                                 </tr>
+                              </table>
+                              
+                              </div>
+                           </div>
+                        </div>
+
+
                      </div>                  
                   </div>                
                </div>
