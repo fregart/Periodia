@@ -148,8 +148,16 @@
                     </tbody>
                 </table>
             </div>
-            <input type="button" class="btn btn-success mt-4 mb-4" onclick="printReport('printableArea')" value="Skriv ut" />
-    
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">                        
+                        <button type="button" class="btn btn-primary" title='Stäng'>Stäng</button>
+                        <input type="button" class="btn btn-success mt-4 mb-4" onclick="printReport('printableArea')" value="Skriv ut" />
+                        </form>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -196,5 +204,12 @@
     function showDivs(callerId) {        
         $(".notescontent", "#" + callerId + "c").toggle();  
     }
+
+    
+    // cancel button listener
+    $(".btn-primary").click(function() {
+        $('#page-content').load('content/page_reports.php');
+    });
+
 
 </script>
