@@ -2512,7 +2512,7 @@ function getFuelReports()
                 tbl_fuel a            
             WHERE
                 a.fu_companyID = $companyID
-            ORDER BY a.fu_date ASC
+            ORDER BY a.fu_date DESC
             ";
     
     $result = mysqli_query($db, $sql);
@@ -2528,14 +2528,14 @@ function getFuelReports()
     if ($count > 0) {
         while ($row = mysqli_fetch_array($result)) {
             echo "   
-            <tr id='".$row["fu_ID"]."'>
-                <th scope='row'>".$row["fu_date"]."</th>
+            <tr id='".$row["fu_ID"]."' class='small'>
+                <th scope='row'>".date('Y-m-d H:i',strtotime($row["fu_date"]))."</th>
                 <td>".$row["fu_name"]."</td>
-                <td>".$row["fu_fuel"]."</td>
-                <td>".$row["fu_adblue"]."</td>
-                <td>".$row["fu_mileage"]."</td>
-                <td>".$row["fu_hours"]."</td>
-                <td>".$row["fu_notes"]."</td>
+                <td class='text-right'>".$row["fu_fuel"]."</td>
+                <td class='text-right'>".$row["fu_adblue"]."</td>
+                <td class='d-none d-lg-table-cell text-right'>".$row["fu_mileage"]."</td>
+                <td class='d-none d-lg-table-cell text-right'>".$row["fu_hours"]."</td>
+                <td class='d-none d-lg-table-cell'>".$row["fu_notes"]."</td>
             </tr>";                        
         }
 
