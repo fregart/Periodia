@@ -1642,9 +1642,7 @@ function getAllVehiclesSelectList()
 function getAllAbscenceTypeSelectList()
 {
     
-    global $db;
-    
-    $company = $_SESSION['user_company_ID'];
+    global $db;    
     
     $sql = "SELECT
                 a.abt_ID,                
