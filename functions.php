@@ -1631,7 +1631,7 @@ function getAllVehiclesSelectList()
     
     if ($count > 0) {
         while ($row = mysqli_fetch_array($result)) {
-            echo "<option value='" . $row['ve_ID'] . "'>" . ucfirst($row["ve_name"]) . " - " . $row["ve_regnr"] . "</option>";            
+            echo "<option value='". ucfirst($row["ve_name"]) . " - " . $row["ve_regnr"] ."'>" . ucfirst($row["ve_name"]) . " - " . $row["ve_regnr"] . "</option>";            
         }
         
     }
