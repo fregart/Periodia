@@ -14,8 +14,8 @@
                     <tr>
                         <th scope="col">Datum</th>
                         <th scope="col">Namn</th>
-                        <th scope="col" class='text-right'>Bränsle (L)</th>
-                        <th scope="col" class='text-right'>AdBlue (L)</th>
+                        <th scope="col" class='text-right'>Bränsle</th>
+                        <th scope="col" class='text-right'>AdBlue</th>
                         <th scope="col" class="d-none d-lg-table-cell text-right">Mätare</th>
                         <th scope="col" class="d-none d-lg-table-cell text-right">Timmar</th>
                         <th scope="col" class="d-none d-lg-table-cell">Notering</th>
@@ -31,19 +31,20 @@
 
             <div class="form-group">
                 <div class="row">
-                    <div class="col">                        
+                    <div class="col">
                         <button type="button" class="btn btn-primary" title='Stäng'>Stäng</button>
                         </form>
                     </div>
                 </div>
             </div>
+            
 
         </div>
     </div>
 </div>
 <script>
-    // cancel button listener
-    $(".btn-primary").click(function() {
-        $('#page-content').load('content/page_reports.php');
-    });
+// cancel button listener
+$(".btn-primary").click(function() {
+    $('#page-content').load('content/page_reports.php');
+});
 </script>

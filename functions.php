@@ -133,6 +133,10 @@ if (isset($_POST['action'])) {
     if ($_POST['action'] == 'reportFuel') {        
         reportFuel(); // call function
     }
+
+    if ($_POST['action'] == 'deleteFuel') {        
+        deleteFuel(); // call function 
+    }
         
 }
 
@@ -2525,15 +2529,15 @@ function getFuelReports()
   
     if ($count > 0) {
         while ($row = mysqli_fetch_array($result)) {
-            echo "   
-            <tr id='".$row["fu_ID"]."' class='small'>
-                <th scope='row'>".date('Y-m-d H:i',strtotime($row["fu_date"]))."</th>
+            echo "            
+            <tr id='".$row["fu_ID"]."' class='small'>            
+            <th scope='row'>".date('Y-m-d H:i',strtotime($row["fu_date"]))."<form method='post'><input type='hidden' name='action' value='deleteFuel'><input type='hidden' name='removeThisID' value='".$row["fu_ID"]."'> <button type='submit' class='btn btn-sm' style='padding:0;' title='Ta bort tankning'><i class='fa fa-times-circle text-danger'></i></button></form></th>
                 <td>".$row["fu_name"]."</td>
                 <td class='text-right'>".$row["fu_fuel"]."</td>
                 <td class='text-right'>".$row["fu_adblue"]."</td>
                 <td class='d-none d-lg-table-cell text-right'>".$row["fu_mileage"]."</td>
                 <td class='d-none d-lg-table-cell text-right'>".$row["fu_hours"]."</td>
-                <td class='d-none d-lg-table-cell'>".$row["fu_notes"]."</td>
+                <td class='d-none d-lg-table-cell'>".$row["fu_notes"]."</td>            
             </tr>";                        
         }
 
@@ -3046,6 +3050,36 @@ function reportFuel()
                 $db->close();
         }
     
+}
+
+function deleteFuel(){
+
+    // set global db variable from dbconnect
+    global $db;
+        
+    $ID = $_POST['removeThisID'];
+
+    $stmt = $db->prepare("DELETE FROM tbl_fuel
+                          WHERE fu_ID = ?");
+
+    $stmt->bind_param('i', $ID);
+
+    if ($stmt !== false) {
+        $stmt->execute();
+        $stmt->close();
+        $db->close();
+        
+        echo "
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>$(document).ready(function(){
+                alert('Tankningen har tagits bort');
+                    $('#page-content').load('content/page_reports_fuel.php');
+                });                        
+            </script>
+        ";
+    } else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+    }
 }
 
 
