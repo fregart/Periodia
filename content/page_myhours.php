@@ -21,6 +21,13 @@
         <div class="col-sm">
 
             <p class="h4">Mina timmar</p>
+            
+            <br />
+
+            <div class="alert alert-info" role="alert">
+                Här visas dina timmar som du rapporterat in. Klicka på ett datum för att ändra eller ta bort.
+            </div>
+
             <br />
 
             <form>         
