@@ -66,11 +66,12 @@
                         <br>
 
 
-                        <div class="m-t-30 text-center"><img src="/img/no-image.png"
+                        <div class="m-t-30 text-center"><img src="img/no-image.png"
                                 class="img-circle" width="150" title="Ingen bild">
                             <h4 class="card-title m-t-10"><?php echo $row['us_fname'] ?> <?php echo $row['us_lname'] ?></h4>
                             
                             <div class="row text-center justify-content-md-center">
+                            <button class="btn btn-primary btn-sm">Ny bild</button>
                             </div>
                         </div>
 
