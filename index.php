@@ -35,7 +35,7 @@ include('session.php');
 <div class="d-flex" id="wrapper">  
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="d-flex sidebar-heading justify-content-center">
+      <div class="d-flex sidebar-heading justify-content-center text-center">
         <!-- Company name -->        
         <div class="company-name">
           <?php                            
