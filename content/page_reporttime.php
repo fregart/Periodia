@@ -17,7 +17,7 @@ if(isset($_GET['setDate'])){
 // set default hours to 00
 if(isset($_GET['setProjectID'])){    
     
-    $setProjectID = $_GET['setProjectID'];
+    $setProjectID = $_GET['setProjectID'];    
     
     if (!$row = getWorkHours($setDate, $setProjectID)){
         // default values
@@ -32,7 +32,7 @@ if(isset($_GET['setProjectID'])){
     $row['wo_starttime'] = "07:00";
     $row['wo_endtime'] = "16:00";
     $row['wo_rest'] = "01:00";
-    $row['wo_notes'] = "";
+    $row['wo_notes'] = "";    
 }
 ?>
 
@@ -62,7 +62,8 @@ if(isset($_GET['setProjectID'])){
                         <div class="col">
                             <div class="form-group">
                                 <label for="projectInput">Projekt</label> <!--<i class="far fa-question-circle small"></i>-->
-                                <select class="form-control" id="projectInput" name="projectInput">
+                                <select class="form-control" id="projectInput" name="projectInput" required>
+                                <option value="">-- Välj --</option>
                                     <?php getAllProjectsSelectList($setProjectID);?>                    
                                 </select>
                             </div>
@@ -192,7 +193,7 @@ if(isset($_GET['setProjectID'])){
 
     // disable save button if there is no project
     var $buttonDisableTest = $('#projektInput').children("option").val();
-    if ($buttonDisableTest == 0) {
+    if ($buttonDisableTest == 0 || $buttonDisableTest == "") {
         $('.btn-success').prop("disabled",true);
     }
     
