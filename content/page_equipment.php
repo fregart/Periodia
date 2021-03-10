@@ -185,13 +185,7 @@ $(document).ready(function() {
     $(document).on("click", "#machine-link", function() {
         var id = $(this).attr('maid');
         $("#page-content").load('content/page_showmachine.php?id=' + id, true);
-    });
-
-    // machine edit button click listener
-    $(document).on("click", "#btn-edit-machine", function() {
-        var id = $(this).attr('maid');
-        $("#page-content").load('content/page_editmachine.php?id=' + id, true);
-    });
+    });    
 
     // add new machine button listener
     $("#btn-add-new-machine").click(function() {
@@ -202,13 +196,7 @@ $(document).ready(function() {
     $(document).on("click", "#vehicle-link", function() {
         var id = $(this).attr('maid');
         $("#page-content").load('content/page_showvehicle.php?id=' + id, true);
-    });
-
-    // vehicle edit button click listener
-    $(document).on("click", "#btn-edit-vehicle", function() {
-        var id = $(this).attr('maid');
-        $("#page-content").load('content/page_editvehicle.php?id=' + id, true);
-    });
+    });    
 
     // add new vehicle button listener
     $("#btn-add-new-vehicle").click(function() {
@@ -219,13 +207,7 @@ $(document).ready(function() {
     $(document).on("click", "#tool-link", function() {
         var id = $(this).attr('maid');
         $("#page-content").load('content/page_showtool.php?id=' + id, true);
-    });
-
-    // tool edit button click listener
-    $(document).on("click", "#btn-edit-tool", function() {
-        var id = $(this).attr('maid');
-        $("#page-content").load('content/page_edittool.php?id=' + id, true);
-    });
+    });    
 
     // add new tool button listener
     $("#btn-add-new-tool").click(function() {
@@ -236,13 +218,7 @@ $(document).ready(function() {
     $(document).on("click", "#material-link", function() {
         var id = $(this).attr('maid');
         $("#page-content").load('content/page_showmaterial.php?id=' + id, true);
-    });
-
-    // material edit button click listener
-    $(document).on("click", "#btn-edit-material", function() {
-        var id = $(this).attr('maid');
-        $("#page-content").load('content/page_editmaterial.php?id=' + id, true);
-    });
+    });    
 
     // add new material button listener
     $("#btn-add-new-material").click(function() {

@@ -1311,11 +1311,7 @@ function getAllMachines()
             echo "<div class='card'>";
             echo "<div class='card-body'>";
             echo "<strong><a href='#' id='machine-link' maid='" . $row["ma_ID"] . "'>" . $row["ma_name"] . "</a></strong><br>";
-            echo "Reg. nr. " . $row["ma_regnr"] ."<br><br>";   
-            if ($_SESSION['user_role'] == 2) {
-                echo "<button class='btn btn-success btn-sm' id='btn-edit-machine' maid='" . $row['ma_ID'] . "' title='Redigera'>";
-                echo "<i class='fa fa-pencil-alt'></i> <span>Redigera</span></button>";     
-            }     
+            echo "Reg. nr. " . $row["ma_regnr"] ."<br><br>";       
             echo "</div>";
             echo "</div>";
             echo "<p></p>";
@@ -1360,11 +1356,7 @@ function getAllVehicles()
             echo "<div class='card'>";
             echo "<div class='card-body'>";
             echo "<strong><a href='#' id='vehicle-link' maid='" . $row["ve_ID"] . "'>" . $row["ve_name"] . "</a></strong><br>";
-            echo "Reg. nr. " . $row["ve_regnr"] ."<br><br>";   
-            if ($_SESSION['user_role'] == 2) {
-                echo "<button class='btn btn-success btn-sm' id='btn-edit-vehicle' maid='" . $row['ve_ID'] . "' title='Redigera'>";
-                echo "<i class='fa fa-pencil-alt'></i> <span>Redigera</span></button>";     
-            }     
+            echo "Reg. nr. " . $row["ve_regnr"] ."<br><br>";               
             echo "</div>";
             echo "</div>";
             echo "<p></p>";
@@ -1408,12 +1400,7 @@ function getAllTools()
         while ($row = mysqli_fetch_array($result)) {
             echo "<div class='card'>";
             echo "<div class='card-body'>";
-            echo "<strong><a href='#' id='tool-link' maid='" . $row["to_ID"] . "'>" . $row["to_name"] . "</a></strong><br><br>";
-            
-            if ($_SESSION['user_role'] == 2) {
-                echo "<button class='btn btn-success btn-sm' id='btn-edit-tool' maid='" . $row['to_ID'] . "' title='Redigera'>";
-                echo "<i class='fa fa-pencil-alt'></i> <span>Redigera</span></button>";     
-            }     
+            echo "<strong><a href='#' id='tool-link' maid='" . $row["to_ID"] . "'>" . $row["to_name"] . "</a></strong><br><br>";                        
             echo "</div>";
             echo "</div>";
             echo "<p></p>";
@@ -1457,12 +1444,7 @@ function getAllMaterials()
         while ($row = mysqli_fetch_array($result)) {
             echo "<div class='card'>";
             echo "<div class='card-body'>";
-            echo "<strong><a href='#' id='material-link' maid='" . $row["ma_ID"] . "'>" . $row["ma_name"] . "</a></strong><br><br>";
-            
-            if ($_SESSION['user_role'] == 2) {
-                echo "<button class='btn btn-success btn-sm' id='btn-edit-material' maid='" . $row['ma_ID'] . "' title='Redigera'>";
-                echo "<i class='fa fa-pencil-alt'></i> <span>Redigera</span></button>";     
-            }     
+            echo "<strong><a href='#' id='material-link' maid='" . $row["ma_ID"] . "'>" . $row["ma_name"] . "</a></strong><br><br>";                
             echo "</div>";
             echo "</div>";
             echo "<p></p>";

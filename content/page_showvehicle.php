@@ -40,7 +40,13 @@ if($result = $db->query($sql)){
                     <div class='row'>
                         <div class='col'>
                             <button type='button' class='btn btn-primary' title='Stäng'>Stäng</button>                  
-                        </div>
+                        </div>";
+                        if ($_SESSION['user_role'] == 2) {
+                            echo "<div class='col'>";
+                            echo "<button class='btn btn-success' id='btn-edit-vehicle' maid='" . $row['ve_ID'] . "' title='Redigera'>Redigera</button>";
+                            echo "</div>";
+                        }
+                    echo "
                     </div>
                 </div>";
             
@@ -54,5 +60,11 @@ if($result = $db->query($sql)){
     // cancel button listener
     $(".btn-primary").click(function() {
     $('#page-content').load('content/page_equipment.php');
+    });
+
+    // vehicle edit button click listener
+    $(document).on("click", "#btn-edit-vehicle", function() {
+        var id = $(this).attr('maid');
+        $("#page-content").load('content/page_editvehicle.php?id=' + id, true);
     });
 </script>
