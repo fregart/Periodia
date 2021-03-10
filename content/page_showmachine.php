@@ -35,9 +35,27 @@ if($result = $db->query($sql)){
                 echo "<div class='row'><div class='col-4'>Arbetstimmar </div><div class='col-4'>" . $row['ma_hours'] . "<div class='col-auto'></div></div></div>";
                 echo "<hr>";
                 echo "<div class='row'><div class='col-4'>Beskrivning </div><div class='col-4'>" . $row['ma_description'] . "<div class='col-auto'></div></div></div>";        
+                
+                echo "<hr>";
+
+                echo "
+                <div class='form-group'>
+                    <div class='row'>
+                        <div class='col'>
+                            <button type='button' class='btn btn-primary' title='Stäng'>Stäng</button>                  
+                        </div>
+                    </div>
+                </div>";
+
             echo "</div>";
         echo "</div>";
     }
    
     echo "</div>";
-}
+}?>
+<script>
+    // cancel button listener
+    $(".btn-primary").click(function() {
+    $('#page-content').load('content/page_equipment.php');
+    });
+</script>
