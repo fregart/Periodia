@@ -301,7 +301,7 @@ function getAllUsers()
     if ($count > 0) {
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr scope='row'>";
-            echo "<td><a href='#' onclick='showUser(" . $row["us_ID"] . ")' aria-hidden='true' data-toggle='modal' data-target='#editUserModal' id='" . $row["us_ID"] . "'>" . ucfirst($row["us_username"]) . "</a></td>";
+            echo "</td><td><a href='#' onclick='showUser(" . $row["us_ID"] . ")' aria-hidden='true' data-toggle='modal' data-target='#editUserModal' id='" . $row["us_ID"] . "'>" . ucfirst($row["us_username"]) . "</a></td>";
             echo "<td class='text-left d-none d-lg-table-cell'>" . ucfirst($row["ro_name"]) . "</td>";
             echo "<td class='text-left d-none d-lg-table-cell'>";
             if ($row["us_isactive"] == 1) {
@@ -311,7 +311,7 @@ function getAllUsers()
             }
             echo "</td>";
             
-            echo "<td><a href='#' class='updateUserLink' onclick='showUser(" . $row["us_ID"] . ")' title='Redigera'><i class='fas fa-pencil-alt text-warning mr-4' aria-hidden='true' data-toggle='modal' data-target='#editUserModal'></i></a>";
+            echo "</td><td><a href='#' class='updateUserLink' onclick='showUser(" . $row["us_ID"] . ")' title='Redigera'><i class='fas fa-pencil-alt text-warning mr-4' aria-hidden='true' data-toggle='modal' data-target='#editUserModal'></i></a>";
             if ($row["us_username"] != $_SESSION['login_user']) {
                 echo "<a href='#' class='deleteUserLink' title='Ta bort'><i class='fa fa-times-circle text-danger' aria-hidden='true' data-toggle='modal' data-target='#removeUserModal' data-user-id=" . $row["us_ID"] . " data-user-name=" . $row["us_username"] . "></i></a></td>";
             } else {
@@ -2439,10 +2439,10 @@ function getWorkedHours($cdate)
         }
 
     }else {
-        echo "<td></td>";
-        echo "<td></td>";
-        echo "<td></td>";
-        echo "<td></td>";
+        echo "</td><td></td>";
+        echo "</td><td></td>";
+        echo "</td><td></td>";
+        echo "</td><td></td>";
 
     }
 
@@ -2479,7 +2479,7 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
         while ($row = mysqli_fetch_array($result)) {
             echo "   
             <tr id='".$row["wo_ID"]."' class='workedHoursDiv'>
-                <td>".$row["wo_date"]."
+                </td><td>".$row["wo_date"]."
                 <br>
                 <div class='ml-1 small'>".ucfirst($row["pr_name"])."</div>";
                 
@@ -2532,7 +2532,7 @@ function getFuelReports()
             echo "            
             <tr id='".$row["fu_ID"]."' class='small'>            
             <th scope='row'>".date('Y-m-d H:i',strtotime($row["fu_date"]))."<form method='post'><input type='hidden' name='action' value='deleteFuel'><input type='hidden' name='removeThisID' value='".$row["fu_ID"]."'> <button type='submit' class='btn btn-sm' style='padding:0;' title='Ta bort tankning'><i class='fa fa-times-circle text-danger'></i></button></form></th>
-                <td>".$row["fu_name"]."</td>
+                </td><td>".$row["fu_name"]."</td>
                 <td class='text-right'>".$row["fu_fuel"]."</td>
                 <td class='text-right'>".$row["fu_adblue"]."</td>
                 <td class='d-none d-lg-table-cell text-right'>".$row["fu_mileage"]."</td>
@@ -2901,11 +2901,11 @@ function getCheckedInUsers(){
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr>";
             echo "<th scope='row'>" . $row["pr_name"] . "</th>";
-            echo "<td>";
+            echo "</td><td>";
                 getUserFullName($row["ch_userID"]);
             echo "</td>";
-            echo "<td>". date('Y-m-d H:i', strtotime($row["ch_time"])) . "</td>";
-            echo "<td><button class='btn btn-warning btn-sm' id='checkoutbutton' title='Checka ut'><i class='fas fa-user-minus'></i></button></td>";
+            echo "</td><td>". date('Y-m-d H:i', strtotime($row["ch_time"])) . "</td>";
+            echo "</td><td><button class='btn btn-warning btn-sm' id='checkoutbutton' title='Checka ut'><i class='fas fa-user-minus'></i></button></td>";
             echo "</tr>";
         }
         
@@ -3193,6 +3193,62 @@ function countAllMaterials(){
     if ($count > 0) {
         return $count;        
     }    
+}
+
+
+function getUsersAllData($cuserID)
+{
+    global $db;
+    
+    $company = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT * FROM tbl_user a
+        LEFT JOIN tbl_employees b ON
+        b.em_userID = a.us_ID
+        WHERE b.em_companyID = $company
+        AND a.us_ID = $cuserID
+            ";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            echo "<tr><td class='text-nowrap'>Anst nr: </td><td class='text-nowrap font-weight-bold'>" . $row['us_employeenr'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Förnamn: </td><td class='text-nowrap font-weight-bold'>" . $row['us_fname'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Efternamn: </td><td class='text-nowrap font-weight-bold'>" . $row['us_lname'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Person nr: </td><td class='text-nowrap font-weight-bold'>" . $row['us_pnr'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Infotext: </td><td class='text-nowrap font-weight-bold'>" . $row['us_infotext'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Adress 1: </td><td class='text-nowrap font-weight-bold'>" . $row['us_address1'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Adress 2: </td><td class='text-nowrap font-weight-bold'>" . $row['us_address2'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Post nr: </td><td class='text-nowrap font-weight-bold'>" . $row['us_zip'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Stad: </td><td class='text-nowrap font-weight-bold'>" . $row['us_city'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Epost: </td><td class='text-nowrap font-weight-bold'>" . $row['us_email'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Telefon 1: </td><td class='text-nowrap font-weight-bold'>" . $row['us_phone1'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Telefon 2: </td><td class='text-nowrap font-weight-bold'>" . $row['us_phone2'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Bank clearing nr: </td><td class='text-nowrap font-weight-bold'>" . $row['us_clearingnr'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Bank nr: </td><td class='text-nowrap font-weight-bold'>" . $row['us_accountnr'] . "</td></tr>";
+            
+        }
+    }else {
+        echo "<div class='alert alert-secondary' role='alert'>Inga poster hittades.</div>";
+    }
+    
+    // free sql result
+    mysqli_free_result($result);
+    
+    // return result
+    return $result;
+    
+    // close connection
+    $db->close();
 }
 
 
