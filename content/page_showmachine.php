@@ -27,13 +27,14 @@ if($result = $db->query($sql)){
         echo "<div class='card'>";
             echo "<div class='card-body'>";
                 echo "<strong>" . $row['ma_name'] . " " . $row['ma_regnr'] . "</strong><br>";
-                echo "<div class='row text-nowrap'><div class='col-4'>Reg. nr. </div><div class='col-4'>" . $row['ma_regnr'] . "<div class='col-auto'></div></div></div>";
                 echo "<hr>";
-                echo "<div class='row text-nowrap'><div class='col-4'>Mätarställning </div><div class='col-4'>" . $row['ma_mileage'] . "<div class='col-auto'></div></div></div>";
+                echo "<div class='row'><div class='col-4'>Reg. nr. </div><div class='col-4'>" . $row['ma_regnr'] . "<div class='col-auto'></div></div></div>";
                 echo "<hr>";
-                echo "<div class='row text-nowrap'><div class='col-4'>Arbetstimmar </div><div class='col-4'>" . $row['ma_hours'] . "<div class='col-auto'></div></div></div>";
+                echo "<div class='row'><div class='col-4'>Mätarställning </div><div class='col-4'>" . $row['ma_mileage'] . "<div class='col-auto'></div></div></div>";
                 echo "<hr>";
-                echo "<div class='row text-nowrap'><div class='col-4'>Beskrivning </div><div class='col-4'>" . $row['ma_description'] . "<div class='col-auto'></div></div></div>";        
+                echo "<div class='row'><div class='col-4'>Arbetstimmar </div><div class='col-4'>" . $row['ma_hours'] . "<div class='col-auto'></div></div></div>";
+                echo "<hr>";
+                echo "<div class='row'><div class='col-4'>Beskrivning </div><div class='col-4'>" . $row['ma_description'] . "<div class='col-auto'></div></div></div>";        
             echo "</div>";
         echo "</div>";
     }
