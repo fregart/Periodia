@@ -20,7 +20,7 @@ if (!$result) {
 }    
 
 if($result = $db->query($sql)){
-    echo "<div class='container'>";
+    echo "<div class='container mt-4'>";
     
     while($row = mysqli_fetch_array($result)) {
         echo "<div class='card'>";
