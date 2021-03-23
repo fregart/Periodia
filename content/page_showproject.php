@@ -115,12 +115,12 @@ echo "<!-- Show project -->
                                 <label for='status'>Projektstatus:</label>
                                 </div>
                                 <div class='col'>
-                                <select id='status' name='statusInput'>";
+                                <select class= 'form-control' id='status' name='statusInput'>";
                                 while($row2 = mysqli_fetch_array($result2)){
                                   if ($row2['st_ID'] == $row['pr_status']) {
-                                    echo "<option selected style='background-color:#".$row2['st_hex'].";' value='".$row2['st_ID']."'>".$row2['st_name']."</option>";
+                                    echo "<option class= 'form-control' selected style='background-color:#".$row2['st_hex'].";' value='".$row2['st_ID']."'>".$row2['st_name']."</option>";
                                   }else {
-                                    echo "<option style='background-color:#".$row2['st_hex'].";' value='".$row2['st_ID']."'>".$row2['st_name']."</option>";  # code...
+                                    echo "<option class= 'form-control' style='background-color:#".$row2['st_hex'].";' value='".$row2['st_ID']."'>".$row2['st_name']."</option>";  # code...
                                   }                        
                                 };                     
                                 echo "</select>
