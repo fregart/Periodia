@@ -111,6 +111,7 @@ if(isset($_GET['setWorkedID'])){
                         <div class="row">
                             <div class="col">
                                 <button type="submit" class="btn btn-success" title='Spara'>Spara</button>
+                                <p></p>
                                 <button type="button" class="btn btn-primary" title='Avbryt'>Avbryt</button>
                                 </form>
                             </div>
