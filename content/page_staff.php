@@ -71,7 +71,7 @@
                             <h4 class="card-title m-t-10"><?php echo $row['us_fname'] ?> <?php echo $row['us_lname'] ?></h4>
                             
                             <div class="row text-center justify-content-md-center">
-                            <button class="btn btn-primary btn-sm">Ny bild</button>
+                            <!--<button class="btn btn-primary btn-sm">Ny bild</button>-->
                             </div>
                         </div>
 
