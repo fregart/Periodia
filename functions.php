@@ -2465,7 +2465,7 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
                 <br>
                 <div class='ml-1 small'>".ucfirst($row["pr_name"])."</div>";
                 
-                    if (checkUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"]) == true && $_SESSION['user_role'] == 2 && $disableNotesLink == false) {
+                    if (checkUserNotesAtDateForTimeReport($row["pr_ID"], $cuserID, $row["wo_date"]) == true && $_SESSION['user_role'] == 2 && $disableNotesLink == false) {
                         echo "<div class='ml-1 small'><a title='Visa notering' id='".$row['wo_ID']."' href='#".$row['wo_ID']."'><i class='fas fa-comment-alt'></i> Visa</a></div>";
                     }                  
             echo "
@@ -2476,7 +2476,60 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
                 <td class='text-center'>".$row["wo_total"]."</td>
             </tr>";
 
-            echo getUserNotesAtDate($row["pr_ID"], $cuserID, $row["wo_date"], $row['wo_ID']);
+            echo getUserNotesAtDateForTimereport($row["pr_ID"], $cuserID, $row["wo_date"], $row['wo_ID']);
+            
+        }
+
+    }
+
+}
+
+function getAbsenceHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
+{        
+    global $db;
+                    
+    $sql = "SELECT
+                *
+            FROM
+                tbl_absence a
+            LEFT JOIN tbl_absencetype b ON
+                b.abt_ID = a.ab_type
+            WHERE
+                a.ab_userID = $cuserID                
+                AND YEAR(a.ab_startdate) = $cyear
+                AND MONTH(a.ab_enddate) = $cmonth                
+                ORDER BY a.ab_startdate ASC
+            ";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);    
+  
+    if ($count > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            echo "   
+            <tr id='".$row["ab_ID"]."' class='workedHoursDiv'>
+                </td><td>".ucfirst($row["abt_name"])."
+                <br>";
+                
+                    if (checkUserNotesAtDateForAbsenceReport($row["ab_ID"], $cuserID, $row["ab_startdate"]) == true && $_SESSION['user_role'] == 2 && $disableNotesLink == false) {
+                        echo "<div class='ml-1 small'><a title='Visa notering' id='".$row['ab_ID']."' href='#".$row['ab_ID']."'><i class='fas fa-comment-alt'></i> Visa</a></div>";
+                    }                  
+            echo "
+                </td>
+                <td class='text-center'>".$row["ab_startdate"]."</td>
+                <td class='text-center'>".$row["ab_enddate"]."</td>
+                <td class='text-center'>".$row["ab_hours"]."</td>
+                <td class='text-center'>".$row["ab_percent"]."</td>
+            </tr>";
+
+            echo getUserNotesAtDateForAbsence($row["ab_ID"], $cuserID, $row["ab_startdate"], $row['ab_ID']);
             
         }
 
@@ -2626,7 +2679,7 @@ function getCurrentProjectNotes($cprojectID){
     
 }
 
-function getUserNotesAtDate($cprojectID, $cuserID, $cdate){
+function getUserNotesAtDateForTimereport($cprojectID, $cuserID, $cdate){
 
     global $db;
             
@@ -2688,7 +2741,69 @@ function getUserNotesAtDate($cprojectID, $cuserID, $cdate){
     
 }
 
-function checkUserNotesAtDate($cprojectID, $cuserID, $cdate){
+function getUserNotesAtDateForAbsence($abID, $cuserID, $cdate){
+
+    global $db;
+            
+    // get notes and user info
+    $sql = "SELECT *
+            FROM
+            tbl_absence a
+            LEFT JOIN tbl_user b
+            ON a.ab_userID = b.us_ID
+            WHERE
+                a.ab_ID = $abID
+                AND a.ab_userID = $cuserID
+                AND DATE(a.ab_startdate) = '$cdate'
+            ORDER BY a.ab_startdate DESC
+            ";
+
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+        
+    if ($count > 0) {                
+        while ($row = mysqli_fetch_array($result)) {
+            
+            echo "<tr id='".$row['ab_ID']."c'>";
+            echo "<td colspan='5' class='notescontent'>";
+            echo "<div class='border p-3' style='background-color:#eee;'>";
+            echo "  <div class='row'>
+                        <div class='col'>
+                            <p class='small'>" . ucfirst($row["us_username"]) . "<span class='text-muted'> - " . $row["ab_startdate"] . " -- ".$row["ab_enddate"]."</span></p>
+                        </div>
+                    </div>";
+            echo "<div class='row'>";
+                        
+            echo "</div>";
+
+            echo "<p></p>";
+               
+            echo "
+                <div class='row'>
+                    <div class='col'>
+                        <p> " . ucfirst($row["ab_notes"]) . "</p>
+                    </div>
+                </div>";
+            echo "</div><p></p>";
+            echo "</td>";
+            echo "</tr>";
+            
+        }             
+        
+    }else {
+        return false;
+    }
+    
+}
+
+function checkUserNotesAtDateForTimeReport($cprojectID, $cuserID, $cdate){
 
     global $db;
             
@@ -2714,6 +2829,38 @@ function checkUserNotesAtDate($cprojectID, $cuserID, $cdate){
     $row = mysqli_fetch_array($result);
         
     if ($count > 0 && $row['wo_notes'] !=NULL) {  
+        return true;            
+    }else {
+        return false;
+    }
+    
+}
+
+function checkUserNotesAtDateForAbsenceReport($cprojectID, $cuserID, $cdate){
+
+    global $db;
+            
+    // get notes and user info
+    $sql = "SELECT ab_notes
+            FROM
+            tbl_absence a                    
+            WHERE                
+                a.ab_userID = $cuserID
+                AND DATE(a.ab_startdate) = '$cdate'
+            ";
+
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    $row = mysqli_fetch_array($result);
+        
+    if ($count > 0 && $row['ab_notes'] !=NULL) {  
         return true;            
     }else {
         return false;

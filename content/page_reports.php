@@ -11,7 +11,7 @@
 
             <ul>
                 <li><a href="#" data-target="page_reports_time">Arbetade timmar</a></li>  
-                <li>Frånvaro</li>
+                <li><a href="#" data-target="page_reports_absence">Frånvaro</a></li>
                 <li><a href="#" data-target="page_reports_registerextract">Registerutdrag (GDPR)</a></li>
             </ul>
         </div>
