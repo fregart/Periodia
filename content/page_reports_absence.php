@@ -123,7 +123,7 @@
                             <td scope="col" style='border-top:0;'></td>       
                         </tr>                                        
                         <tr>
-                            <th scope="col">Frånvarotyp</th>
+                            <th scope="col">Typ</th>
                             <th scope="col" class="text-center">Från</th>
                             <th scope="col" class="text-center">Till</th>
                             <th scope="col" class="text-center">Tim /dag</th>
