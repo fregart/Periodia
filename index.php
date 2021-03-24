@@ -91,10 +91,8 @@ include('session.php');
           Önskemål om semester(kalendeder). Planeringssida för projekt.
           När projekt är klara att fakturera, datum och status.</p>       
         <h6>Färdiga uppdateringar</h6>
-          <p>2021-03-04. Rapportera tankning och rapporter för det.</p>
-          <p>2021-03-01. Bilder går nu lägga in när du rapporterar din tid.</p>
-          <p>2021-03-01. Admins kan nu se noteringar och bilder i tidrapporter.</p>
-          <p>2021-02-10. Nu går det göra inlägg med bilder per projekt.</p>          
+          <p>2021-03-24. Totala minuter för tidrapport är nu in hundradelar.</p>
+          <p>2021-03-23. Rapporter för frånvaro.</p>                   
         </div>
         
       </div>
