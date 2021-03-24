@@ -134,7 +134,7 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col">Totalt antal timmar:</th>                            
-                            <th scope="col" class="text-center"><?php echo getWorkHoursForMonth($cuserID, $cmonth);?></th>
+                            <th scope="col" class="text-center"><?php echo getMonthTotalHours();?></th>
                         </tr>         
                     </tbody>
                 </table>
