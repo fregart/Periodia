@@ -35,7 +35,7 @@ if (isset($_POST['action'])) {
     }
     
     if ($_POST['action'] == 'reportTime') {
-        reportTime(); // call function
+        reportTime(); // call function        
     }
 
     if ($_POST['action'] == 'updateTime') {
@@ -1730,7 +1730,7 @@ function reportTime()
         $timefrom  = $_POST['timefromInput'];
         $timeto    = $_POST['timetoInput'];
         $break     = $_POST['breakInput'];
-        $total     = $_POST['calcInput'];       
+        $total     = $_POST['calcInput'];
         $notes     = $_POST['notesTextarea'];
         $projectID = $_POST['projectInput'];
         
@@ -2297,7 +2297,7 @@ function getWorkHoursForDate($cdate)
    
 }
 
-function getWorkHoursForMonth($cuserID, $cmonth)
+function getWorkHoursForMonth($cuserID, $cmonth, $cyear)
 {
     
     global $db;        
@@ -2310,6 +2310,8 @@ function getWorkHoursForMonth($cuserID, $cmonth)
                 a.wo_userID = $cuserID
             AND                
                 MONTH(a.wo_date) = $cmonth
+            AND
+                YEAR(a.wo_date) = $cyear
             ";
     
     $result = mysqli_query($db, $sql);
@@ -2473,11 +2475,13 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
                 <td class='text-center'>".$row["wo_starttime"]."</td>
                 <td class='text-center'>".$row["wo_endtime"]."</td>
                 <td class='text-center'>".$row["wo_rest"]."</td>
-                <td class='text-center'>".$row["wo_total"]."</td>
+                <td class='text-center'>".getCalcHours($row["wo_starttime"], $row["wo_endtime"], $row["wo_rest"])."</td>
             </tr>";
 
             echo getUserNotesAtDateForTimereport($row["pr_ID"], $cuserID, $row["wo_date"], $row['wo_ID']);
             
+            // add total to global month hours
+            setMonthTotalHours(getCalcHours($row["wo_starttime"], $row["wo_endtime"], $row["wo_rest"]));
         }
 
     }
@@ -2535,6 +2539,49 @@ function getAbsenceHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
 
     }
 
+}
+
+function getCalcHours($starttime, $endtime, $resttime){
+
+    $secsInAnHour = 3600;
+    $minsInAnHour = 60;
+    $hoursInADay = 24;
+    $decimalPlaces = 2;
+
+    // split starttime in hours and minutes
+    $starthour = substr($starttime, 0, 2);
+    $startminute = substr($starttime, 3, 2);    
+
+    // split endtime in hours and minutes
+    $endhour = substr($endtime, 0, 2);
+    $endminute = substr($endtime, 3, 2);
+
+    // split resttime in hours and minutes
+    $resthour = substr($resttime, 0, 2);
+    $restminute = substr($resttime, 3, 2);
+
+    // remove break time from hours and minutes if there is any
+    if ($resthour >0) {
+        $starthour = $starthour + $resthour;        
+    }
+
+    if ($restminute >0) {        
+        $startminute = $startminute + $restminute;
+    }
+
+    $date1 = new DateTime();
+    $date2 = new DateTime();
+    $date1->setTime($starthour, $startminute);
+    $date2->setTime($endhour, $endminute);
+
+    $diff = $date2->diff($date1);
+
+    $convertToHours = $diff->s / $secsInAnHour + $diff->i / $minsInAnHour + $diff->h + $diff->days * $hoursInADay;
+
+
+    $hours = round($convertToHours, $decimalPlaces);
+    
+    return $hours;
 }
 
 function getFuelReports()
@@ -3395,6 +3442,19 @@ function getWeekTotalHours()
     return $totalWeekHours;
 }
 
+// set global current month total work hours to report time
+$totalMonthHours = 0;
+function setMonthTotalHours($hours)
+{
+    $GLOBALS['totalMonthHours'] += $hours;
+}
+
+// return total week hours
+function getMonthTotalHours()
+{
+    global $totalMonthHours;
+    return $totalMonthHours;
+}
 
 function getMonthName($cnr)
 {
