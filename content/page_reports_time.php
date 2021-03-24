@@ -124,10 +124,10 @@
                         </tr>                                        
                         <tr>
                             <th scope="col">Datum</th>
-                            <th scope="col" class="text-center">Tid från</th>
-                            <th scope="col" class="text-center">Tid till</th>
+                            <th scope="col" class="text-center">Från</th>
+                            <th scope="col" class="text-center">Till</th>
                             <th scope="col" class="text-center">Rast</th>
-                            <th scope="col" class="text-center">Summa</th>       
+                            <th scope="col" class="text-center">Summa</th>
                         </tr>   
                     </thead> 
                     <tbody>   
