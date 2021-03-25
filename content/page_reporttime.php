@@ -169,15 +169,16 @@ if(isset($_GET['setProjectID'])){
         $('#calcInput').fadeOut(100).fadeIn(100).fadeOut(400).fadeIn(800); 
 
         // if hours or minutes are negative disable save button and mark calc field
-        if (hours < 0 || minutes <0) {
+        if (hours < 0 || minutes < 0) {
             $('.btn-success').prop("disabled",true);
             $('#calcInput').removeClass("text-success");            
             $('#calcInput').addClass("text-danger");
             $('#calcInput').addClass("border border-danger");
         }else{
+            $('.btn-success').prop("disabled",false);
             $('#calcInput').addClass("text-success");
             $('#calcInput').removeClass("text-danger");
-            $('#calcInput').removeClass("border border-danger");
+            $('#calcInput').removeClass("border border-danger");            
         }
     };             
 
