@@ -88,11 +88,12 @@ include('session.php');
         <div class="alert alert-secondary small" role="alert">
         <h6>Kommande uppdateringar</h6>
           <p>2021-03. Omdesign av projektsidorna. Mina timmar ska få val för frånvarotimmar.
-          Önskemål om semester(kalendeder). Planeringssida för projekt.
+          Önskemål om semester(kalender). Planeringssida för projekt.
           När projekt är klara att fakturera, datum och status.</p>       
-        <h6>Färdiga uppdateringar</h6>
-          <p>2021-03-24. Totala minuter för tidrapport är nu in hundradelar.</p>
-          <p>2021-03-23. Rapporter för frånvaro.</p>                   
+        <h6>Senaste uppdateringar</h6>
+        <p>2021-03-25. Flytt av frånvaro till tidrapporter.</p>
+        <p>2021-03-24. Totala minuter för tidrapport är nu in hundradelar.</p>
+          <p>2021-03-24. Totala minuter för tidrapport är nu in hundradelar.</p>          
         </div>
         
       </div>
