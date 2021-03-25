@@ -2518,7 +2518,7 @@ function getAbsenceHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
     if ($count > 0) {
         while ($row = mysqli_fetch_array($result)) {
             echo "   
-            <tr id='".$row["ab_ID"]."' class='workedHoursDiv'>
+            <tr id='".$row["ab_ID"]."' class='absenceDiv'>
                 </td><td>".ucfirst($row["abt_name"])."
                 <br>";
                 
@@ -2537,6 +2537,8 @@ function getAbsenceHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
             
         }
 
+    }else{
+        echo "<tr><td colspan='5'>Ingen frånvaro</td></tr>";        
     }
 
 }
@@ -2756,7 +2758,7 @@ function getUserNotesAtDateForTimereport($cprojectID, $cuserID, $cdate){
     if ($count > 0) {                
         while ($row = mysqli_fetch_array($result)) {
             
-            echo "<tr id='".$row['wo_ID']."c'>";
+            echo "<tr id='".$row['wo_ID']."hour'>";
             echo "<td colspan='5' class='notescontent'>";
             echo "<div class='border p-3' style='background-color:#eee;'>";
             echo "  <div class='row'>
@@ -2818,7 +2820,7 @@ function getUserNotesAtDateForAbsence($abID, $cuserID, $cdate){
     if ($count > 0) {                
         while ($row = mysqli_fetch_array($result)) {
             
-            echo "<tr id='".$row['ab_ID']."c'>";
+            echo "<tr id='".$row['ab_ID']."absc'>";
             echo "<td colspan='5' class='notescontent'>";
             echo "<div class='border p-3' style='background-color:#eee;'>";
             echo "  <div class='row'>

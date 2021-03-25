@@ -20,20 +20,20 @@
     <div class="row">
         <div class="col-sm">
 
-            <p class="h4">Arbetade timmar</p>
+            <p class="h4">Tidrapport</p>
             <br />
 
-            <form>         
+            <form>
                 <input type="hidden" name="action" value="searchMyHours" />
 
                 <div class="form-group row">
                     <label for="employeeInput" class="col-sm-2 col-form-label">Användare: </label>
                     <div class="col-sm-4">
-                    <select class="form-control form-control-sm" name="employeeInput" id="employeeInput">
+                        <select class="form-control form-control-sm" name="employeeInput" id="employeeInput">
                             <?php                                
                                 getEmployeeSelectedList($cuserID);                                                                                                                                                                                                                    
                             ?>
-                        </select> 
+                        </select>
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                     <label for="yearInput" class="col-sm-2 col-form-label">År:</label>
                     <div class="col-sm-4">
                         <select class="form-control form-control-sm" name="yearInput" id="yearInput">
-                        <?php
+                            <?php
                             if (!isset($_GET['setYear'])) {
                                 echo "<option value='2020'>2020</option>";
                                 echo "<option selected value='2021'>2021</option>";
@@ -54,15 +54,15 @@
                                     echo "<option selected value='" . $_GET['setYear'] . "'>" . $_GET['setYear'] . "</option>";
                                 };                            
                             }                                                                                                                    
-                        ?>                            
-                        </select> 
+                        ?>
+                        </select>
                     </div>
                 </div>
-                
+
                 <div class="form-group row">
                     <label for="monthInput" class="col-sm-2 col-form-label">Månad:</label>
                     <div class="col-sm-4">
-                    <select class="form-control form-control-sm" name="monthInput" id="monthInput">
+                        <select class="form-control form-control-sm" name="monthInput" id="monthInput">
                             <?php
                                 $row_month = getMonthNameSelectedList();
                                 for ($i=1; $i <13; $i++) {
@@ -88,12 +88,13 @@
                             ?>
                         </select>
                     </div>
-                </div>            
+                </div>
             </form>
 
 
-
+            <!-- Print area -->
             <div id="printableArea" class="border border-dark">
+                <!-- Get worked hours for user -->
                 <table class="table">
                     <thead class="thead-light">
                         <tr>
@@ -110,29 +111,33 @@
                         </tr>
                         <tr>
                             <td scope="col" style='border-top:0;'>
-                        
-                            <table class="table table-sm">                                
-                                <tr><td style='border-top:0;' class="font-weight-bold p-2">Namn:</td></tr>
-                                <tr><td style='border-top:0;' class="font-weight-bold p-2 text-nowrap"><?php getUserFullName($cuserID) ?></td></tr>
-                            </table>                             
-                        
+
+                                <table class="table table-sm">
+                                    <tr>
+                                        <td style='border-top:0;' class="font-weight-bold p-2">Namn:</td>
+                                    </tr>
+                                    <tr>
+                                        <td style='border-top:0;' class="font-weight-bold p-2 text-nowrap">
+                                            <?php getUserFullName($cuserID) ?></td>
+                                    </tr>
+                                </table>
+
                             </td>
                             <td scope="col" style='border-top:0;'></td>
                             <td scope="col" style='border-top:0;'></td>
                             <td scope="col" style='border-top:0;'></td>
-                            <td scope="col" style='border-top:0;'></td>       
-                        </tr>                                        
+                            <td scope="col" style='border-top:0;'></td>
+                        </tr>
                         <tr>
                             <th scope="col">Datum</th>
                             <th scope="col" class="text-center">Från</th>
                             <th scope="col" class="text-center">Till</th>
                             <th scope="col" class="text-center">Rast</th>
                             <th scope="col" class="text-center">Summa</th>
-                        </tr>   
-                    </thead> 
-                    <tbody>   
-                        
-                        <!-- Get worked hours for user -->
+                        </tr>
+                    </thead>
+                    <tbody>
+
                         <?php                                                   
                              $disableNotesLink = false;
                              getWorkedHoursForReport($cuserID, $currentYear, $cmonth, $disableNotesLink);                                                                                                                
@@ -142,18 +147,60 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
-                            <th scope="col">Totalt antal timmar:</th>                            
+                            <th scope="col">Totalt antal timmar:</th>
                             <th scope="col" class="text-center"><?php echo getMonthTotalHours();?></th>
-                        </tr>         
+                        </tr>
                     </tbody>
                 </table>
+
+                <!-- Get absence hours for user -->                
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <td scope="col" style='border-top:0;' align="center" colspan="5">
+                                <div class="h4">Frånvaro</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td scope="col" style='border-top:0;'></td>
+                            <td scope="col" style='border-top:0;'></td>
+                            <td scope="col" style='border-top:0;'></td>
+                            <td scope="col" style='border-top:0;'></td>
+                            <td scope="col" style='border-top:0;'></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">Typ</th>
+                            <th scope="col" class="text-center">Från</th>
+                            <th scope="col" class="text-center">Till</th>
+                            <th scope="col" class="text-center">Tim /dag</th>
+                            <th scope="col" class="text-center">% /dag</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <?php                                                   
+                             $disableNotesLink = false;
+                             getAbsenceHoursForReport($cuserID, $currentYear, $cmonth, $disableNotesLink);
+                        ?>
+
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col" class="text-center"></th>
+                        </tr>
+                    </tbody>
+                </table>
+
             </div>
 
             <div class="form-group">
                 <div class="row">
-                    <div class="col">                        
+                    <div class="col">
                         <button type="button" class="btn btn-primary" title='Stäng'>Stäng</button>
-                        <input type="button" class="btn btn-success mt-4 mb-4" onclick="printReport('printableArea')" value="Skriv ut" />
+                        <input type="button" class="btn btn-success mt-4 mb-4" onclick="printReport('printableArea')"
+                            value="Skriv ut" />
                         </form>
                     </div>
                 </div>
@@ -166,50 +213,57 @@
 
 
 
-        </div>
-    </div>
+</div>
+</div>
 </div>
 <script>
-    // employee, year, and month select listener on change
-    $("#employeeInput, #yearInput, #monthInput").change(function() {        
-    
-    var $cuser  = $("#employeeInput").children("option:selected").val();
-    var $cyear  = $("#yearInput").children("option:selected").val();
-    var $cmonth = $("#monthInput").children("option:selected").val();    
+// employee, year, and month select listener on change
+$("#employeeInput, #yearInput, #monthInput").change(function() {
 
-    var $file = 'page_reports_time' + '.php?setYear='+ $cyear +'&setMonth=' + $cmonth +'&setUser=' + $cuser;
+    var $cuser = $("#employeeInput").children("option:selected").val();
+    var $cyear = $("#yearInput").children("option:selected").val();
+    var $cmonth = $("#monthInput").children("option:selected").val();
+
+    var $file = 'page_reports_time' + '.php?setYear=' + $cyear + '&setMonth=' + $cmonth + '&setUser=' + $cuser;
     var $path = 'content/';
 
-    $('#page-content').load($path + $file);            
+    $('#page-content').load($path + $file);
 
-    });
+});
 
-    // print reports function
-    function printReport(divName) {
-        var printContents = document.getElementById(divName).innerHTML;
-        var originalContents = $('body').html();
+// print reports function
+function printReport(divName) {
+    var printContents = document.getElementById(divName).innerHTML;
+    var originalContents = $('body').html();
 
-        document.body.innerHTML = printContents;
+    document.body.innerHTML = printContents;
 
-        window.print();   
+    window.print();
 
-        $('body').html(originalContents);                               
-    }    
+    $('body').html(originalContents);
+}
 
-    // click listener to view notes
-    $(".workedHoursDiv>td>div>a").click(function() {        
-        showDivs($(this).attr("id"));        
-    })
+// click listener to view notes
+$(".workedHoursDiv>td>div>a").click(function() {
+    showHoursDivs($(this).attr("id"));
+})
 
-    function showDivs(callerId) {        
-        $(".notescontent", "#" + callerId + "c").toggle();  
-    }
+function showHoursDivs(callerId) {
+    $(".notescontent", "#" + callerId + "hour").toggle();
+}
 
-    
-    // cancel button listener
-    $(".btn-primary").click(function() {
-        $('#page-content').load('content/page_reports.php');
-    });
+// click listener to view notes
+$(".absenceDiv>td>div>a").click(function() {
+    showAbscDivs($(this).attr("id"));
+})
+
+function showAbscDivs(callerId) {
+    $(".notescontent", "#" + callerId + "absc").toggle();
+}
 
 
+// cancel button listener
+$(".btn-primary").click(function() {
+    $('#page-content').load('content/page_reports.php');
+});
 </script>
