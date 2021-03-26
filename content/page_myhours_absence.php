@@ -94,7 +94,7 @@
                     <thead class="thead-light">
                         <tr>
                             <td scope="col" style='border-top:0;' align="center" colspan="5">
-                                <div class="h3">Arbetade timmar</div>
+                                <div class="h3">Frånvaro</div>
                                 <div class="h6"><?php echo getMonthFullName($cmonth) ?>, <?php if (isset($_GET['setYear'])) {
                                                                                                     echo $_GET['setYear'];
                                                                                                 } else {
