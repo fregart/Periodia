@@ -45,6 +45,10 @@ if (isset($_POST['action'])) {
     if ($_POST['action'] == 'reportAbsence') {
         reportAbsence(); // call function        
     }
+    
+    if ($_POST['action'] == 'deleteAbsence') {
+        deleteAbsence(); // call function
+    }
 
     if ($_POST['action'] == 'updateCompanyInfo') {        
         updateCompanyInfo(); // call function        
@@ -52,7 +56,7 @@ if (isset($_POST['action'])) {
 
     if ($_POST['action'] == 'deleteReport') {
         deleteReportDate(); // call function
-    }
+    }    
 
     if ($_POST['action'] == 'updateProjectInfo') {
         updateProjectInfo(); // call function
@@ -1557,6 +1561,45 @@ function getAllProjectsSelectList($cprojectID)
     
 }
 
+function getAbsenceSelectList($id)
+{
+    
+    global $db;
+            
+    $sql = "SELECT *
+            FROM
+                tbl_absencetype a
+            ORDER BY a.abt_name ASC";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            if ($id) {
+                if ($row['abt_ID'] == $id) {
+                    echo "<option selected value='" . $row['abt_ID'] . "'>" . ucfirst($row["abt_name"]) . "</option>";
+                } else {
+                    echo "<option value='" . $row['abt_ID'] . "'>" . ucfirst($row["abt_name"]) . "</option>";
+                }
+                
+            } else {
+                echo "<option value='" . $row['abt_ID'] . "'>" . ucfirst($row["abt_name"]) . "</option>";
+            }
+            
+        }
+        
+    }
+    
+}
+
 
 function getAllMachinesSelectList()
 {
@@ -1977,6 +2020,41 @@ function deleteReportDate()
     
 }
 
+function deleteAbsence()
+{
+    // set global db variable from dbconnect
+    global $db;  
+    
+    $userID = $_SESSION['user_ID'];
+    $abscenceD   = $_POST['removeThisID'];
+    
+    $stmt = $db->prepare("DELETE
+                            FROM
+                                tbl_absence
+                            WHERE
+                                ab_userID   = ?
+                            AND ab_ID     = ?");
+    $stmt->bind_param('ii', $userID, $abscenceD);
+    
+    if ($stmt !== false) {
+        $stmt->execute();
+        $stmt->close();
+        $db->close();
+        
+        echo "  
+            <script src='vendor/jquery/jquery.min.js'></script>
+            <script>$(document).ready(function(){
+                alert('Den rapporterade frånvaron har tagits bort');
+                    $('#page-content').load('content/page_myhours.php');                      
+                });                        
+            </script>
+        ";
+    } else {
+        die('prepare() failed: ' . htmlspecialchars($db->error));
+    }
+    
+}
+
 
 function deleteProject()
 {
@@ -2112,7 +2190,7 @@ function reportAbsence()
                         <script src='vendor/jquery/jquery.min.js'></script>
                         <script>
                             alert('Frånvarorapport uppdaterad');                        
-                            $('#page-content').load('content/page_schema.php');                                             
+                            $('#page-content').load('content/page_myhours.php');                                             
                         </script>
                     ";
     
@@ -2478,7 +2556,7 @@ function getWorkedHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
                 <td class='text-center'>".getCalcHours($row["wo_starttime"], $row["wo_endtime"], $row["wo_rest"])."</td>
             </tr>";
 
-            echo getUserNotesAtDateForTimereport($row["pr_ID"], $cuserID, $row["wo_date"], $row['wo_ID']);
+            echo getUserNotesAtDateForTimereport($row["pr_ID"], $cuserID, $row["wo_date"]);
             
             // add total to global month hours
             setMonthTotalHours(getCalcHours($row["wo_starttime"], $row["wo_endtime"], $row["wo_rest"]));
@@ -2533,7 +2611,7 @@ function getAbsenceHoursForReport($cuserID, $cyear, $cmonth, $disableNotesLink)
                 <td class='text-center'>".$row["ab_percent"]."</td>
             </tr>";
 
-            echo getUserNotesAtDateForAbsence($row["ab_ID"], $cuserID, $row["ab_startdate"], $row['ab_ID']);
+            echo getUserNotesAtDateForAbsence($row["ab_ID"], $cuserID, $row["ab_startdate"]);
             
         }
 
