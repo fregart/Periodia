@@ -3489,7 +3489,7 @@ function getUsersAllData($cuserID)
             echo "<tr><td class='text-nowrap'>Epost: </td><td class='text-nowrap font-weight-bold'>" . $row['us_email'] . "</td></tr>";
             echo "<tr><td class='text-nowrap'>Telefon 1: </td><td class='text-nowrap font-weight-bold'>" . $row['us_phone1'] . "</td></tr>";
             echo "<tr><td class='text-nowrap'>Telefon 2: </td><td class='text-nowrap font-weight-bold'>" . $row['us_phone2'] . "</td></tr>";
-            echo "<tr><td class='text-nowrap'>Bank clearing nr: </td><td class='text-nowrap font-weight-bold'>" . $row['us_clearingnr'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Clear nr: </td><td class='text-nowrap font-weight-bold'>" . $row['us_clearingnr'] . "</td></tr>";
             echo "<tr><td class='text-nowrap'>Bank nr: </td><td class='text-nowrap font-weight-bold'>" . $row['us_accountnr'] . "</td></tr>";
             
         }
