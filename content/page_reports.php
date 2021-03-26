@@ -22,6 +22,7 @@
 
             <ul>                
                 <li>Timmar per projekt</li>
+                <li><a href="#" data-target="page_reports_projecthours">Timmar per projekt</a></li>
             </ul>
         </div>
 

@@ -2664,6 +2664,7 @@ function getCalcHours($starttime, $endtime, $resttime){
     return $hours;
 }
 
+
 function getFuelReports()
 {        
     global $db;
@@ -2705,6 +2706,105 @@ function getFuelReports()
 
     }
 
+}
+
+function getProjectReportList()
+{        
+    global $db;    
+    $companyID = $_SESSION['user_company_ID'];
+    
+    $sql = "SELECT
+                *
+            FROM
+                tbl_project a
+            WHERE
+                a.pr_companyID = $companyID
+            ORDER BY a.pr_name ASC
+            ";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);    
+  
+    if ($count > 0) {
+        while ($row = mysqli_fetch_array($result)) {
+            echo "            
+            <tr id='".$row["pr_ID"]."' class='small'>       
+            
+                </td><td>".ucfirst($row["pr_name"])."</td>
+                </td><td>".$row["pr_internID"]."</td>";                
+                      // format date for start date
+            $string_start = $row["pr_startdate"];
+            $timestamp_start = strtotime($string_start);
+            $yearnr_start = date("Y", $timestamp_start);
+            $monthnr_start = date("m", $timestamp_start);
+            $daynr_start = date("d", $timestamp_start);
+
+            // format date for end date if exist
+            if (!$row["pr_enddate"] == null) {
+                $string_end = $row["pr_enddate"]; 
+                $timestamp_end = strtotime($string_end);
+                $yearnr_end = date("Y", $timestamp_end);
+                $monthnr_end = date("m", $timestamp_end);
+                $daynr_end = date("d", $timestamp_end);
+
+                echo "<td scope='col' class='small'>". $yearnr_start . " " . getMonthName($monthnr_start) . " ". $daynr_start ." -- ". $yearnr_end . " " . getMonthName($monthnr_end) . " ". $daynr_end ."</td>";        
+            }else {
+                echo "<td scope='col' class='small'>". $yearnr_start . " " . getMonthName($monthnr_start) . " ". $daynr_start ." -- </td>";        
+            }
+            echo "<td scope='col' class='text-right'>". getProjectTotalHours($row['pr_ID']) ."</div></td>";
+            echo "</tr>";       
+            
+            // reset variable
+            resetProjectTotalHoursForReport();
+        }
+
+    }
+
+}
+
+function getProjectTotalHours($pr_ID){
+    
+    global $db;
+    $companyID = $_SESSION['user_company_ID'];    
+            
+    $sql = "SELECT *
+            FROM
+            tbl_workinghours a
+            LEFT JOIN tbl_project b ON
+                a.wo_projectID = b.pr_ID
+            WHERE
+                b.pr_ID = $pr_ID
+            AND b.pr_companyID = $companyID            
+            ";
+    
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+        
+    if ($count > 0) {                
+        while ($row = mysqli_fetch_array($result)) {
+            
+            $hours = getCalcHours($row['wo_starttime'], $row['wo_endtime'], $row['wo_rest']);
+            setProjectTotalHoursForReport($hours);
+        }
+        return getProjectTotalHoursForReport();        
+        
+    }else {
+        return 0;
+    }        
 }
 
 function getUserFullName($cuserID){
@@ -3534,6 +3634,27 @@ function getMonthTotalHours()
 {
     global $totalMonthHours;
     return $totalMonthHours;
+}
+
+// set global current month total work hours to report time
+$totalProjectHours = 0;
+function setProjectTotalHoursForReport($hours)
+{
+    $GLOBALS['totalProjectHours'] += $hours;
+}
+
+// return total week hours
+function getProjectTotalHoursForReport()
+{
+    global $totalProjectHours;
+    return $totalProjectHours;
+}
+
+// reset global project hour
+
+function resetProjectTotalHoursForReport()
+{
+    $GLOBALS['totalProjectHours'] = 0;
 }
 
 function getMonthName($cnr)
