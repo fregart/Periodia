@@ -198,7 +198,7 @@ function addNewUser()
         $pass      = $_POST['pass1Input'];
         $firstname = $_POST['firstnameInput'];
         $lastname  = $_POST['lastnameInput'];
-        $email     = $_POST['emailInput'];
+        $email     = strtolower($_POST['emailInput']);
         $phone1    = $_POST['phone1Input'];
         $phone2    = $_POST['phone2Input'];
         $roles     = $_POST['roleRadios'];
