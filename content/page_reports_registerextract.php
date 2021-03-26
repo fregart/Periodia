@@ -16,7 +16,7 @@
             <p class="h4">Registerutdrag (GDPR)</p>
             <br />
 
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-secondary" role="alert">
                 Om en användare vill veta vilka personliga uppgifter som finns lagrade i databasen går det skriva ut en
                 rapport om det här.
             </div>
