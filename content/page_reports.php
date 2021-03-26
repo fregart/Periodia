@@ -20,8 +20,7 @@
         <div class="col-sm-6 col-lg-4 mt-2">
             <h5>Projekt</h5>
 
-            <ul>                
-                <li>Timmar per projekt</li>
+            <ul>                                
                 <li><a href="#" data-target="page_reports_projecthours">Timmar per projekt</a></li>
             </ul>
         </div>
