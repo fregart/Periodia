@@ -182,6 +182,12 @@ labela{
   border-radius: 100%;
 }
 
+.img-responsive {
+  display: block;
+  height: auto;
+  max-width: 100%;
+ }
+
 @media (min-width: 768px) {
   #sidebar-wrapper {
     margin-left: 0;

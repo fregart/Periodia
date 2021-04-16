@@ -61,9 +61,11 @@ include('session.php');
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_projekt"><div class="sidebar-icon"><i class="fas fa-tasks"></i></div> Projekt</a>       
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_equipment"><div class="sidebar-icon"><i class="fas fa-tools"></i></div> Inventarier</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_myhours"><div class="sidebar-icon"><i class="fas fa-user-clock"></i></div> Mina timmar</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_gallery"><div class="sidebar-icon"><i class="fas fa-images"></i></i></div> Galleri <span class="badge badge-danger">Ny</span></a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reporttime"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera tid</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportabsence"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera frånvaro</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportfuel"><div class="sidebar-icon"><i class="fas fa-gas-pump"></i></div> Rapportera tankning</a>
+
         <!-- Admin menu section-->  
         <?php
           if ($_SESSION['user_role'] == 2) {
@@ -87,12 +89,12 @@ include('session.php');
 
         <div class="alert alert-secondary small" role="alert">
         <h6>Kommande uppdateringar</h6>
-          <p>2021-03. Omdesign av projektsidorna. Önskemål om semester(kalender). Planeringssida för projekt.
+          <p>2021-04. Omdesign av projektsidorna. Önskemål om semester(kalender). Planeringssida för projekt.
           När projekt är klara att fakturera, datum och status.</p>       
         <h6>Senaste uppdateringar</h6>
+        <p>2021-04-16. Galleri för rapporterad tid med bilder har lagts till.</p>
         <p>2021-03-26. Timmar per projekt under rapporter. Frånvaro går nu att redigera och ta bort under mina timmar.</p>
-        <p>2021-03-25. Flytt av frånvaro till tidrapporter.</p>
-        <p>2021-03-24. Totala minuter för tidrapport är nu in hundradelar.</p>          
+        <p>2021-03-25. Flytt av frånvaro till tidrapporter.</p>         
         </div>
         
       </div>
