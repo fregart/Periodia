@@ -118,7 +118,7 @@
                                     </tr>
                                     <tr>
                                         <td style='border-top:0;' class="font-weight-bold p-2 text-nowrap">
-                                            <?php getUserFullName($cuserID) ?></td>
+                                            <?php echo getUserFullName($cuserID) ?></td>
                                     </tr>
                                 </table>
 
