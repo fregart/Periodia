@@ -92,9 +92,9 @@ include('session.php');
           <p>2021-04. Omdesign av projektsidorna. Önskemål om semester(kalender). Planeringssida för projekt.
           När projekt är klara att fakturera, datum och status.</p>       
         <h6>Senaste uppdateringar</h6>
+        <p>2021-04-20. Rullistor med användare visar hela namnet om det finns.</p>
         <p>2021-04-16. Galleri för rapporterad tid med bilder har lagts till.</p>
-        <p>2021-03-26. Timmar per projekt under rapporter. Frånvaro går nu att redigera och ta bort under mina timmar.</p>
-        <p>2021-03-25. Flytt av frånvaro till tidrapporter.</p>         
+        <p>2021-03-26. Timmar per projekt under rapporter. Frånvaro går nu att redigera och ta bort under mina timmar.</p>         
         </div>
         
       </div>

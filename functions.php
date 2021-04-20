@@ -1728,9 +1728,9 @@ function getEmployeeSelectedList($cuserID){
     if ($count > 0) {                
         while ($row = mysqli_fetch_array($result)) {            
             if ($row['us_ID'] == $cuserID) {                    
-                echo "<option selected value='" . $row['us_ID'] . "'>" . ucfirst($row["us_username"]) . "</option>";
+                echo "<option selected value='" . $row['us_ID'] . "'>" . getUserFullName(ucfirst($row["us_ID"])) . "</option>";
             } else {
-                echo "<option value='" . $row['us_ID'] . "'>" . ucfirst($row["us_username"]) . "</option>";    
+                echo "<option value='" . $row['us_ID'] . "'>" . getUserFullName(ucfirst($row["us_ID"])) . "</option>";    
             }                       
         }                            
         
@@ -2839,9 +2839,10 @@ function getUserFullName($cuserID){
             $user = ucfirst($row["us_username"]);
 
             if ($first || $last) {
-                echo $first, " ", $last;
+                $fullname = $first . ' ' . $last;
+                return $fullname;
             } else {
-                echo "<div class='small text-danger'>" . $user . " - Fullt namn saknas</div>";
+                return $user;
             }                                                
         }                            
         
