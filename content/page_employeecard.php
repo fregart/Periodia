@@ -55,7 +55,7 @@
             </div>
         </div>
 
-        
+
 
         <div class="row">
             <div class="col-sm-12 col-lg-6">
@@ -66,17 +66,18 @@
                         <br>
 
 
-                        <div class="m-t-30 text-center"><img src="img/no-image.png"
-                                class="img-circle" width="150" title="Ingen bild">
-                            <h4 class="card-title m-t-10"><?php echo $row['us_fname'] ?> <?php echo $row['us_lname'] ?></h4>
-                            
+                        <div class="m-t-30 text-center"><img src="img/no-image.png" class="img-circle" width="150"
+                                title="Ingen bild">
+                            <h4 class="card-title m-t-10"><?php echo ucfirst($row['us_fname']) ?>
+                                <?php echo ucfirst($row['us_lname']) ?></h4>
+
                             <div class="row text-center justify-content-md-center">
-                            <!--<button class="btn btn-primary btn-sm">Ny bild</button>-->
+                                <!--<button class="btn btn-primary btn-sm">Ny bild</button>-->
                             </div>
                         </div>
 
 
-<hr>
+                        <hr>
 
 
                         <div class="row">
@@ -101,8 +102,8 @@
                             <div class="col">
                                 <div class="form-group">
                                     <label for="inputPnr">Personnummer</label>
-                                    <input type="text" class="form-control" id="inputPnr" name="inputPnr"
-                                        placeholder="19701215-5545" value="<?php echo $row['us_pnr'] ?>">
+                                    <input type="text" class="form-control" id="inputPnr" name="inputPnr" placeholder=""
+                                        value="<?php echo $row['us_pnr'] ?>">
                                 </div>
                             </div>
                             <div class="col">
@@ -157,23 +158,23 @@
                         <div class="form-group">
                             <label for="inputAddress1">Postadress</label>
                             <input type="text" class="form-control" id="inputAddress1" name="inputAddress1"
-                                placeholder="Storgatan 12" value="<?php echo $row['us_address1'] ?>">
+                                placeholder="" value="<?php echo $row['us_address1'] ?>">
                         </div>
                         <div class="form-group">
                             <label for="inputAddress2">Postadress 2</label>
                             <input type="text" class="form-control" id="inputAddress2" name="inputAddress2"
-                                placeholder="Co" value="<?php echo $row['us_address2'] ?>">
+                                placeholder="" value="<?php echo $row['us_address2'] ?>">
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-2">
                                 <label for="inputZip">Postnr</label>
-                                <input type="text" class="form-control" id="inputZip" name="inputZip"
-                                    placeholder="123 45" value="<?php echo $row['us_zip'] ?>">
+                                <input type="text" class="form-control" id="inputZip" name="inputZip" placeholder=""
+                                    value="<?php echo $row['us_zip'] ?>">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputCity">Stad</label>
-                                <input type="text" class="form-control" id="inputCity" name="inputCity"
-                                    placeholder="Storstad" value="<?php echo $row['us_city'] ?>">
+                                <input type="text" class="form-control" id="inputCity" name="inputCity" placeholder=""
+                                    value="<?php echo $row['us_city'] ?>">
                             </div>
 
                         </div>
@@ -207,12 +208,12 @@
                             <div class="form-group col-md-2">
                                 <label for="inputClearnr">Clearingnr</label>
                                 <input type="text" class="form-control" id="inputClearnr" name="inputClearnr"
-                                    placeholder="3300" value="<?php echo $row['us_clearingnr'] ?>">
+                                    placeholder="" value="<?php echo $row['us_clearingnr'] ?>">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputAccountnr">Bankkontonr</label>
                                 <input type="text" class="form-control" id="inputAccountnr" name="inputAccountnr"
-                                    placeholder="19701113" value="<?php echo $row['us_accountnr'] ?>">
+                                    placeholder="" value="<?php echo $row['us_accountnr'] ?>">
                             </div>
 
                         </div>
