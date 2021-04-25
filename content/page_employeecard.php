@@ -251,7 +251,7 @@ $("#employeeInput").change(function() {
 
     var $cuser = $("#employeeInput").children("option:selected").val();
 
-    var $file = 'page_staff' + '.php?setUser=' + $cuser;
+    var $file = 'page_employeecard' + '.php?setUser=' + $cuser;
     var $path = 'content/';
 
     $('#page-content').load($path + $file);

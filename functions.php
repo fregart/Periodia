@@ -3326,7 +3326,7 @@ function updatePersonalCard()
             <script src='vendor/jquery/jquery.min.js'></script>
             <script>$(document).ready(function(){
                 alert('Uppdateringen genomförd');
-                    $('#page-content').load('content/page_staff.php');                      
+                    $('#page-content').load('content/page_employeecard.php');                      
                 });                        
             </script>
         ";

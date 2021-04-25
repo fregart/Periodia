@@ -61,7 +61,7 @@ include('session.php');
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_projekt"><div class="sidebar-icon"><i class="fas fa-tasks"></i></div> Projekt</a>       
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_equipment"><div class="sidebar-icon"><i class="fas fa-tools"></i></div> Inventarier</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_myhours"><div class="sidebar-icon"><i class="fas fa-user-clock"></i></div> Mina timmar</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_gallery"><div class="sidebar-icon"><i class="fas fa-images"></i></i></div> Galleri <span class="badge badge-danger">Ny</span></a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_gallery"><div class="sidebar-icon"><i class="fas fa-images"></i></i></div> Galleri </a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reporttime"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera tid</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportabsence"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera frånvaro</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportfuel"><div class="sidebar-icon"><i class="fas fa-gas-pump"></i></div> Rapportera tankning</a>
@@ -72,7 +72,7 @@ include('session.php');
             echo "
             <div class='dropdown-divider'></div>
             <a href='#' class='list-group-item list-group-item-action bg-dark disabled' data-target='page_planning'><div class='sidebar-icon'><i class='fas fa-pencil-ruler'></i></div> Planering</a>
-            <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_staff'><div class='sidebar-icon'><i class='fas fa-users'></i></div> Personal</a>
+            <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_employees'><div class='sidebar-icon'><i class='fas fa-users'></i></div> Personal</a>
             <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_reports'><div class='sidebar-icon'><i class='far fa-file-alt'></i></div> Rapporter</a>
             <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_inställningar'><div class='sidebar-icon'><i class='fas fa-cog'></i></div> Inställningar</a>
             <div class='dropdown-divider'></div>";
