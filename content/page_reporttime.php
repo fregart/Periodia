@@ -46,7 +46,7 @@ if(isset($_GET['setProjectID'])){
         <div class="card" style="background-color:#dfe5e8;">
             <div class="card-body">       
         
-                <form method="post" enctype='multipart/form-data'>         
+                <form method="post" enctype='multipart/form-data' id='form-time'>         
                     <input type="hidden" name="action" value="reportTime" />     
                     <div class="row w-50">
                         <div class="form-group">
@@ -209,5 +209,5 @@ if(isset($_GET['setProjectID'])){
     if ($buttonDisableTest == 0 || $buttonDisableTest == "") {
         $('.btn-success').prop("disabled",true);
     }
-    
+
 </script>

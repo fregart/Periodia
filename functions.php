@@ -1776,31 +1776,81 @@ function reportTime()
         $total     = $_POST['calcInput'];
         $notes     = $_POST['notesTextarea'];
         $projectID = $_POST['projectInput'];
+
+        // check if there is a record with same date and time to prevent double inserts
+        if (checkIfRecordExist($userID, $date, $timefrom, $timeto, $break, $projectID) == false) {
+            
+            if ($stmt !== false) {
+                $stmt->execute();
+                
+                checkIfAnyFileUploaded(); // check if there are any images and upload them
         
-        if ($stmt !== false) {
-            $stmt->execute();
-            
-            checkIfAnyFileUploaded(); // check if there are any images and upload them
-    
+                echo "
+                    <script src='vendor/jquery/jquery.min.js'></script>
+                    <script>$(document).ready(function(){
+                        alert('Ditt inlägg är sparat');
+                        $('#page-content').load('content/page_schema.php');
+                    });
+                    </script>
+                ";
+        
+                $stmt->close();
+                $db->close();
+                
+            }else {
+                die('prepare() failed: ' . htmlspecialchars($db->error));
+                if(!$stmt){
+                    echo "Error: " . mysqli_error($db);
+                    }
+            }
+        } else {
             echo "
-                <script src='vendor/jquery/jquery.min.js'></script>
-                <script>$(document).ready(function(){
-                    alert('Ditt inlägg är sparat');
-                    $('#page-content').load('content/page_schema.php');
-                });
-                </script>
-            ";
+                    <script src='vendor/jquery/jquery.min.js'></script>
+                    <script>$(document).ready(function(){
+                        alert('Det finns redan en rapporterad post med denna tid, kontrollera dina uppgifter: ";
+                        echo "Datum: "; echo $date;
+                        echo " ";
+                        echo "Från: "; echo $timefrom;
+                        echo " ";
+                        echo "Till: "; echo $timeto;
+                        echo " ";
+                        echo "Rast: "; echo $break;
+                        echo "');                        
+                        $('#page-content').load('content/page_reporttime.php');
+                    });
+                    </script>
+                ";
+        }            
+}
+
+function checkIfRecordExist($userID, $date, $timefrom, $timeto, $break, $projectID){
+
+    global $db;
+            
+    $sql = "SELECT *
+            FROM tbl_workinghours
+            WHERE wo_userID = $userID
+            AND wo_date = '$date'
+            AND wo_starttime = '$timefrom'
+            AND wo_endtime = '$timeto'
+            AND wo_rest = '$break'
+            AND wo_projectID = $projectID";
     
-            $stmt->close();
-            $db->close();
-            
-        }else {
-            die('prepare() failed: ' . htmlspecialchars($db->error));
-            if(!$stmt){
-                echo "Error: " . mysqli_error($db);
-                }
-        }
-            
+    $result = mysqli_query($db, $sql);
+    
+    // print error message if something happend
+    if (!$result) {
+        printf("Error: %s\n", mysqli_error($db));
+        exit();
+    }
+    
+    $count = mysqli_num_rows($result);
+    
+    if ($count > 0) {
+        return true;
+    }
+
+    return false;
 }
 
 function updateTime(){
