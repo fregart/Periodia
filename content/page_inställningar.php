@@ -52,13 +52,16 @@
 
                <div class="tab-pane" id="användare" role="tabpanel" aria-labelledby="användare-tab">
                   
-                  <div class="card-body text-middle">Lägg till och ta bort användare eller blockera de från systemet.</div>
+                  <div class="alert alert-secondary">
+                     <p>Lägg till och ta bort användare eller blockera de från systemet.</p>
+                     <p>Mer information kan läggas till senare under personal/personalkort.</p>
+                  </div>
                   
-                  <div class="col-12 col-sm-12 col-lg-12">
+                 
                   <div class="table-responsive">
                   <table class="table table-striped table-hover table-m">
                      <thead>
-                        <tr class="table-active">
+                        <tr>
                            <th class="align-middle"></th>                           
                            <th scope="col" class="d-none d-lg-table-cell"></th>
                            <th scope="col" class="d-none d-lg-table-cell"></th>
@@ -80,7 +83,7 @@
                      </tbody>
                   </table>
                   </div>
-                  </div>
+                  
                   
                </div>
 

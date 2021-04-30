@@ -1360,7 +1360,7 @@ function getAllVehicles()
             echo "<div class='card'>";
             echo "<div class='card-body'>";
             echo "<strong><a href='#' id='vehicle-link' maid='" . $row["ve_ID"] . "'>" . $row["ve_name"] . "</a></strong><br>";
-            if ($row["ve_regnr"] != "") {
+            if ($row["ve_regnr"] != NULL) {
                 echo "Reg. nr. " . $row["ve_regnr"] ."<br><br>";
             }                     
             echo "</div>";
