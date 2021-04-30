@@ -12,12 +12,10 @@
             <table class="table table-sm table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Datum</th>
-                        <th scope="col">Namn</th>
+                        <th scope="col">#</th>
                         <th scope="col" class='text-right'>Bränsle</th>
-                        <th scope="col" class='text-right'>AdBlue</th>
-                        <th scope="col" class="d-none d-lg-table-cell text-right">Mätare</th>
-                        <th scope="col" class="d-none d-lg-table-cell text-right">Timmar</th>
+                        <th scope="col" class="text-right">Mätare</th>
+                        <th scope="col" class='d-none d-lg-table-cell text-right'>AdBlue</th>                       
                         <th scope="col" class="d-none d-lg-table-cell">Notering</th>
                     </tr>
                 </thead>

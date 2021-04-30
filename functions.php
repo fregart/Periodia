@@ -2744,12 +2744,12 @@ function getFuelReports()
         while ($row = mysqli_fetch_array($result)) {
             echo "            
             <tr id='".$row["fu_ID"]."' class='small'>            
-            <th scope='row'>".date('Y-m-d H:i',strtotime($row["fu_date"]))."<form method='post'><input type='hidden' name='action' value='deleteFuel'><input type='hidden' name='removeThisID' value='".$row["fu_ID"]."'> <button type='submit' class='btn btn-sm' style='padding:0;' title='Ta bort tankning'><i class='fa fa-times-circle text-danger'></i></button></form></th>
-                </td><td>".$row["fu_name"]."</td>
+            <th scope='row'>".date('Y-m-d H:i',strtotime($row["fu_date"]))."<br>
+            ".$row["fu_name"]."
+            <form method='post'><input type='hidden' name='action' value='deleteFuel'><input type='hidden' name='removeThisID' value='".$row["fu_ID"]."'> <button type='submit' class='btn btn-sm' style='padding:0;' title='Ta bort tankning'><i class='fa fa-times-circle text-danger'></i></button></form></th>
                 <td class='text-right'>".$row["fu_fuel"]."</td>
-                <td class='text-right'>".$row["fu_adblue"]."</td>
-                <td class='d-none d-lg-table-cell text-right'>".$row["fu_mileage"]."</td>
-                <td class='d-none d-lg-table-cell text-right'>".$row["fu_hours"]."</td>
+                <td class='text-right'>".$row["fu_mileage"]."</td>
+                <td class='d-none d-lg-table-cell text-right'>".$row["fu_adblue"]."</td>  
                 <td class='d-none d-lg-table-cell'>".$row["fu_notes"]."</td>            
             </tr>";                        
         }
