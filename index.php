@@ -89,9 +89,10 @@ include('session.php');
 
         <div class="alert alert-secondary small" role="alert">
         <h6>Kommande uppdateringar</h6>
-          <p>2021-04. Omdesign av projektsidorna. Önskemål om semester(kalender). Planeringssida för projekt.
+          <p>2021-05. Omdesign av projektsidorna. Önskemål om semester(kalender). Planeringssida för projekt.
           När projekt är klara att fakturera, datum och status.</p>       
         <h6>Senaste uppdateringar</h6>
+        <p>2021-05-02. Det går nu lägga in bilder i efterhand vid uppdatering av en tid.</p>
         <p>2021-04-30. Under rapporter för tankning går det nu se mätarställning på mobilen. Under fordon så syns reg nr bara om det finns i databasen</p>
         <p>2021-04-28. Spärr lagts till för att inte kunna dubbelrapportera på samma datum och tider.</p>
         <p>2021-04-20. Rullistor med användare visar hela namnet om det finns.</p>
