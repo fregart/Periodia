@@ -734,6 +734,69 @@ function checkIfAnyFileUploaded(){
     }
 }
 
+/**
+ * check if any file uploaded when updating a time report
+ */
+function checkIfAnyFileUploadedWhenUpdatingTimeReport($workID){
+
+    // set global db variable from dbconnect
+    global $db;
+
+    $count = count($_FILES['fileToUpload']['name']);
+    $woID = $workID;
+
+    if($count>0){    
+        
+        for($j=0; $j < count($_FILES["fileToUpload"]['name']); $j++){ //loop the uploaded file array
+
+            $theFile = $_FILES["fileToUpload"]['name']["$j"]; //file name
+            
+            // create a random name postfix and add it to file name                
+            $postfix = date('YmdHis') . '_' . str_pad(rand(1,10000), 5, '0', STR_PAD_LEFT) . '_';
+
+            // get rid of slashes and add postfix
+            $theFilePostfix = $postfix . stripslashes($theFile);
+
+            $path = 'uploads/'.$theFilePostfix; //generate the destination path
+
+
+            if(move_uploaded_file($_FILES["fileToUpload"]['tmp_name']["$j"],$path)){ //upload the file                                
+
+                // connect the image(s) to the updated work report
+                
+                $query = "insert into tbl_image(im_name, im_workID) values('".$theFilePostfix."','".$woID."')"; // insert into tbl_image
+
+                // execute
+                if (mysqli_query($db,$query)) {
+                
+                    echo"
+                        <script src='vendor/jquery/jquery.min.js'></script>
+                        <script>$(document).ready(function(){
+                            alert('Filen# ".($j+1)." ($theFilePostfix) är sparad.');
+                            $('#page-content').load('content/page_projekt.php');
+                        })";                    
+                
+                } else {
+                    echo"
+                        <script src='vendor/jquery/jquery.min.js'></script>
+                        <script>$(document).ready(function(){
+                            alert('Filen# ".($j+1)." ($theFilePostfix) gick inte att spara på servern.');
+                            $('#page-content').load('content/page_projekt.php');
+                        })";                    
+                }
+            }
+        }
+    }
+    else {        
+        echo"
+        <script src='vendor/jquery/jquery.min.js'></script>
+        <script>$(document).ready(function(){
+            alert('Inga filer hittades att ladda upp.');
+            $('#page-content').load('content/page_projekt.php');
+        })";    
+    }
+}
+
 function addNewMachine(){
 
     // set global db variable from dbconnect
@@ -1891,6 +1954,9 @@ function updateTime(){
     
     if ($stmt !== false) {
         $stmt->execute();
+
+        checkIfAnyFileUploadedWhenUpdatingTimeReport($workedID); // check if there are any images and upload them
+    
         $db->close();
         $stmt->close();
         

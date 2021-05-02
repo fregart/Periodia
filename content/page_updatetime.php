@@ -37,7 +37,7 @@ if(isset($_GET['setWorkedID'])){
             <div class="card-body">
 
 
-                <form method="post">
+                <form method="post" enctype='multipart/form-data' id='form-time'>
                     <input type="hidden" name="action" value="updateTime" />
                     <input type="hidden" name="workedID" value="<?php echo $workedID ?>" />
 
@@ -113,6 +113,18 @@ if(isset($_GET['setWorkedID'])){
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">                                
+                                <label for='file'>Bilder</label>
+                                <input type='file' name='fileToUpload[]' class='form-control-file' id='fileToUpload'
+                                    multiple='multiple'>                         
+                            </div>
+                        </div>                    
+                    </div>
+
+                    <br>
 
                     <div class="form-group">
                         <div class="row">
