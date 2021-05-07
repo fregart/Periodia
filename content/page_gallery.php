@@ -4,7 +4,11 @@
 <div class="container mt-4">
     <h4>Galleri</h4>
 
-    <br><br>
+    <br>
+    
+    <div class="alert alert-warning">Galleriet är under uppdatering..</div>
+    
+    <br>
 
     <?php getAllImages(); ?>
     
