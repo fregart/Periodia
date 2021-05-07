@@ -683,17 +683,45 @@ function checkIfAnyFileUploaded(){
 
             $theFile = $_FILES["fileToUpload"]['name']["$j"]; //file name
             
-            // create a random name postfix and add it to file name                
+            // create a random name and a thumbnail postfix and add it to file name                
             $postfix = date('YmdHis') . '_' . str_pad(rand(1,10000), 5, '0', STR_PAD_LEFT) . '_';
-
+            
             // get rid of slashes and add postfix
             $theFilePostfix = $postfix . stripslashes($theFile);
 
             $path = 'uploads/'.$theFilePostfix; //generate the destination path
 
+            // create thumbnail
+            // create a random name and a thumbnail postfix and add it to file name                
+            $postfixThumb = 'thumbnail_' . $postfix;
+            
+            // get rid of slashes and add postfix
+            $theFilePostfixThumb = $postfixThumb . stripslashes($theFile);
 
-            if(move_uploaded_file($_FILES["fileToUpload"]['tmp_name']["$j"],$path)){ //upload the file                                
+            $pathThumb = '/periodia/uploads/'.$theFilePostfixThumb; //generate the destination path thumbnail
 
+            
+
+            if(move_uploaded_file($_FILES["fileToUpload"]['tmp_name']["$j"],$path)){ //upload the file
+                
+                //Read original image and create Imagick object
+                //$thumb = new Imagick($path);
+                $thumb = new Imagick($_SERVER['DOCUMENT_ROOT'] . '/periodia/' . $path);
+
+                //Work out new dimensions
+                list($newX,$newY)=scaleImage(
+                    $thumb->getImageWidth(),
+                    $thumb->getImageHeight(),
+                    200,
+                    200);
+
+                //Scale the image
+                $thumb->thumbnailImage($newX,$newY);
+
+                //Write thumbnail to a file
+                $thumb->writeImage($_SERVER['DOCUMENT_ROOT'] . $pathThumb);
+                
+            
                 // connect the image(s) to the latest work report
                 global $db;
                 $stmt   = "SELECT MAX(wo_ID) FROM tbl_workinghours";
@@ -759,11 +787,36 @@ function checkIfAnyFileUploadedWhenUpdatingTimeReport($workID){
 
             $path = 'uploads/'.$theFilePostfix; //generate the destination path
 
+            // create thumbnail
+            // create a random name and a thumbnail postfix and add it to file name                
+            $postfixThumb = 'thumbnail_' . $postfix;
+            
+            // get rid of slashes and add postfix
+            $theFilePostfixThumb = $postfixThumb . stripslashes($theFile);
 
-            if(move_uploaded_file($_FILES["fileToUpload"]['tmp_name']["$j"],$path)){ //upload the file                                
+            $pathThumb = '/periodia/uploads/'.$theFilePostfixThumb; //generate the destination path thumbnail
+
+
+            if(move_uploaded_file($_FILES["fileToUpload"]['tmp_name']["$j"],$path)){ //upload the file   
+                
+                //Read original image and create Imagick object
+                //$thumb = new Imagick($path);
+                $thumb = new Imagick($_SERVER['DOCUMENT_ROOT'] . '/periodia/' . $path);
+
+                //Work out new dimensions
+                list($newX,$newY)=scaleImage(
+                    $thumb->getImageWidth(),
+                    $thumb->getImageHeight(),
+                    200,
+                    200);
+
+                //Scale the image
+                $thumb->thumbnailImage($newX,$newY);
+
+                //Write thumbnail to a file
+                $thumb->writeImage($_SERVER['DOCUMENT_ROOT'] . $pathThumb);
 
                 // connect the image(s) to the updated work report
-                
                 $query = "insert into tbl_image(im_name, im_workID) values('".$theFilePostfix."','".$woID."')"; // insert into tbl_image
 
                 // execute
@@ -3758,7 +3811,7 @@ function getAllImages()
         while ($row = mysqli_fetch_array($result)) {
 
             echo "<div class='col-xs-1 col-sm-6 col-md-4 col-lg-2'>";
-            echo "<img src='uploads/".$row['im_name']."' class='img-thumbnail mt-2' data-toggle='modal' data-target='#myModal' alt='Miniatyrbild' id='myImg'>";
+            echo "<img src='uploads/thumbnail_".$row['im_name']."' class='img-thumbnail mt-2' data-toggle='modal' data-target='#myModal' alt='Miniatyrbild' id='myImg'>";
             echo "</div>";
             
             echo "<div id='myModal' class='modal fade' role='dialog'>
@@ -4001,5 +4054,40 @@ function getCurrentMonthFullName()
     $monthNr = date("m");
     $month   = getMonthFullName($monthNr);
     return $month;
+}
+
+/**
+* Calculate new image dimensions to new constraints
+*
+* @param Original X size in pixels
+* @param Original Y size in pixels
+* @return New X maximum size in pixels
+* @return New Y maximum size in pixels
+*/
+function scaleImage($x,$y,$cx,$cy) {
+    //Set the default NEW values to be the old, in case it doesn't even need scaling
+    list($nx,$ny)=array($x,$y);
+   
+    //If image is generally smaller, don't even bother
+    if ($x>=$cx || $y>=$cx) {
+           
+        //Work out ratios
+        if ($x>0) $rx=$cx/$x;
+        if ($y>0) $ry=$cy/$y;
+       
+        //Use the lowest ratio, to ensure we don't go over the wanted image size
+        if ($rx>$ry) {
+            $r=$ry;
+        } else {
+            $r=$rx;
+        }
+       
+        //Calculate the new size based on the chosen ratio
+        $nx=intval($x*$r);
+        $ny=intval($y*$r);
+    }   
+   
+    //Return the results
+    return array($nx,$ny);
 }
 ?>
