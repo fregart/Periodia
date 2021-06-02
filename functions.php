@@ -3753,7 +3753,7 @@ function getUsersAllData($cuserID)
             echo "<tr><td class='text-nowrap'>Förnamn: </td><td class='text-nowrap font-weight-bold'>" . $row['us_fname'] . "</td></tr>";
             echo "<tr><td class='text-nowrap'>Efternamn: </td><td class='text-nowrap font-weight-bold'>" . $row['us_lname'] . "</td></tr>";
             echo "<tr><td class='text-nowrap'>Person nr: </td><td class='text-nowrap font-weight-bold'>" . $row['us_pnr'] . "</td></tr>";
-            echo "<tr><td class='text-nowrap'>Infotext: </td><td class='text-nowrap font-weight-bold'>" . $row['us_infotext'] . "</td></tr>";
+            echo "<tr><td class='text-nowrap'>Infotext: </td><td class='font-weight-bold'>" . $row['us_infotext'] . "</td></tr>";
             echo "<tr><td class='text-nowrap'>Adress 1: </td><td class='text-nowrap font-weight-bold'>" . $row['us_address1'] . "</td></tr>";
             echo "<tr><td class='text-nowrap'>Adress 2: </td><td class='text-nowrap font-weight-bold'>" . $row['us_address2'] . "</td></tr>";
             echo "<tr><td class='text-nowrap'>Post nr: </td><td class='text-nowrap font-weight-bold'>" . $row['us_zip'] . "</td></tr>";
