@@ -39,6 +39,14 @@ echo "<!-- Show project -->
         <div class='container-fluid'>
         <h4 class='mt-4'>". ucfirst($row["pr_name"]) ."</h4>
         <p class='mt-4'>Start: ". $row["pr_startdate"] ."</p>";
+        
+        if ($_SESSION['user_role'] == 2) {
+          echo "<button type='button' class='btn btn-info' disabled>
+            Inrapporterad tid <span class='badge badge-light'>". getProjectTotalHours($row['pr_ID']) ."</span>
+          </button>";
+        }
+        
+        
 
         /*
         // show check in or check out button depending if user is checked in

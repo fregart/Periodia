@@ -3885,7 +3885,7 @@ function setProjectTotalHoursForReport($hours)
     $GLOBALS['totalProjectHours'] += $hours;
 }
 
-// return total week hours
+// return total project hours
 function getProjectTotalHoursForReport()
 {
     global $totalProjectHours;
