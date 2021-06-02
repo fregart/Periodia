@@ -121,8 +121,6 @@ echo "<!-- Show project -->
                           <div class='row'>
                               <div class='col'>
                                 <label for='status'>Projektstatus:</label>
-                                </div>
-                                <div class='col'>
                                 <select class= 'form-control' id='status' name='statusInput'>";
                                 while($row2 = mysqli_fetch_array($result2)){
                                   if ($row2['st_ID'] == $row['pr_status']) {
@@ -132,7 +130,10 @@ echo "<!-- Show project -->
                                   }                        
                                 };                     
                                 echo "</select>
+                                </div>
+                                <div class='col'>                                
                               </div>
+                          </div>
                           </div>
                       
                       
@@ -141,8 +142,12 @@ echo "<!-- Show project -->
                       
                       
                       <div class='form-group'>
-                          <label for='beskrivningTextarea'>Beskrivning</label>
-                          <textarea class='form-control' name='beskrivningTextarea' id='beskrivningTextarea' rows='5'>".$row['pr_description']."</textarea>
+                        <div class='row'>
+                          <div class='col'>
+                            <label for='beskrivningTextarea'>Beskrivning</label>
+                            <textarea class='form-control' name='beskrivningTextarea' id='beskrivningTextarea' rows='5'>".$row['pr_description']."</textarea>
+                          </div>
+                        </div>
                       </div>";
 
                       
