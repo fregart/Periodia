@@ -1,6 +1,7 @@
 <?php session_start(); ?>
 
 <div class="container mt-4">
+
     <h4>Rapporter</h4>
 
     <br><br>
@@ -22,6 +23,7 @@
 
             <ul>                                
                 <li><a href="#" data-target="page_reports_projecthours">Timmar per projekt</a></li>
+                <li><a href="#" data-target="page_reports_projecthours_employee">Timmar per anställd</a> <div class='badge badge-pill badge-danger'>Ny</div></li>
             </ul>
         </div>
 

@@ -73,7 +73,7 @@ include('session.php');
             <div class='dropdown-divider'></div>
             <a href='#' class='list-group-item list-group-item-action bg-dark disabled' data-target='page_planning'><div class='sidebar-icon'><i class='fas fa-pencil-ruler'></i></div> Planering</a>
             <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_employees'><div class='sidebar-icon'><i class='fas fa-users'></i></div> Personal</a>
-            <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_reports'><div class='sidebar-icon'><i class='far fa-file-alt'></i></div> Rapporter</a>
+            <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_reports'><div class='sidebar-icon'><i class='far fa-file-alt'></i></div> Rapporter <div class='badge badge-pill badge-danger'>Ny</div></a>
             <a href='#' class='list-group-item list-group-item-action bg-light' data-target='page_inställningar'><div class='sidebar-icon'><i class='fas fa-cog'></i></div> Inställningar</a>
             <div class='dropdown-divider'></div>";
           }
@@ -89,14 +89,10 @@ include('session.php');
 
         <div class="alert alert-secondary small" role="alert">
         <h6>Kommande uppdateringar</h6>
-          <p>2021-05. Omdesign av projektsidorna. Önskemål om semester(kalender). Planeringssida för projekt.
+          <p>2021-06. Omdesign av projektsidorna. Önskemål om semester(kalender). Planeringssida för projekt.
           När projekt är klara att fakturera, datum och status.</p>       
         <h6>Senaste uppdateringar</h6>
-        <p>2021-05-07. Galleriet visar nu riktiga miniatyrer av bilder för att ladda sidan snabbare.</p>
-        <p>2021-05-02. Det går nu lägga in bilder i efterhand vid uppdatering av en tid.</p>
-        <p>2021-04-30. Under rapporter för tankning går det nu se mätarställning på mobilen. Under fordon så syns reg nr bara om det finns i databasen</p>
-        <p>2021-04-28. Spärr lagts till för att inte kunna dubbelrapportera på samma datum och tider.</p>
-    
+        <p>2021-06-08. Timmar per anställd under rapporter/projekt.</p>
                 
         </div>
         
