@@ -26,7 +26,7 @@ include('session.php');
   <link href="css/style.css" rel="stylesheet">
 
   <!-- Startup configuration -->
-  <link rel="manifest" crossorigin="use-credentials" href="./manifest.periodia-webmanifest">
+  <link rel="manifest" crossorigin="use-credentials" href="./manifest.periodia-webmanifest-pride">
 
   <!-- Icons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
