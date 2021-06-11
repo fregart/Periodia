@@ -48,13 +48,13 @@
                         </select>
                     </div>
                 </div>
-
                
             </form>
 
 
-            <div>
+            <br>
            
+            
 
             <table class="table table-sm table-striped">
                 <thead>
@@ -88,8 +88,9 @@
             </div>
             
 
-        </div>
+        
     </div>
+</div>
 </div>
 <script>
 
