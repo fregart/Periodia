@@ -3893,7 +3893,7 @@ function getAllImages()
             LEFT JOIN tbl_user d
             ON b.wo_userID = d.us_ID
             WHERE c.pr_companyID = $company
-            ORDER BY c.pr_name, b.wo_ID DESC;
+            ORDER BY b.wo_ID DESC;
         ";
     
     $result = mysqli_query($db, $sql);
@@ -3907,31 +3907,34 @@ function getAllImages()
     $count = mysqli_num_rows($result);
     
     if ($count > 0) {
-        echo "<div class='row'>";
+        echo "<div class='row'>";        
+        
         while ($row = mysqli_fetch_array($result)) {
 
-            echo "<div class='col-xs-1 col-sm-6 col-md-4 col-lg-2'>";
-            echo "<img src='uploads/thumbnail_".$row['im_name']."' class='img-thumbnail mt-2' data-toggle='modal' data-target='#myModal' alt='Miniatyrbild' id='myImg'>";
+            echo "<div class='col-xs-6 col-sm-6 col-md-8 col-lg-2'>";
+            echo "<div class='text-secondary small'>".ucfirst($row['pr_name'])."</div>";
+                echo "<img src='uploads/thumbnail_".$row['im_name']."' class='img-thumbnail mt-2' data-toggle='modal' data-target='#myModal' alt='Miniatyrbild' id='myImg'>";
+                echo "<p class='small text-muted'>" . ucfirst($row["us_username"]) . "<br>" . $row["wo_date"] . " -- ".$row["wo_starttime"]."</p>";
+                echo "<p class='small'>" . ucfirst($row["wo_notes"]) . "</p>";
             echo "</div>";
             
             echo "<div id='myModal' class='modal fade' role='dialog'>
                     <div class='modal-dialog'>
                         <div class='modal-content'>
-                            <div class='modal-body'>
-                            <div class='alert alert-secondary'>".ucfirst($row['pr_name'])."</div>
+                            <div class='modal-body'>                            
                                 <img class='img-responsive' src=''/>
                                 <br>
-                                <p class='small'>" . ucfirst($row["us_username"]) . "<span class='text-muted'> - " . $row["wo_date"] . " -- ".$row["wo_starttime"]."</span></p>
-                                <p>" . ucfirst($row["wo_notes"]) . "</p>
-                                </div>
+                                
+                                </div>                                
                             <div class='modal-footer'>
                                 <button type='button' class='btn btn-success' data-dismiss='modal'>Stäng</button>
                             </div>
                         </div>
                     </div>
                 </div>";
-
+                
         }
+        
         echo "</div>";
 
         

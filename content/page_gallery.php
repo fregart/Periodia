@@ -6,7 +6,7 @@
 
     <br>
     
-    <div class="alert alert-warning">Galleriet är under uppdatering..</div>
+    <div class="alert alert-secondary">Bilder inlagda från tidrappporter. Senaste bilderna visas först.</div>
     
     <br>
 
@@ -16,9 +16,11 @@
 <script>
   // Modal function
   $(document).ready(function () {
-          $('#myModal').on('show.bs.modal', function (e) {
-              var image = $(e.relatedTarget).attr('src').replace('thumbnail_', '');
-              $(".img-responsive").attr("src", image);
-          });
+
+    $('#myModal').on('show.bs.modal', function (e) {
+      var image = $(e.relatedTarget).attr('src').replace('thumbnail_', '');              
+      $(".img-responsive").attr("src", image);                            
+    });
+    
   });
 </script>

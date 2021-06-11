@@ -71,7 +71,7 @@ include('session.php');
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_projekt"><div class="sidebar-icon"><i class="fas fa-tasks"></i></div> Projekt</a>       
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_equipment"><div class="sidebar-icon"><i class="fas fa-tools"></i></div> Inventarier</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_myhours"><div class="sidebar-icon"><i class="fas fa-user-clock"></i></div> Mina timmar</a>
-        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_gallery"><div class="sidebar-icon"><i class="fas fa-images"></i></i></div> Galleri </a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_gallery"><div class="sidebar-icon"><i class="fas fa-images"></i></i></div> Galleri <div class='badge badge-pill badge-danger'>Ny</div></a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reporttime"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera tid</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportabsence"><div class="sidebar-icon"><i class="far fa-clock"></i></div> Rapportera frånvaro</a>
         <a href="#" class="list-group-item list-group-item-action bg-light" data-target="page_reportfuel"><div class="sidebar-icon"><i class="fas fa-gas-pump"></i></div> Rapportera tankning</a>
@@ -102,6 +102,7 @@ include('session.php');
           <p>2021-06. Omdesign av projektsidorna. Önskemål om semester(kalender). Planeringssida för projekt.
           När projekt är klara att fakturera, datum och status.</p>       
         <h6>Senaste uppdateringar</h6>
+        <p>2021-06-11. Gallerier är uppdaterat.</p>
         <p>2021-06-08. Timmar per anställd under rapporter/projekt.</p>
                 
         </div>
