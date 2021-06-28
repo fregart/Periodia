@@ -23,7 +23,7 @@
 
             <ul>                                
                 <li><a href="#" data-target="page_reports_projecthours">Timmar per projekt</a></li>
-                <li><a href="#" data-target="page_reports_projecthours_employee">Timmar per anställd</a> <div class='badge badge-pill badge-danger'>Ny</div></li>
+                <li><a href="#" data-target="page_reports_projecthours_employee">Timmar per anställd</a></li>
             </ul>
         </div>
 
