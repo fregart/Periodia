@@ -1,7 +1,12 @@
 <?php   
-require_once("dbconnect.php");
-$error = "";   
 session_start();
+require_once("dbconnect.php");
+
+// initializing variables
+$myusername = "";
+$mypassword = "";
+$error = "";   
+
 
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       
