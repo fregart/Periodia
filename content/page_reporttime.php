@@ -130,6 +130,13 @@ if(isset($_GET['setProjectID'])){
                     <div class="form-group">
                         <div class="row">
                             <div class="col">
+                                <div class="alert alert-danger" id="error">
+                                    Kontrollera din inmatning
+                                </div>                          
+                            </div>                                    
+                        </div>
+                        <div class="row">
+                            <div class="col">
                                 <button type="submit" class="btn btn-success" title='Spara'>Spara</button>
                                 <button type="button" class="btn btn-primary" title='Avbryt'>Avbryt</button>                          
                             </div>                                    
@@ -147,6 +154,9 @@ if(isset($_GET['setProjectID'])){
 
     // calc workhours after loading page
     calcTime();
+
+    // hide error element
+    $("#error").hide();
     
     // calc workhours
     function calcTime() {
@@ -169,16 +179,18 @@ if(isset($_GET['setProjectID'])){
         $('#calcInput').fadeOut(100).fadeIn(100).fadeOut(400).fadeIn(800); 
 
         // if hours or minutes are negative disable save button and mark calc field
-        if (hours < 0 || minutes < 0) {
+        if (hours < 0 || minutes < 0 || isNaN(hours) || isNaN(minutes)) {
             $('.btn-success').prop("disabled",true);
             $('#calcInput').removeClass("text-success");            
             $('#calcInput').addClass("text-danger");
             $('#calcInput').addClass("border border-danger");
+            $("#error").show();
         }else{
             $('.btn-success').prop("disabled",false);
             $('#calcInput').addClass("text-success");
             $('#calcInput').removeClass("text-danger");
-            $('#calcInput').removeClass("border border-danger");            
+            $('#calcInput').removeClass("border border-danger");    
+            $("#error").hide();        
         }
     };             
 
