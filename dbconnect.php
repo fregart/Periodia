@@ -4,11 +4,11 @@
 
   define('DB_SERVER', 'localhost');
 
-  define('DB_USERNAME', 'zwwxklcp_wp645');
+  define('DB_USERNAME', 'db_username');
 
-  define('DB_PASSWORD', '4p3@.7SmEn');
+  define('DB_PASSWORD', 'db_password');
 
-  define('DB_DATABASE', 'zwwxklcp_wp645');
+  define('DB_DATABASE', 'db_database');
 
 
 
