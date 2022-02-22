@@ -5,10 +5,10 @@ include('session.php');
 <!DOCTYPE html>
 <html lang="sv">
 
-<head><meta charset="euc-kr">
+<head>
 
-<!-- Meta tags -->
-  
+  <!-- Meta tags -->
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="Projektplaneringsverktyg">
   <meta name="author" content="Fredrik Edman">
@@ -41,7 +41,7 @@ include('session.php');
   <link rel="icon" type="image/png" sizes="192x192"  href="/img/android-icon-192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
   <link rel="shortcut icon" type="image/x-icon" sizes="16x16" href="/img/favicon.ico">
 
 </head>
