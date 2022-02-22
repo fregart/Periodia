@@ -52,7 +52,7 @@ include('session.php');
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="d-flex sidebar-heading justify-content-center text-center">
-                 <p></p>
+
       </div>
 
       <!-- Sidebar menu-->
@@ -85,16 +85,6 @@ include('session.php');
           <p>Denna app är under utveckling. Buggar och fel kan uppstå.</p>
           <p>Vid frågor mejla <a href="mailto:support@periodia.se">support@periodia.se</a></p>
           
-        </div>
-
-        <div class="alert alert-secondary small" role="alert">
-        <h6>Kommande uppdateringar</h6>
-          <p>2021-06. Omdesign av projektsidorna. Önskemål om semester(kalender). Planeringssida för projekt.
-          När projekt är klara att fakturera, datum och status.</p>       
-        <h6>Senaste uppdateringar</h6>
-        <p>2021-06-11. Gallerier är uppdaterat.</p>
-        <p>2021-06-08. Timmar per anställd under rapporter/projekt.</p>
-                
         </div>
         
       </div>
