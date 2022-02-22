@@ -1,5 +1,5 @@
 .htaccess
-# dbconnect.php
+dbconnect.php
 *.log
 *_log
 uploads/
