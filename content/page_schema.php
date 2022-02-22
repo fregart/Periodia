@@ -13,9 +13,21 @@
                <?php getWorkWeek();?>                                 
                
                </div>
-               <div class="row" id="time-panel-summary">
+               <div class="row" id="time-panel-summary">                  
                   <div class="col">
-                     <div class="container">                     
+                     <div class="container">
+                        <div class="col d-flex justify-content-center align-items-center mt-4">
+                           <!-- Company name -->        
+                           <div class="h6 text-white">
+                              <?php                            
+                                 if ($_SESSION['user_company']) {            
+                                 echo $_SESSION['user_company'];            
+                                 }else {            
+                                 echo $_SESSION['login_user'];            
+                                 }
+                              ?>
+                           </div>
+                        </div>                 
                         <div class="row" style="height: 150px">
                         
                            <div class="col d-flex justify-content-center align-items-center">

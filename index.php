@@ -52,17 +52,7 @@ include('session.php');
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="d-flex sidebar-heading justify-content-center text-center">
-        <!-- Company name -->        
-        <div class="company-name">
-          <?php                            
-            if ($_SESSION['user_company']) {            
-              echo $_SESSION['user_company'];            
-            }else {            
-              echo $_SESSION['login_user'];            
-            }
-          ?>
-        </div>         
-
+                 <p></p>
       </div>
 
       <!-- Sidebar menu-->
