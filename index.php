@@ -83,7 +83,7 @@ include('session.php');
         <div class="alert alert-secondary small" role="alert">
           <h6>Information</h6>
           <p>Denna app är under utveckling. Buggar och fel kan uppstå.</p>
-          <p>Vid frågor mejla <a href="mailto:support@periodia.se">support@periodia.se</a></p>
+          <p>Vid frågor mejla <a href="mailto:periodia@fredrikedman.se">periodia@fredrikedman.se</a></p>
           
         </div>
         
