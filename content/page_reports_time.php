@@ -45,6 +45,7 @@
                             if (!isset($_GET['setYear'])) {
                                 echo "<option value='2020'>2020</option>";
                                 echo "<option selected value='2021'>2021</option>";
+                                echo "<option selected value='2022'>2022</option>";
                             } else {
                                 if ($_GET['setYear'] == 2020) {
                                     echo "<option selected value='" . $_GET['setYear'] . "'>" . $_GET['setYear'] . "</option>";
