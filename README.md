@@ -17,7 +17,7 @@ Open the file 'dbconnect.php' and edit:
 
   define('DB_PASSWORD', '[database password]');
 
-  define('DB_DATABASE', 'periodiadb');
+  define('DB_DATABASE', '[database name]'); (this should be 'db_periodia' as in the db_structure.sql)
 
 # Log in
 There are 3 users at start which you can use to log in and test the functions on app.periodia.se:

@@ -2,13 +2,13 @@
 
   // define('DB_SERVER', 'Localhost:3036');
 
-  define('DB_SERVER', '[server name]');
+  define('DB_SERVER', 'mysql88.unoeuro.com');
 
-  define('DB_USERNAME', '[database username]');
-  
-  define('DB_PASSWORD', '[database password]');
-  
-  define('DB_DATABASE', '[database name]');
+  define('DB_USERNAME', 'fredrikedman_se');
+
+  define('DB_PASSWORD', 'mcy6fBra49D2');
+
+  define('DB_DATABASE', 'fredrikedman_se_db_periodia');
 
 
 
