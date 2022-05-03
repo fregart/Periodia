@@ -149,6 +149,47 @@ if (isset($_POST['action'])) {
 // Functions
 // ------------------------------
 
+function addUserActivity($userActivity)        
+{
+
+
+    echo "
+                        <script src='vendor/jquery/jquery.min.js'></script>
+                        <script>$(document).ready(function(){
+                            alert('helloj');                            
+                        });
+                        </script>
+                    ";
+
+    // set global db variable from dbconnect
+    global $db;
+                
+    try {
+        // prepare sql query and bind
+        $stmt = $db->prepare("INSERT INTO tbl_db_activity (                        
+            db_userid,
+            db_activity,
+            db_timestamp)
+
+            VALUES (
+                ?,?,NOW())
+            ");
+        
+        // set parameters and execute
+        $stmt->bind_param("is", $userID, $userActivity);
+
+        $userID = $_SESSION['user_ID'];        
+                  
+        $stmt->execute();
+        $stmt->close();                                    
+
+    } catch (\Throwable $th) {
+        //throw $th;
+        echo $th;        
+    }
+              
+}
+
 function addNewUser()
 {
     // set global db variable from dbconnect

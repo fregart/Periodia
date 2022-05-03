@@ -1,6 +1,7 @@
 <?php   
 session_start();
 require_once("dbconnect.php");
+require_once("functions.php");
 
 // initializing variables
 $myusername = "";
@@ -64,7 +65,7 @@ $error = "";
          $_SESSION['user_company_desc'] = $row2['co_description'];
          $_SESSION['user_company_start'] = $row2['co_startdate'];
          $_SESSION['user_company_end'] = $row2['co_enddate'];
-         $_SESSION['user_company_isactive'] = $row2['co_isactive'];
+         $_SESSION['user_company_isactive'] = $row2['co_isactive'];         
          
          // set sessiontime depending on checkbox remember is checked
          $sessiontime;
@@ -80,6 +81,9 @@ $error = "";
 
          // free sql result
          mysqli_free_result($result);
+
+         // add user action to db activity         
+         addUserActivity("login");
 
          $db->close();
          }
